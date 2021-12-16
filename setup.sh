@@ -120,13 +120,15 @@ getent group sudo || groupadd sudo
 getent group wheel || groupadd wheel
 echo -e "root\nroot" | passwd
 
-echo "--------------------------------------"
-echo "          Install Boot-loader         "
-echo "--------------------------------------"
+echo "-----------------------------------------------------------------------"
+echo "       Install Grub Boot-loader with UEFI in directory /boot/efi       "
+echo "-----------------------------------------------------------------------"
+read -p "Press Y for grub install: (Any other key to skip)  " install_grub
+if [[ -n "$install_grub" ]]; then
 mkinitcpio -P
 grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot/efi --root-directory=/ --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
-
+fi
 
 cat <<EOT > "/etc/profile.d/10-nebula-sw-init-auto.sh"
 export PATH=\$HOME/.local/bin:\$PATH:/usr/sbin
