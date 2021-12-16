@@ -102,13 +102,13 @@ echo -e "root\nroot" | passwd
 
 mkinitcpio -P
 
-systemctl enable --now dhcpcd
-systemctl enable --now NetworkManager
-systemctl enable --now sshd
-systemctl enable --now systemd-timesyncd
-systemctl enable --now systemd-resolved
-systemctl enable --now iptables
-systemctl enable --now ufw
+systemctl enable dhcpcd
+systemctl enable NetworkManager
+systemctl enable sshd
+systemctl enable systemd-timesyncd
+systemctl enable systemd-resolved
+systemctl enable iptables
+systemctl enable ufw
 
 grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot/efi --root-directory=/ --recheck
 
