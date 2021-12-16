@@ -174,3 +174,7 @@ systemctl enable systemd-resolved
 systemctl enable iptables
 systemctl enable ufw
 systemctl enable docker
+
+read -p "Please enter username:" username
+id -u $username &>/dev/null || useradd -s /bin/bash -d /home/$username $username
+passwd $username
