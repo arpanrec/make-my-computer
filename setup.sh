@@ -147,6 +147,7 @@ systemctl enable systemd-resolved
 systemctl enable iptables
 systemctl enable ufw
 systemctl enable docker
+systemctl enable sddm
 
 read -p "Please enter username:" username
 id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel -m -d /home/$username $username
