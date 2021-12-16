@@ -47,24 +47,24 @@ fi
 
 pacman -Sy --noconfirm
 
-ALL_PAKGS=( 'pacman-contrib' 'curl' 'reflector' 'rsync' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 'git' 'vim' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2' 'linux-headers' 'unzip' 'zip' 'pigz' 'wget' 'ntfs-3g' 'dhclient' 'ufw' 'docker' 'bash-completion' 'python-packaging' 'python-pip' 'rclone' 'git' 'jdk11-openjdk' 'maven' 'groovy' 'gradle' 'gradle-src' 'gradle-doc' )
+ALL_PAKGS=('pacman-contrib' 'curl' 'reflector' 'rsync' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 'git' 'vim' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2' 'linux-headers' 'unzip' 'zip' 'pigz' 'wget' 'ntfs-3g' 'dhclient' 'ufw' 'docker' 'bash-completion' 'python-packaging' 'python-pip' 'rclone' 'git' 'jdk11-openjdk' 'maven' 'groovy' 'gradle' 'gradle-src' 'gradle-doc' )
 
 echo "--------------------------------------------------"
 echo "--determine processor type and install microcode--"
 echo "--------------------------------------------------"
 proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
-	GenuineIntel)
-		print "Installing Intel microcode"
-		pacman -S --noconfirm intel-ucode
-		proc_ucode=intel-ucode.img
-		;;
-	AuthenticAMD)
-		print "Installing AMD microcode"
-		pacman -S --noconfirm amd-ucode
-		proc_ucode=amd-ucode.img
-		;;
-esac	
+    GenuineIntel)
+        print "Installing Intel microcode"
+        pacman -S --noconfirm intel-ucode
+        proc_ucode=intel-ucode.img
+        ;;
+    AuthenticAMD)
+        print "Installing AMD microcode"
+        pacman -S --noconfirm amd-ucode
+        proc_ucode=amd-ucode.img
+        ;;
+esac    
 
 echo "--------------------------------------------------"
 echo "         Graphics Drivers find and install        "
@@ -121,7 +121,7 @@ getent group wheel || groupadd wheel
 echo -e "root\nroot" | passwd
 
 echo "--------------------------------------"
-echo "          Enable Boot loader	        "
+echo "          Install Boot-loader         "
 echo "--------------------------------------"
 mkinitcpio -P
 grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot/efi --root-directory=/ --recheck
@@ -142,7 +142,7 @@ export GRADLE_HOME=/usr/share/java/gradle
 EOT
 
 echo "--------------------------------------"
-echo "       Enable Mandatory Services	    "
+echo "       Enable Mandatory Services      "
 echo "--------------------------------------"
 systemctl enable dhcpcd
 systemctl enable NetworkManager
