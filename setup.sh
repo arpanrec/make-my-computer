@@ -37,6 +37,9 @@ sed -i 's/^#Para/Para/' /etc/pacman.conf
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 
+read -p "Please name your machine:" nameofmachine
+echo $nameofmachine > /etc/hostname
+
 pacman -Sy --noconfirm
 
 PAKGS=(
@@ -68,9 +71,9 @@ PAKGS=(
 'docker'
 )
 
-#
-# determine processor type and install microcode
-# 
+echo "--------------------------------------------------"
+echo "--determine processor type and install microcode--"
+echo "--------------------------------------------------"
 proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
 	GenuineIntel)
@@ -85,7 +88,10 @@ case "$proc_type" in
 		;;
 esac	
 
-# Graphics Drivers find and install
+
+echo "--------------------------------------------------"
+echo "         Graphics Drivers find and install        "
+echo "--------------------------------------------------"
 if lspci | grep -E "NVIDIA|GeForce"; then
     PAKGS+=('nvidia')
 elif lspci | grep -E "Radeon"; then
@@ -93,15 +99,42 @@ elif lspci | grep -E "Radeon"; then
 elif lspci | grep -E "Integrated Graphics Controller"; then
     PAKGS+=('libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
 fi
+sudo mkdir -p "/etc/pacman.d/hooks"
+cat <<EOT > "/etc/pacman.d/hooks/nvidia.hook"
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+Target=linux
+# Change the linux part above and in the Exec line if a different kernel is used
+
+[Action]
+Description=Update Nvidia module in initcpio
+Depends=mkinitcpio
+When=PostTransaction
+NeedsTargets
+Exec=/bin/sh -c 'while read -r trg; do case \$trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
+EOT
+
+sudo mkdir /etc/udev/rules.d/ -p
+cat <<EOT > "/etc/udev/rules.d/99-nvidia.rules"
+ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-modprobe -c0 -u"
+EOT
 
 pacman -S --noconfirm --needed "${PAKGS[@]}"
 
+echo "--------------------------------------"
+echo "         Setting Root Password        "
+echo "--------------------------------------"
 getent group sudo || groupadd sudo
 getent group wheel || groupadd wheel
 echo -e "root\nroot" | passwd
 
-mkinitcpio -P
-
+echo "--------------------------------------"
+echo "       Enable Mandatory Services	    "
+echo "--------------------------------------"
 systemctl enable dhcpcd
 systemctl enable NetworkManager
 systemctl enable sshd
@@ -110,6 +143,9 @@ systemctl enable systemd-resolved
 systemctl enable iptables
 systemctl enable ufw
 
+echo "--------------------------------------"
+echo "          Enable Boot loader	        "
+echo "--------------------------------------"
+mkinitcpio -P
 grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot/efi --root-directory=/ --recheck
-
 grub-mkconfig -o /boot/grub/grub.cfg
