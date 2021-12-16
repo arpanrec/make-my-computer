@@ -176,5 +176,5 @@ systemctl enable ufw
 systemctl enable docker
 
 read -p "Please enter username:" username
-id -u $username &>/dev/null || useradd -s /bin/bash -d /home/$username $username
+id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel -m -d /home/$username $username
 passwd $username
