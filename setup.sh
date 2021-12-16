@@ -167,3 +167,10 @@ export PATH=\$HOME/.local/bin:\$PATH:/usr/sbin
 export GPG_TTY=\$(tty)
 export EDITOR=vim
 EOT
+
+cat <<EOT > "/etc/profile.d/10-nebula-java-auto.sh"
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export MAVEN_HOME=/opt/maven
+export M2_HOME=/opt/maven
+export GRADLE_HOME=/usr/share/java/gradle
+EOT
