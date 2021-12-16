@@ -37,8 +37,13 @@ sed -i 's/^#Para/Para/' /etc/pacman.conf
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 
-read -p "Please name your machine:" nameofmachine
-echo $nameofmachine > /etc/hostname
+echo "--------------------------------------"
+echo "             Set Host Name            "
+echo "--------------------------------------"
+read -p "Please name your machine, Leave empty inorder to skip: " nameofmachine
+if [[ -n "$nameofmachine" ]]; then
+hostnamectl hostname "$nameofmachine"
+fi
 
 pacman -Sy --noconfirm
 
@@ -95,7 +100,7 @@ cat <<EOT > "/etc/udev/rules.d/99-nvidia.rules"
 ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-modprobe -c0 -u"
 EOT
 
-read -p "Do you want pipewire [Default PulseAudio]? (Y for Yes)" pipewire_yes_no
+read -p "Do you want pipewire? [Default PulseAudio] (Y for pipewire, Any other key to install pulseaudio) : " pipewire_yes_no
 case $pipewire_yes_no in
     [Yy]* ) ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack');;
     * ) ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
@@ -149,6 +154,13 @@ systemctl enable ufw
 systemctl enable docker
 systemctl enable sddm
 
-read -p "Please enter username:" username
+
+echo "--------------------------------------"
+echo "       Create User and Groups         "
+echo "--------------------------------------"
+
+read -p "Please enter username: leave empty to skip:  " username
+if [[ -n "$username" ]]; then
 id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel -m -d /home/$username $username
 passwd $username
+fi
