@@ -146,16 +146,12 @@ EOT
 echo "--------------------------------------"
 echo "       Enable Mandatory Services      "
 echo "--------------------------------------"
-systemctl enable dhcpcd
-systemctl enable NetworkManager
-systemctl enable sshd
-systemctl enable systemd-timesyncd
-systemctl enable systemd-resolved
-systemctl enable iptables
-systemctl enable ufw
-systemctl enable docker
-systemctl enable sddm
+MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'sddm') 
 
+for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
+    echo "Enable Service: ${MAN_SERVICE}"
+    systemctl enable "$MAN_SERVICE"
+done
 
 echo "--------------------------------------"
 echo "       Create User and Groups         "
