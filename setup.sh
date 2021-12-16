@@ -42,45 +42,7 @@ echo $nameofmachine > /etc/hostname
 
 pacman -Sy --noconfirm
 
-PAKGS=(
-'pacman-contrib'
-'curl'
-'reflector'
-'rsync'
-'grub'
-'efibootmgr'
-'dhcpcd'
-'networkmanager'
-'openssh'
-'git'
-'vim'
-'base'
-'base-devel'
-'linux'
-'linux-firmware'
-'python-pip'
-'lvm2'
-'linux-headers'
-'unzip'
-'zip'
-'pigz'
-'wget'
-'ntfs-3g'
-'dhclient'
-'ufw'
-'docker'
-'bash-completion'
-'python-packaging'
-'python-pip'
-'rclone'
-'git'
-'jdk11-openjdk'
-'maven'
-'groovy'
-'gradle'
-'gradle-src'
-'gradle-doc'
-)
+ALL_PAKGS=( 'pacman-contrib' 'curl' 'reflector' 'rsync' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 'git' 'vim' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2' 'linux-headers' 'unzip' 'zip' 'pigz' 'wget' 'ntfs-3g' 'dhclient' 'ufw' 'docker' 'bash-completion' 'python-packaging' 'python-pip' 'rclone' 'git' 'jdk11-openjdk' 'maven' 'groovy' 'gradle' 'gradle-src' 'gradle-doc' )
 
 echo "--------------------------------------------------"
 echo "--determine processor type and install microcode--"
@@ -103,11 +65,11 @@ echo "--------------------------------------------------"
 echo "         Graphics Drivers find and install        "
 echo "--------------------------------------------------"
 if lspci | grep -E "NVIDIA|GeForce"; then
-    PAKGS+=('nvidia')
+    ALL_PAKGS+=('nvidia')
 elif lspci | grep -E "Radeon"; then
-    PAKGS+=('xf86-video-amdgpu')
+    ALL_PAKGS+=('xf86-video-amdgpu')
 elif lspci | grep -E "Integrated Graphics Controller"; then
-    PAKGS+=('libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
+    ALL_PAKGS+=('libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
 fi
 sudo mkdir -p "/etc/pacman.d/hooks"
 cat <<EOT > "/etc/pacman.d/hooks/nvidia.hook"
@@ -133,7 +95,18 @@ cat <<EOT > "/etc/udev/rules.d/99-nvidia.rules"
 ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-modprobe -c0 -u"
 EOT
 
-pacman -S --noconfirm --needed "${PAKGS[@]}"
+read -p "Do you want pipewire [Default PulseAudio]? (Y for Yes)" pipewire_yes_no
+case $pipewire_yes_no in
+    [Yy]* ) ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack');;
+    * ) ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
+esac
+
+# KDE Base Packages
+ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet' 'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs' 'gocryptfs' 'xdg-desktop-portal' 'gwenview')
+
+ALL_PAKGS+=('kwallet-pam' 'kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite' 'terminator' 'konsole' 'packagekit-qt5' 'qbittorrent' 'kdialog' 'dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats' 'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'taglib' 'noto-fonts' 'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'powerline-fonts' 'ark' 'libavtp' 'lib32-alsa-plugins' 'lib32-jack' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2' 'kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy' 'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'python' 'ttf-roboto' 'ttf-ubuntu-font-family' 'cantarell-fonts' 'gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' 'webkit2gtk' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
+
+pacman -S --noconfirm --needed "${ALL_PAKGS[@]}"
 
 echo "--------------------------------------"
 echo "         Setting Root Password        "
