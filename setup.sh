@@ -99,7 +99,6 @@ case "$proc_type" in
 		;;
 esac	
 
-
 echo "--------------------------------------------------"
 echo "         Graphics Drivers find and install        "
 echo "--------------------------------------------------"
