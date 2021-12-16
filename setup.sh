@@ -69,6 +69,17 @@ PAKGS=(
 'dhclient'
 'ufw'
 'docker'
+'bash-completion'
+'python3-packaging'
+'python3-pip'
+'rclone'
+'git'
+'jdk11-openjdk'
+'maven'
+'groovy'
+'gradle'
+'gradle-src'
+'gradle-doc'
 )
 
 echo "--------------------------------------------------"
@@ -149,3 +160,10 @@ echo "--------------------------------------"
 mkinitcpio -P
 grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot/efi --root-directory=/ --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
+
+
+cat <<EOT > "/etc/profile.d/10-nebula-sw-init-auto.sh"
+export PATH=\$HOME/.local/bin:\$PATH:/usr/sbin
+export GPG_TTY=\$(tty)
+export EDITOR=vim
+EOT
