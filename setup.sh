@@ -144,17 +144,6 @@ getent group wheel || groupadd wheel
 echo -e "root\nroot" | passwd
 
 echo "--------------------------------------"
-echo "       Enable Mandatory Services	    "
-echo "--------------------------------------"
-systemctl enable dhcpcd
-systemctl enable NetworkManager
-systemctl enable sshd
-systemctl enable systemd-timesyncd
-systemctl enable systemd-resolved
-systemctl enable iptables
-systemctl enable ufw
-
-echo "--------------------------------------"
 echo "          Enable Boot loader	        "
 echo "--------------------------------------"
 mkinitcpio -P
@@ -174,3 +163,15 @@ export MAVEN_HOME=/opt/maven
 export M2_HOME=/opt/maven
 export GRADLE_HOME=/usr/share/java/gradle
 EOT
+
+echo "--------------------------------------"
+echo "       Enable Mandatory Services	    "
+echo "--------------------------------------"
+systemctl enable dhcpcd
+systemctl enable NetworkManager
+systemctl enable sshd
+systemctl enable systemd-timesyncd
+systemctl enable systemd-resolved
+systemctl enable iptables
+systemctl enable ufw
+systemctl enable docker
