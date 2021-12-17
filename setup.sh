@@ -45,7 +45,7 @@ if [[ -n "$nameofmachine" ]]; then
 hostnamectl hostname "$nameofmachine"
 fi
 
-pacman -Sy --noconfirm
+pacman -Sy
 
 ALL_PAKGS=('alsa-plugins' 'alsa-utils' 'appmenu-gtk-module' 'ark' 'audiocd-kio' 'autoconf' 'automake' 'base' 'base-devel' 'bash-completion' 'bind' 'binutils' 'bison' 'bluedevil' 'bluez' 'bluez-libs' 'bluez-utils' 'breeze' 'breeze-gtk' 'bridge-utils' 'btrfs-progs' 'cantarell-fonts' 'celluloid' 'cmatrix' 'cronie' 'cryfs' 'cups' 'curl' 'dhclient' 'dhcpcd' 'dialog' 'discover' 'docker' 'dolphin' 'dolphin-plugins' 'dosfstools' 'dtc' 'efibootmgr' 'egl-wayland' 'encfs' 'exfat-utils' 'extra-cmake-modules' 'ffmpegthumbs' 'fig2dev' 'filelight' 'flex' 'fuse2' 'fuse3' 'fuseiso' 'gamemode' 'gcc' 'ghostscript' 'gimp' 'git' 'gnome-keyring' 'gocryptfs' 'gparted' 'gptfdisk' 'gradle' 'gradle-doc' 'gradle-src' 'groovy' 'grub' 'grub-customizer' 'gst-libav' 'gst-plugins-good' 'gst-plugins-ugly' 'gtk-engine-murrine' 'gtk-engines' 'gvfs' 'gwenview' 'haveged' 'htop' 'hunspell' 'hunspell-en_gb' 'hunspell-en_us' 'iptables-nft' 'jasper' 'jdk11-openjdk' 'kcodecs' 'kcoreaddons' 'kdecoration' 'kdegraphics-thumbnailers' 'kde-gtk-config' 'kdeplasma-addons' 'kdesdk-thumbnailers' 'kdialog' 'kimageformats' 'kinfocenter' 'kitty' 'kleopatra' 'kompare' 'konsole' 'kscreen' 'kvantum-qt5' 'kwalletmanager' 'kwallet-pam' 'layer-shell-qt' 'lib32-alsa-plugins' 'lib32-glib2' 'lib32-jack' 'lib32-libavtp' 'lib32-libpulse' 'lib32-libsamplerate' 'lib32-speexdsp' 'libavtp' 'libdvdcss' 'libgnome-keyring' 'libnewt' 'libtool' 'libwmf' 'libxml2' 'linux' 'linux-firmware' 'linux-headers' 'lsof' 'lutris' 'lvm2' 'lzop' 'm4' 'make' 'maven' 'mesa' 'milou' 'nano' 'neofetch' 'networkmanager' 'noto-fonts' 'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'ntfs-3g' 'ntp' 'okular' 'openbsd-netcat' 'openssh' 'os-prober' 'oxygen' 'p7zip' 'packagekit-qt5' 'pacman-contrib' 'partitionmanager' 'patch' 'phonon-qt5-gstreamer' 'picom' 'pigz' 'pkgconf' 'plasma' 'plasma-desktop' 'plasma-meta' 'plasma-nm' 'powerdevil' 'powerline-fonts' 'print-manager' 'pstoedit' 'python' 'python-lxml' 'python-notify2' 'python-numpy' 'python-packaging' 'python-pip' 'python-psutil' 'python-pyqt5' 'qbittorrent' 'qemu' 'qt5-declarative' 'qt5-imageformats' 'qt5-x11extras' 'raw-thumbnailer' 'rclone' 'reflector' 'rsync' 'scour' 'sddm' 'sddm-kcm' 'seahorse' 'skanlite' 'snapper' 'sonnet' 'spectacle' 'steam' 'sudo' 'swtpm' 'synergy' 'systemsettings' 'taglib' 'terminator' 'terminus-font' 'texlive-core' 'traceroute' 'ttf-roboto' 'ttf-ubuntu-font-family' 'ufw' 'unrar' 'unzip' 'usbutils' 'vim' 'virt-manager' 'virt-viewer' 'webkit2gtk' 'wget' 'which' 'wine-gecko' 'wine-mono' 'winetricks' 'xdg-desktop-portal' 'xdg-desktop-portal-kde' 'xdg-user-dirs' 'xorg' 'xorg-apps' 'xorg-drivers' 'xorg-server' 'xorg-xinit' 'xorg-xkill' 'xterm' 'zeroconf-ioslave' 'zip' 'ttf-droid' 'ttf-hack' 'ttf-roboto' 'ffmpegthumbnailer' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-base' 'gst-plugin-pipewire' 'a52dec' 'faac' 'faad2' 'flac' 'lame' 'libdca' 'libdv' 'libmad' 'wavpack' 'vlc' 'libmpeg2' 'xvidcore' 'libtheora' 'libvorbis' 'libxv' 'x264' )
 
@@ -59,13 +59,11 @@ proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
     GenuineIntel)
         print "Installing Intel microcode"
-        pacman -S --noconfirm intel-ucode
-        proc_ucode=intel-ucode.img
+        ALL_PAKGS+=(intel-ucode)
         ;;
     AuthenticAMD)
         print "Installing AMD microcode"
-        pacman -S --noconfirm amd-ucode
-        proc_ucode=amd-ucode.img
+        ALL_PAKGS+=(amd-ucode)
         ;;
 esac    
 
@@ -109,7 +107,7 @@ case $pipewire_yes_no in
     * ) ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
 esac
 
-pacman -S --noconfirm --needed "${ALL_PAKGS[@]}"
+pacman -S --needed "${ALL_PAKGS[@]}"
 
 echo "--------------------------------------"
 echo "         Setting Root Password        "
@@ -152,15 +150,18 @@ for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
 done
 
 echo "--------------------------------------"
-echo "       Create User and Groups         "
+echo "             Install Yay              "
 echo "--------------------------------------"
 
 # Yay User
 id -u nebula_build_user &>/dev/null || useradd -s /bin/bash -m -d /home/nebula_build_user nebula_build_user
 echo "nebula_build_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/10-nebula_build_user
-
 BASEDIR=$(dirname "$0")
 sudo -H -u nebula_build_user bash -c '"$BASEDIR"/install_yay.sh'
+
+echo "--------------------------------------"
+echo "       Create User and Groups         "
+echo "--------------------------------------"
 
 read -p "Please enter username: leave empty to skip:  " username
 if [[ -n "$username" ]]; then
