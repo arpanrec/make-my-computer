@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
-read -p "Please name your machine, Leave empty inorder to skip: " nameofmachine
+read -p "Please name your machine, (Any other key to skip) : " nameofmachine
 read -p "Do you want pipewire? [Default PulseAudio] (Y for pipewire, Any other key to install pulseaudio) : " pipewire_yes_no
-read -p "Please enter username: leave empty to skip:  " username
+read -p "Please enter username: (Any other key to skip) :  " username
 read -p "Press Y for grub install: (Any other key to skip)  " install_grub
 echo "--------------------------------------"
 echo "--     Time zone : Asia/Kolkata     --"
