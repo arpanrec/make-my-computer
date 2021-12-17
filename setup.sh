@@ -221,11 +221,13 @@ echo "-------------------------------------------------------"
 echo "             Install Yay and AUR Packages              "
 echo "-------------------------------------------------------"
 
+echo " Adding user makemyarch_build_user"
+id -u makemyarch_build_user &>/dev/null || useradd -s /bin/bash -m -d /home/makemyarch_build_user makemyarch_build_user
+echo "makemyarch_build_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/10-makemyarch_build_user
+
 if ! command -v yay &> /dev/null
 then
 # Yay User
-    id -u makemyarch_build_user &>/dev/null || useradd -s /bin/bash -m -d /home/makemyarch_build_user makemyarch_build_user
-    echo "makemyarch_build_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/10-makemyarch_build_user
     BASEDIR=$(dirname "$0")
     sudo -H -u makemyarch_build_user bash -c "$BASEDIR/install_yay.sh"
 fi
