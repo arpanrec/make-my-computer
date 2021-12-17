@@ -102,7 +102,7 @@ NeedsTargets
 Exec=/bin/sh -c 'while read -r trg; do case \$trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
 EOT
 
-sudo mkdir /etc/udev/rules.d/ -p
+mkdir /etc/udev/rules.d/ -p
 cat <<EOT > "/etc/udev/rules.d/99-nvidia.rules"
 ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-modprobe -c0 -u"
 EOT
