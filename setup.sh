@@ -157,7 +157,7 @@ echo "--------------------------------------"
 id -u nebula_build_user &>/dev/null || useradd -s /bin/bash -m -d /home/nebula_build_user nebula_build_user
 echo "nebula_build_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/10-nebula_build_user
 BASEDIR=$(dirname "$0")
-sudo -H -u nebula_build_user bash -c '"$BASEDIR"/install_yay.sh'
+sudo -H -u nebula_build_user bash -c "$BASEDIR/install_yay.sh"
 
 echo "--------------------------------------"
 echo "       Create User and Groups         "
