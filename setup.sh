@@ -191,9 +191,9 @@ grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot
 grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
-echo "--------------------------------------------------"
-echo "       Setting userprofile bin and gpg_tty        "
-echo "--------------------------------------------------"
+echo "----------------------------------------------------------------------------------------------"
+echo "       Setting userprofile bin and gpg_tty /etc/profile.d/10-makemyarch-sw-init-auto.sh       "
+echo "----------------------------------------------------------------------------------------------"
 
 cat <<EOT > "/etc/profile.d/10-makemyarch-sw-init-auto.sh"
 export PATH=\$HOME/.local/bin:\$PATH:/usr/sbin
@@ -202,9 +202,9 @@ export EDITOR=vim
 EOT
 cat /etc/profile.d/10-makemyarch-sw-init-auto.sh
 
-echo "------------------------------------------"
-echo "       Setting Java and Maven Home        "
-echo "------------------------------------------"
+echo "-----------------------------------------------------------------------------------"
+echo "       Setting Java and Maven Home /etc/profile.d/10-makemyarch-java-auto.sh       "
+echo "-----------------------------------------------------------------------------------"
 
 cat <<EOT > "/etc/profile.d/10-makemyarch-java-auto.sh"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
