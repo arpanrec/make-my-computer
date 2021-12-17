@@ -245,7 +245,7 @@ if [[ -n "$username" ]]; then
 id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt,nordvpn -m -d /home/$username $username
 echo -e "password\npassword" | passwd $username
 BASEDIR=$(dirname "$0")
-sudo -H -u makemyarch_build_user bash -c "$BASEDIR/user.sh"
+sudo -H -u $username bash -c "$BASEDIR/user.sh"
 fi
 
 echo "-----------------------------------------------------------------------"
