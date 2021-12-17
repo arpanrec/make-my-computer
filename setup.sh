@@ -175,8 +175,8 @@ passwd $username
 fi
 
 ## Virtmanager
-sed -i '/^#.* unix_sock_group /s/^#//' /etc/libvirt/libvirtd.conf
-sed -i '/^#.* unix_sock_rw_perms /s/^#//' /etc/libvirt/libvirtd.conf
+sed -i '/^#.*unix_sock_group/s/^#//' /etc/libvirt/libvirtd.conf
+sed -i '/^#.*unix_sock_rw_perms/s/^#//' /etc/libvirt/libvirtd.conf
 
 echo "--------------------------------------"
 echo "       Enable Mandatory Services      "
