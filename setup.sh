@@ -91,14 +91,14 @@ proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
     GenuineIntel)
         print "Installing Intel microcode"
-        ALL_PAKGS+=(intel-ucode)
+        ALL_PAKGS+=('intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
         modprobe -r kvm_intel
         modprobe kvm_intel nested=1
         echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
         ;;
     AuthenticAMD)
         print "Installing AMD microcode"
-        ALL_PAKGS+=(amd-ucode)
+        ALL_PAKGS+=('amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
         modprobe -r kvm_amd
         modprobe kvm_amd nested=1
         echo "options kvm_amd nested=1" | tee /etc/modprobe.d/kvm-amd.conf
@@ -109,12 +109,13 @@ echo "--------------------------------------------------"
 echo "         Graphics Drivers find and install        "
 echo "--------------------------------------------------"
 if lspci | grep -E "NVIDIA|GeForce"; then
-    ALL_PAKGS+=('nvidia' 'nvidia-utils' 'nvidia-settings' 'nvidia-prime' 'lib32-nvidia-utils' 'nvtop')
-elif lspci | grep -E "Radeon"; then
-    ALL_PAKGS+=('xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
-elif lspci | grep -E "Integrated Graphics Controller"; then
-    ALL_PAKGS+=('libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
-fi
+
+echo "-----------------------------------------------------------"
+echo "  Setting Nvidia Drivers setup pacman hook and udev rules  "
+echo "-----------------------------------------------------------"
+
+ALL_PAKGS+=('nvidia' 'nvidia-utils' 'nvidia-settings' 'nvidia-prime' 'lib32-nvidia-utils' 'nvtop')
+
 mkdir -p "/etc/pacman.d/hooks"
 cat <<EOT > "/etc/pacman.d/hooks/nvidia.hook"
 [Trigger]
@@ -133,11 +134,34 @@ When=PostTransaction
 NeedsTargets
 Exec=/bin/sh -c 'while read -r trg; do case \$trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
 EOT
+echo "Nvidia pacman hook installed /etc/pacman.d/hooks/nvidia.hook"
+cat /etc/pacman.d/hooks/nvidia.hook
 
 mkdir /etc/udev/rules.d/ -p
 cat <<EOT > "/etc/udev/rules.d/99-nvidia.rules"
 ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-modprobe -c0 -u"
 EOT
+
+echo "Nvidia pudev rule installed /etc/udev/rules.d/99-nvidia.rules"
+cat /etc/udev/rules.d/99-nvidia.rules
+
+elif lspci | grep -E "Radeon"; then
+
+echo "-----------------------------------------------------------"
+echo "                    Setting AMD Drivers                    "
+echo "-----------------------------------------------------------"
+
+ALL_PAKGS+=('xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
+
+elif lspci | grep -E "Integrated Graphics Controller"; then
+
+echo "-----------------------------------------------------------"
+echo "                   Setting Intel Drivers                   "
+echo "-----------------------------------------------------------"
+
+ALL_PAKGS+=('libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
+
+fi
 
 case $pipewire_yes_no in
     [Yy]* ) ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack');;
@@ -167,21 +191,36 @@ grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot
 grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
-cat <<EOT > "/etc/profile.d/10-nebula-sw-init-auto.sh"
+echo "--------------------------------------------------"
+echo "       Setting userprofile bin and gpg_tty        "
+echo "--------------------------------------------------"
+
+cat <<EOT > "/etc/profile.d/10-makemyarch-sw-init-auto.sh"
 export PATH=\$HOME/.local/bin:\$PATH:/usr/sbin
 export GPG_TTY=\$(tty)
 export EDITOR=vim
 EOT
+cat /etc/profile.d/10-makemyarch-sw-init-auto.sh
 
-cat <<EOT > "/etc/profile.d/10-nebula-java-auto.sh"
+echo "------------------------------------------"
+echo "       Setting Java and Maven Home        "
+echo "------------------------------------------"
+
+cat <<EOT > "/etc/profile.d/10-makemyarch-java-auto.sh"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export MAVEN_HOME=/opt/maven
 export M2_HOME=/opt/maven
 export GRADLE_HOME=/usr/share/java/gradle
 EOT
+cat /etc/profile.d/10-makemyarch-java-auto.sh
+
+echo "------------------------------------------"
+echo "       heil wheel group in sudoers        "
+echo "------------------------------------------"
 
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+cat /etc/sudoers | grep wheel
 
 echo "-------------------------------------------------------"
 echo "             Install Yay and AUR Packages              "
@@ -210,9 +249,15 @@ id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt,nord
 echo -e "password\npassword" | passwd $username
 fi
 
+echo "-------------------------------------------------"
+echo "       Settings libvirt group and socket         "
+echo "-------------------------------------------------"
+
 ## Virtmanager
 sed -i '/^#.*unix_sock_group/s/^#//' /etc/libvirt/libvirtd.conf
 sed -i '/^#.*unix_sock_rw_perms/s/^#//' /etc/libvirt/libvirtd.conf
+grep -i "unix_sock_group" /etc/libvirt/libvirtd.conf
+grep -i "unix_sock_rw_perms" /etc/libvirt/libvirtd.conf
 
 echo "--------------------------------------"
 echo "       Enable Mandatory Services      "
@@ -224,8 +269,13 @@ for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
     systemctl enable "$MAN_SERVICE"
 done
 
+echo "-----------------------------------------"
+echo "       Setting SDDM Theme as Nordic      "
+echo "-----------------------------------------"
+
 echo -e "\nSetup SDDM Theme"
 cat <<EOF > /etc/sddm.conf
 [Theme]
 Current=Nordic
 EOF
+cat /etc/sddm.conf
