@@ -30,9 +30,6 @@ echo "Changing the compression settings for "$nc" cores."
 sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $nc -z -)/g" /etc/makepkg.conf
 fi
 
-# Add sudo no password rights
-sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-
 #Add parallel downloading
 sed -i 's/^#Para/Para/' /etc/pacman.conf
 
@@ -146,6 +143,9 @@ export MAVEN_HOME=/opt/maven
 export M2_HOME=/opt/maven
 export GRADLE_HOME=/usr/share/java/gradle
 EOT
+
+# Add sudo no password rights
+sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 
 echo "-------------------------------------------------------"
 echo "             Install Yay and AUR Packages              "
