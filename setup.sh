@@ -181,9 +181,15 @@ sed -i '/^#.*unix_sock_rw_perms/s/^#//' /etc/libvirt/libvirtd.conf
 echo "--------------------------------------"
 echo "       Enable Mandatory Services      "
 echo "--------------------------------------"
-MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'sddm' 'dbus-broker' 'libvirtd' 'nordvpnd' 'cups' 'apparmor') 
+MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'sddm' 'dbus-broker' 'libvirtd' 'nordvpnd' 'cups' 'apparmor' 'bluetooth') 
 
 for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
     echo "Enable Service: ${MAN_SERVICE}"
     systemctl enable "$MAN_SERVICE"
 done
+
+echo -e "\nSetup SDDM Theme"
+cat <<EOF > /etc/sddm.conf
+[Theme]
+Current=Nordic
+EOF
