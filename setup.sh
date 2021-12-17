@@ -60,16 +60,16 @@ case "$proc_type" in
     GenuineIntel)
         print "Installing Intel microcode"
         ALL_PAKGS+=(intel-ucode)
-        sudo modprobe -r kvm_intel
-        sudo modprobe kvm_intel nested=1
-        echo "options kvm-intel nested=1" | sudo tee /etc/modprobe.d/kvm-intel.conf
+        modprobe -r kvm_intel
+        modprobe kvm_intel nested=1
+        echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
         ;;
     AuthenticAMD)
         print "Installing AMD microcode"
         ALL_PAKGS+=(amd-ucode)
-        sudo modprobe -r kvm_amd
-        sudo modprobe kvm_amd nested=1
-        echo "options kvm_amd nested=1" | sudo tee /etc/modprobe.d/kvm-amd.conf
+        modprobe -r kvm_amd
+        modprobe kvm_amd nested=1
+        echo "options kvm_amd nested=1" | tee /etc/modprobe.d/kvm-amd.conf
         ;;
 esac    
 
@@ -83,7 +83,7 @@ elif lspci | grep -E "Radeon"; then
 elif lspci | grep -E "Integrated Graphics Controller"; then
     ALL_PAKGS+=('libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
 fi
-sudo mkdir -p "/etc/pacman.d/hooks"
+mkdir -p "/etc/pacman.d/hooks"
 cat <<EOT > "/etc/pacman.d/hooks/nvidia.hook"
 [Trigger]
 Operation=Install
