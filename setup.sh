@@ -87,23 +87,26 @@ ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-me
 echo "--------------------------------------------------"
 echo "--determine processor type and install microcode--"
 echo "--------------------------------------------------"
-proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
+proc_type=$(cat /proc/cpuinfo | grep vendor | uniq | awk '{print $3}')
+echo "proc_type: $proc_type"
 case "$proc_type" in
     GenuineIntel)
-        echo "Installing Intel microcode"
-        ALL_PAKGS+=('intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
-        modprobe -r kvm_intel
-        modprobe kvm_intel nested=1
-        echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
-        ;;
+echo "Installing Intel microcode"
+ALL_PAKGS+=('intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
+modprobe -r kvm_intel
+modprobe kvm_intel nested=1
+mkdir -p /etc/modprobe.d
+echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
+;;
     AuthenticAMD)
-        echo "Installing AMD microcode"
-        ALL_PAKGS+=('amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
-        modprobe -r kvm_amd
-        modprobe kvm_amd nested=1
-        echo "options kvm_amd nested=1" | tee /etc/modprobe.d/kvm-amd.conf
-        ;;
-esac    
+echo "Installing AMD microcode"
+ALL_PAKGS+=('amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
+modprobe -r kvm_amd
+modprobe kvm_amd nested=1
+mkdir -p /etc/modprobe.d
+echo "options kvm_amd nested=1" | tee /etc/modprobe.d/kvm-amd.conf
+;;
+esac
 
 echo "--------------------------------------------------"
 echo "         Graphics Drivers find and install        "
