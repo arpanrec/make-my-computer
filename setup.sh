@@ -90,14 +90,14 @@ echo "--------------------------------------------------"
 proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
     GenuineIntel)
-        print "Installing Intel microcode"
+        echo "Installing Intel microcode"
         ALL_PAKGS+=('intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
         modprobe -r kvm_intel
         modprobe kvm_intel nested=1
         echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
         ;;
     AuthenticAMD)
-        print "Installing AMD microcode"
+        echo "Installing AMD microcode"
         ALL_PAKGS+=('amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
         modprobe -r kvm_amd
         modprobe kvm_amd nested=1
