@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
-
+read -p "Please name your machine, Leave empty inorder to skip: " nameofmachine
+read -p "Do you want pipewire? [Default PulseAudio] (Y for pipewire, Any other key to install pulseaudio) : " pipewire_yes_no
+read -p "Please enter username: leave empty to skip:  " username
+read -p "Press Y for grub install: (Any other key to skip)  " install_grub
 echo "--------------------------------------"
 echo "--     Time zone : Asia/Kolkata     --"
 echo "--------------------------------------"
@@ -40,7 +43,7 @@ cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 echo "--------------------------------------"
 echo "             Set Host Name            "
 echo "--------------------------------------"
-read -p "Please name your machine, Leave empty inorder to skip: " nameofmachine
+
 if [[ -n "$nameofmachine" ]]; then
 hostnamectl hostname "$nameofmachine"
 fi
@@ -101,7 +104,6 @@ cat <<EOT > "/etc/udev/rules.d/99-nvidia.rules"
 ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-modprobe -c0 -u"
 EOT
 
-read -p "Do you want pipewire? [Default PulseAudio] (Y for pipewire, Any other key to install pulseaudio) : " pipewire_yes_no
 case $pipewire_yes_no in
     [Yy]* ) ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack');;
     * ) ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
@@ -119,7 +121,7 @@ echo -e "root\nroot" | passwd
 echo "-----------------------------------------------------------------------"
 echo "       Install Grub Boot-loader with UEFI in directory /boot/efi       "
 echo "-----------------------------------------------------------------------"
-read -p "Press Y for grub install: (Any other key to skip)  " install_grub
+
 if [[ -n "$install_grub" ]]; then
 mkinitcpio -P
 grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot/efi --root-directory=/ --recheck
@@ -171,7 +173,7 @@ echo "--------------------------------------"
 echo "       Create User and Groups         "
 echo "--------------------------------------"
 
-read -p "Please enter username: leave empty to skip:  " username
+
 if [[ -n "$username" ]]; then
 id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel -m -d /home/$username $username
 passwd $username
