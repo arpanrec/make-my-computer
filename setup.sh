@@ -93,18 +93,10 @@ case "$proc_type" in
     GenuineIntel)
 echo "Installing Intel microcode"
 ALL_PAKGS+=('intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
-modprobe -r kvm_intel
-modprobe kvm_intel nested=1
-mkdir -p /etc/modprobe.d
-echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
 ;;
     AuthenticAMD)
 echo "Installing AMD microcode"
 ALL_PAKGS+=('amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
-modprobe -r kvm_amd
-modprobe kvm_amd nested=1
-mkdir -p /etc/modprobe.d
-echo "options kvm_amd nested=1" | tee /etc/modprobe.d/kvm-amd.conf
 ;;
 esac
 
@@ -252,9 +244,26 @@ id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt,nord
 echo -e "password\npassword" | passwd $username
 fi
 
-echo "-------------------------------------------------"
-echo "       Settings libvirt group and socket         "
-echo "-------------------------------------------------"
+echo "-----------------------------------------------------------------------"
+echo "       Settings libvirt nested virtualization group and socket         "
+echo "-----------------------------------------------------------------------"
+
+case "$proc_type" in
+    GenuineIntel)
+echo "Enable Intel nested virtualization"
+modprobe -r kvm_intel
+modprobe kvm_intel nested=1
+mkdir -p /etc/modprobe.d
+echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
+;;
+    AuthenticAMD)
+echo "Enable AMD nested virtualization"
+modprobe -r kvm_amd
+modprobe kvm_amd nested=1
+mkdir -p /etc/modprobe.d
+echo "options kvm_amd nested=1" | tee /etc/modprobe.d/kvm-amd.conf
+;;
+esac
 
 ## Virtmanager
 sed -i '/^#.*unix_sock_group/s/^#//' /etc/libvirt/libvirtd.conf
