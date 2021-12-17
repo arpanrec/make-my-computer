@@ -172,7 +172,7 @@ echo "--------------------------------------------------"
 echo "         Installing Hell lot of packages          "
 echo "--------------------------------------------------"
 
-pacman -S --needed "${ALL_PAKGS[@]}"
+pacman -S --needed --noconfirm "${ALL_PAKGS[@]}"
 
 echo "--------------------------------------------------"
 echo "         Setting Root Password to \"root\"        "
