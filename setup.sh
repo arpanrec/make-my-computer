@@ -153,11 +153,14 @@ echo "-------------------------------------------------------"
 echo "             Install Yay and AUR Packages              "
 echo "-------------------------------------------------------"
 
+if ! command -v yay &> /dev/null
+then
 # Yay User
 id -u nebula_build_user &>/dev/null || useradd -s /bin/bash -m -d /home/nebula_build_user nebula_build_user
 echo "nebula_build_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/10-nebula_build_user
 BASEDIR=$(dirname "$0")
 sudo -H -u nebula_build_user bash -c "$BASEDIR/install_yay.sh"
+fi
 
 PKGS_AUR=('ttf-menlo-powerline-git' 'kde-thumbnailer-apk' 'resvg'
 'sweet-gtk-theme-mars'
