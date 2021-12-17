@@ -147,16 +147,6 @@ export M2_HOME=/opt/maven
 export GRADLE_HOME=/usr/share/java/gradle
 EOT
 
-echo "--------------------------------------"
-echo "       Enable Mandatory Services      "
-echo "--------------------------------------"
-MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'sddm' 'dbus-broker' 'libvirtd' 'nordvpnd') 
-
-for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
-    echo "Enable Service: ${MAN_SERVICE}"
-    systemctl enable "$MAN_SERVICE"
-done
-
 echo "-------------------------------------------------------"
 echo "             Install Yay and AUR Packages              "
 echo "-------------------------------------------------------"
@@ -187,3 +177,13 @@ fi
 ## Virtmanager
 sed -i '/^#.* unix_sock_group /s/^#//' /etc/libvirt/libvirtd.conf
 sed -i '/^#.* unix_sock_rw_perms /s/^#//' /etc/libvirt/libvirtd.conf
+
+echo "--------------------------------------"
+echo "       Enable Mandatory Services      "
+echo "--------------------------------------"
+MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'sddm' 'dbus-broker' 'libvirtd' 'nordvpnd' 'cups' 'apparmor') 
+
+for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
+    echo "Enable Service: ${MAN_SERVICE}"
+    systemctl enable "$MAN_SERVICE"
+done
