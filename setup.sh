@@ -47,7 +47,39 @@ fi
 
 pacman -Sy
 
-ALL_PAKGS=('alsa-plugins' 'alsa-utils' 'appmenu-gtk-module' 'ark' 'audiocd-kio' 'autoconf' 'automake' 'base' 'base-devel' 'bash-completion' 'bind' 'binutils' 'bison' 'bluedevil' 'bluez' 'bluez-libs' 'bluez-utils' 'breeze' 'breeze-gtk' 'bridge-utils' 'btrfs-progs' 'cantarell-fonts' 'celluloid' 'cmatrix' 'cronie' 'cryfs' 'cups' 'curl' 'dhclient' 'dhcpcd' 'dialog' 'discover' 'docker' 'dolphin' 'dolphin-plugins' 'dosfstools' 'dtc' 'efibootmgr' 'egl-wayland' 'encfs' 'exfat-utils' 'extra-cmake-modules' 'ffmpegthumbs' 'fig2dev' 'filelight' 'flex' 'fuse2' 'fuse3' 'fuseiso' 'gamemode' 'gcc' 'ghostscript' 'gimp' 'git' 'gnome-keyring' 'gocryptfs' 'gparted' 'gptfdisk' 'gradle' 'gradle-doc' 'gradle-src' 'groovy' 'grub' 'grub-customizer' 'gst-libav' 'gst-plugins-good' 'gst-plugins-ugly' 'gtk-engine-murrine' 'gtk-engines' 'gvfs' 'gwenview' 'haveged' 'htop' 'hunspell' 'hunspell-en_gb' 'hunspell-en_us' 'iptables-nft' 'jasper' 'jdk11-openjdk' 'kcodecs' 'kcoreaddons' 'kdecoration' 'kdegraphics-thumbnailers' 'kde-gtk-config' 'kdeplasma-addons' 'kdesdk-thumbnailers' 'kdialog' 'kimageformats' 'kinfocenter' 'kitty' 'kleopatra' 'kompare' 'konsole' 'kscreen' 'kvantum-qt5' 'kwalletmanager' 'kwallet-pam' 'layer-shell-qt' 'lib32-alsa-plugins' 'lib32-glib2' 'lib32-jack' 'lib32-libavtp' 'lib32-libpulse' 'lib32-libsamplerate' 'lib32-speexdsp' 'libavtp' 'libdvdcss' 'libgnome-keyring' 'libnewt' 'libtool' 'libwmf' 'libxml2' 'linux' 'linux-firmware' 'linux-headers' 'lsof' 'lutris' 'lvm2' 'lzop' 'm4' 'make' 'maven' 'mesa' 'milou' 'nano' 'neofetch' 'networkmanager' 'noto-fonts' 'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'ntfs-3g' 'ntp' 'okular' 'openbsd-netcat' 'openssh' 'os-prober' 'oxygen' 'p7zip' 'packagekit-qt5' 'pacman-contrib' 'partitionmanager' 'patch' 'phonon-qt5-gstreamer' 'picom' 'pigz' 'pkgconf' 'plasma' 'plasma-desktop' 'plasma-meta' 'plasma-nm' 'powerdevil' 'powerline-fonts' 'print-manager' 'pstoedit' 'python' 'python-lxml' 'python-notify2' 'python-numpy' 'python-packaging' 'python-pip' 'python-psutil' 'python-pyqt5' 'qbittorrent' 'qemu' 'qt5-declarative' 'qt5-imageformats' 'qt5-x11extras' 'raw-thumbnailer' 'rclone' 'reflector' 'rsync' 'scour' 'sddm' 'sddm-kcm' 'seahorse' 'skanlite' 'snapper' 'sonnet' 'spectacle' 'steam' 'sudo' 'swtpm' 'synergy' 'systemsettings' 'taglib' 'terminator' 'terminus-font' 'texlive-core' 'traceroute' 'ttf-roboto' 'ttf-ubuntu-font-family' 'ufw' 'unrar' 'unzip' 'usbutils' 'vim' 'virt-manager' 'virt-viewer' 'webkit2gtk' 'wget' 'which' 'wine-gecko' 'wine-mono' 'winetricks' 'xdg-desktop-portal' 'xdg-desktop-portal-kde' 'xdg-user-dirs' 'xorg' 'xorg-apps' 'xorg-drivers' 'xorg-server' 'xorg-xinit' 'xorg-xkill' 'xterm' 'zeroconf-ioslave' 'zip' 'ttf-droid' 'ttf-hack' 'ttf-roboto' 'ffmpegthumbnailer' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-base' 'gst-plugin-pipewire' 'a52dec' 'faac' 'faad2' 'flac' 'lame' 'libdca' 'libdv' 'libmad' 'wavpack' 'vlc' 'libmpeg2' 'xvidcore' 'libtheora' 'libvorbis' 'libxv' 'x264' 'cups-pdf' 'hplip' 'gsfonts' 'xsane' 'imagescan' 'sane' 'apparmor' 'python-pyqt5' 'python-gobject' 'dbus-python' 'dmidecode' 'libguestfs' 'dnsmasq' 'edk2-ovmf' 'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi' 'qemu-block-rbd' 'samba' 'ebtables' 'gnome-menus' 'dbus-broker' 'bpytop' 'mlocate' 'discord' 'bitwarden' 'inetutils' 'net-tools' 'wireplumber')
+ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 'git' 'vim' 'ntfs-3g' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2')
+
+ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g' 'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'unarchiver' 'lzop' 'lrzip' 'curl')
+
+ALL_PAKGS+=('bash-completion' 'python-pip' 'python-packaging' 'vim' 'rclone' 'git' 'fuse' 'fuse2' 'fuse3')
+
+ALL_PAKGS+=('jdk11-openjdk' 'java-atk-wrapper-openjdk11' 'openjdk11-doc' 'openjdk11-src' 'maven' 'groovy' 'groovy-docs' 'gradle' 'gradle-src' 'gradle-doc')
+
+ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet' 'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs' 'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm')
+
+ALL_PAKGS+=('kwallet-pam' 'kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
+
+ALL_PAKGS+=('terminator' 'konsole')
+
+ALL_PAKGS+=('packagekit-qt5' 'qbittorrent' 'kdialog')
+
+ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats' 'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'taglib' 'ark')
+
+ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-jack' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
+
+ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy' 'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'breeze-gtk' 'oxygen')
+
+ALL_PAKGS+=('ttf-roboto' 'ttf-ubuntu-font-family' 'cantarell-fonts' 'gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' 'noto-fonts' 'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'powerline-fonts')
+
+ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
+
+ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane' 'imagescan' 'sane' 'apparmor' 'python-pyqt5' 'python-gobject' 'dbus-python')
+
+ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'bitwarden' 'inetutils' 'net-tools')
+
+ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'gst-plugin-pipewire' 'a52dec' 'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'celluloid' 'kcodecs')
+
+ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf' 'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi' 'qemu-block-rbd' 'samba' 'ebtables' 'virt-viewer' 'virt-manager' 'gnome-menus' 'dbus-broker' 'tk')
 
 # Not Sure if this is needed
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver' 'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
@@ -108,7 +140,7 @@ ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-modprob
 EOT
 
 case $pipewire_yes_no in
-    [Yy]* ) ALL_PAKGS+=('pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack');;
+    [Yy]* ) ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack');;
     * ) ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
 esac
 
