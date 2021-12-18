@@ -263,6 +263,9 @@ PKG_AUR_JOIN=$(printf " %s" "${PKGS_AUR[@]}")
 
 case $aur_packages_install in
 [Yy]* )
+echo "Skipping AUR Packages Install"
+;;
+* )
 sudo -H -u makemyarch_build_user bash -c "yay -S --answerclean None --answerdiff None --noconfirm --needed ${PKG_AUR_JOIN}"
 ;;
 esac
