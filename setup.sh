@@ -103,6 +103,7 @@ esac
 echo "--------------------------------------------------"
 echo "         Graphics Drivers find and install        "
 echo "--------------------------------------------------"
+
 if lspci | grep -E "NVIDIA|GeForce"; then
 
 echo "-----------------------------------------------------------"
@@ -110,6 +111,10 @@ echo "  Setting Nvidia Drivers setup pacman hook and udev rules  "
 echo "-----------------------------------------------------------"
 
 ALL_PAKGS+=('nvidia' 'nvidia-utils' 'nvidia-settings' 'nvidia-prime' 'lib32-nvidia-utils' 'nvtop')
+
+echo ""
+echo "Packages to be installed: 'nvidia' 'nvidia-utils' 'nvidia-settings' 'nvidia-prime' 'lib32-nvidia-utils' 'nvtop'"
+echo ""
 
 mkdir -p "/etc/pacman.d/hooks"
 cat <<EOT > "/etc/pacman.d/hooks/nvidia.hook"
@@ -140,7 +145,9 @@ EOT
 echo "Nvidia pudev rule installed /etc/udev/rules.d/99-nvidia.rules"
 cat /etc/udev/rules.d/99-nvidia.rules
 
-elif lspci | grep -E "Radeon"; then
+fi
+
+if lspci | grep -E "Radeon|Advanced Micro Devices"; then
 
 echo "-----------------------------------------------------------"
 echo "                    Setting AMD Drivers                    "
@@ -148,13 +155,23 @@ echo "-----------------------------------------------------------"
 
 ALL_PAKGS+=('xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
 
-elif lspci | grep -E "Integrated Graphics Controller"; then
+echo ""
+echo "Packages to be installed: 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk'"
+echo ""
+
+fi
+
+if lspci | grep -E "Integrated Graphics Controller"; then
 
 echo "-----------------------------------------------------------"
 echo "                   Setting Intel Drivers                   "
 echo "-----------------------------------------------------------"
 
 ALL_PAKGS+=('libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
+
+echo ""
+echo "Packages to be installed: 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils'"
+echo ""
 
 fi
 
