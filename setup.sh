@@ -4,6 +4,7 @@ read -p "Please name your machine, (Any other key to skip) : " nameofmachine
 read -p "Do you want pipewire? [Default PulseAudio] (Y for pipewire, Any other key to install pulseaudio) : " pipewire_yes_no
 read -p "Please enter username(default password: password): (Any other key to skip) :  " username
 read -p "Press Y for grub install: (Any other key to skip)  " install_grub
+read -p "Install KVM nested vtx: (Any other key to skip)  " kvm_nested
 echo "--------------------------------------"
 echo "--     Time zone : Asia/Kolkata     --"
 echo "--------------------------------------"
@@ -269,6 +270,14 @@ echo "-----------------------------------------------------------------------"
 echo "       Settings libvirt nested virtualization group and socket         "
 echo "-----------------------------------------------------------------------"
 
+## Virtmanager
+sed -i '/^#.*unix_sock_group/s/^#//' /etc/libvirt/libvirtd.conf
+sed -i '/^#.*unix_sock_rw_perms/s/^#//' /etc/libvirt/libvirtd.conf
+grep -i "unix_sock_group" /etc/libvirt/libvirtd.conf
+grep -i "unix_sock_rw_perms" /etc/libvirt/libvirtd.conf
+
+if [[ -n "$kvm_nested" ]]; then
+
 case "$proc_type" in
     GenuineIntel)
 echo "Enable Intel nested virtualization"
@@ -286,11 +295,7 @@ echo "options kvm_amd nested=1" | tee /etc/modprobe.d/kvm-amd.conf
 ;;
 esac
 
-## Virtmanager
-sed -i '/^#.*unix_sock_group/s/^#//' /etc/libvirt/libvirtd.conf
-sed -i '/^#.*unix_sock_rw_perms/s/^#//' /etc/libvirt/libvirtd.conf
-grep -i "unix_sock_group" /etc/libvirt/libvirtd.conf
-grep -i "unix_sock_rw_perms" /etc/libvirt/libvirtd.conf
+fi
 
 echo "--------------------------------------"
 echo "       Enable Mandatory Services      "
