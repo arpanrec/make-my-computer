@@ -5,6 +5,7 @@ read -p "Do you want pipewire? [Default PulseAudio] (Y for pipewire, Any other k
 read -p "Please enter username(default password: password): (Any other key to skip) :  " username
 read -p "Press Y for grub install: (Any other key to skip)  " install_grub
 read -p "Install KVM nested vtx: (Any other key to skip)  " kvm_nested
+read -p "Skip AUR Packages? [Skipping this will break userprofile/themes]: (Press Y to skip install)  " aur_packages_install
 echo "--------------------------------------"
 echo "--     Time zone : Asia/Kolkata     --"
 echo "--------------------------------------"
@@ -257,7 +258,10 @@ fi
 PKGS_AUR=('ttf-menlo-powerline-git' 'kde-thumbnailer-apk' 'resvg' 'sweet-gtk-theme-mars' 'kvantum-theme-sweet-mars' 'kvantum-theme-sweet-git' 'sweet-cursor-theme-git' 'sweet-theme-git' 'sweet-folders-icons-git' 'sweet-kde-git' 'sweet-kde-theme-mars-git' 'candy-icons-git' 'layan-kde-git' 'layan-gtk-theme-git' 'layan-cursor-theme-git' 'kvantum-theme-layan-git' 'tela-icon-theme' 'nordic-darker-standard-buttons-theme' 'nordic-darker-theme' 'kvantum-theme-nordic-git' 'sddm-nordic-theme-git' 'nordic-kde-git' 'nordic-theme-git' 'ttf-meslo' 'google-chrome' 'brave-bin' 'timeshift' 'visual-studio-code-bin' 'nordvpn' 'sublime-text-4')
 
 PKG_AUR_JOIN=$(printf " %s" "${PKGS_AUR[@]}")
+
+if [[ -n "$aur_packages_install" ]]; then
 sudo -H -u makemyarch_build_user bash -c "yay -S --answerclean None --answerdiff None --noconfirm --needed ${PKG_AUR_JOIN}"
+fi
 
 echo "--------------------------------------"
 echo "       Create User and Groups         "
