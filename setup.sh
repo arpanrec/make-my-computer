@@ -203,11 +203,13 @@ echo "-----------------------------------------------------------------------"
 echo "       Install Grub Boot-loader with UEFI in directory /boot/efi       "
 echo "-----------------------------------------------------------------------"
 
-if [[ -n "$install_grub" ]]; then
+case $install_grub in
+[Yy]* )
 mkinitcpio -P
 grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot/efi --root-directory=/ --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
-fi
+;;
+esac
 
 echo "----------------------------------------------------------------------------------------------"
 echo "       Setting userprofile bin and gpg_tty /etc/profile.d/10-makemyarch-sw-init-auto.sh       "
@@ -259,9 +261,11 @@ PKGS_AUR=('ttf-menlo-powerline-git' 'kde-thumbnailer-apk' 'resvg' 'sweet-gtk-the
 
 PKG_AUR_JOIN=$(printf " %s" "${PKGS_AUR[@]}")
 
-if [[ -n "$aur_packages_install" ]]; then
+case $aur_packages_install in
+[Yy]* )
 sudo -H -u makemyarch_build_user bash -c "yay -S --answerclean None --answerdiff None --noconfirm --needed ${PKG_AUR_JOIN}"
-fi
+;;
+esac
 
 echo "--------------------------------------"
 echo "       Create User and Groups         "
