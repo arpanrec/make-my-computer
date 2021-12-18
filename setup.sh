@@ -1,17 +1,24 @@
 #!/usr/bin/env bash
 set -e
-read -p "Please name your machine, (Any other key to skip) : " nameofmachine
-read -p "Do you want pipewire? [Default PulseAudio] (Y for pipewire, Any other key to install pulseaudio) : " pipewire_yes_no
-read -p "Please enter username(default password: password): (Any other key to skip) :  " username
-read -p "Press Y for grub install: (Any other key to skip)  " install_grub
-read -p "Install KVM nested vtx: (Any other key to skip)  " kvm_nested
-read -p "Skip AUR Packages? [Skipping this will break userprofile/themes]: (Press Y to skip install)  " aur_packages_install
+read -p "Please name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
+read -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Leave empty and press Enter to Skip*) : " pipewire_yes_no
+read -p "Please enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
+read -p "Enter \"Y\" to install UEFI Grub in /boot/efi mounted Fat32 drive, (Leave empty and press Enter to Skip*) : " install_grub
+read -p "Enter \"Y\" to enable \"nested virtualization\" in qemu kvm, (Leave empty and press Enter to Skip*) : " kvm_nested
+read -p "Enter \"Y\" to skip AUR packages, [Skipping this will break userprofile/themes] (Leave empty and press Enter to install AUR Packages*) : " aur_packages_install
+
 echo "--------------------------------------"
 echo "--     Time zone : Asia/Kolkata     --"
 echo "--------------------------------------"
 timedatectl set-timezone Asia/Kolkata
 hwclock --systohc
 timedatectl set-ntp true
+echo ""
+echo ""
+echo "Current date time : " $(date)
+echo ""
+echo ""
+
 
 echo "--------------------------------------"
 echo "--       Localization : UTF-8       --"
@@ -20,6 +27,12 @@ sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_US.UTF-8"
 localectl --no-ask-password set-keymap us
+echo ""
+echo ""
+localectl
+echo ""
+echo ""
+
 
 nc=$(grep -c ^processor /proc/cpuinfo)
 echo "You have " $nc" cores."
