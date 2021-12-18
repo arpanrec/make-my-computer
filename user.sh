@@ -2,7 +2,7 @@
 set -e
 
 export PATH=$HOME/.local/bin:$PATH
-mkdir -p $HOME/.local/share/kxmlgui5
+mkdir -p $HOME/.local/share/kxmlgui5 $HOME/.config/Code/User
 pip install --user --upgrade wheel
 pip install --user --upgrade konsave virtualenv
 konsave --force --remove makemyarch
