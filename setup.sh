@@ -46,6 +46,8 @@ if [[ -n "$nameofmachine" ]]; then
 hostnamectl hostname "$nameofmachine"
 fi
 
+grep "keyserver hkp://keyserver.ubuntu.com" /etc/pacman.d/gnupg/gpg.conf || echo "keyserver hkp://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.conf
+
 pacman -Sy
 
 ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 'git' 'vim' 'ntfs-3g' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2')
