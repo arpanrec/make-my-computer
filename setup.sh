@@ -46,9 +46,11 @@ if [[ -n "$nameofmachine" ]]; then
 hostnamectl hostname "$nameofmachine"
 fi
 
+pacman -Sy archlinux-keyring --noconfirm
+
 grep "keyserver hkp://keyserver.ubuntu.com" /etc/pacman.d/gnupg/gpg.conf || echo "keyserver hkp://keyserver.ubuntu.com" >> /etc/pacman.d/gnupg/gpg.conf
 
-pacman -Sy
+pacman -Syu --noconfirm
 
 ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 'git' 'vim' 'ntfs-3g' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2')
 
