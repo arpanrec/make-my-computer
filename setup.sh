@@ -226,29 +226,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ;;
 esac
 
-echo "----------------------------------------------------------------------------------------------"
-echo "       Setting userprofile bin and gpg_tty /etc/profile.d/10-makemyarch-sw-init-auto.sh       "
-echo "----------------------------------------------------------------------------------------------"
-
-cat <<EOT > "/etc/profile.d/10-makemyarch-sw-init-auto.sh"
-export PATH=\$HOME/.local/bin:\$PATH:/usr/sbin
-export GPG_TTY=\$(tty)
-export EDITOR=vim
-EOT
-cat /etc/profile.d/10-makemyarch-sw-init-auto.sh
-
-echo "-----------------------------------------------------------------------------------"
-echo "       Setting Java and Maven Home /etc/profile.d/10-makemyarch-java-auto.sh       "
-echo "-----------------------------------------------------------------------------------"
-
-cat <<EOT > "/etc/profile.d/10-makemyarch-java-auto.sh"
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-export MAVEN_HOME=/opt/maven
-export M2_HOME=/opt/maven
-export GRADLE_HOME=/usr/share/java/gradle
-EOT
-cat /etc/profile.d/10-makemyarch-java-auto.sh
-
 echo "------------------------------------------"
 echo "       heil wheel group in sudoers        "
 echo "------------------------------------------"
