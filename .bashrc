@@ -2,7 +2,15 @@
 # ~/.bashrc
 #
 
-export PATH=$HOME/.local/bin:$PATH:/usr/sbin
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+if [ -f $HOME/.dotfiles/bashsecrets.sh ]; then
+	. $HOME/.dotfiles/bashsecrets.sh
+fi
+
+PATH=$HOME/.local/bin:$PATH:/usr/sbin
 export GPG_TTY=$(tty)
 
 if hash vim &> /dev/null ; then
@@ -18,6 +26,11 @@ elif command -v java &> /dev/null ; then
 	export JAVA_HOME=${javaexecpath::-9}
 else
 	echo "Java not installed, please install java"
+fi
+
+if [ -f "$HOME/.local/share/maven/bin/mvn" ];
+then
+	export PATH=$HOME/.local/share/maven/bin:$PATH
 fi
 
 if command -v mvn &> /dev/null ; then
