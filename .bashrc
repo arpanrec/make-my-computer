@@ -48,10 +48,10 @@ fi
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -alrh'
 alias df='sudo df -h'
-alias ssh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-alias sftp='sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+alias ssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+alias sftp="sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias codesudo="sudo code --user-data-dir=$HOME/.vscode-root --no-sandbox"
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME'
+alias config="/usr/bin/git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
