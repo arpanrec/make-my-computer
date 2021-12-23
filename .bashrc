@@ -23,7 +23,7 @@ fi
 
 if command -v javac &> /dev/null ; then
 	javacexecpath=$(readlink -f $(which javac))
-	export JAVA_HOME=${javacexecpath::-9}
+	export JAVA_HOME=${javacexecpath::-10}
 elif command -v java &> /dev/null ; then
 	echo "Java compiler not installed which is not recommended, Using java instead"
 	javaexecpath=$(readlink -f $(which java))
