@@ -14,11 +14,11 @@ if [ -f $HOME/.dotfiles/bashsecrets.sh ]; then
 	source $HOME/.dotfiles/bashsecrets.sh
 fi
 
-PATH=$HOME/.local/bin:$PATH:/usr/sbin
+export PATH=$HOME/.local/bin:$PATH:/usr/sbin
 export GPG_TTY=$(tty)
 
 if hash vim &> /dev/null ; then
-export EDITOR=vim
+	export EDITOR=vim
 fi
 
 if command -v javac &> /dev/null ; then
@@ -57,14 +57,17 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME'
 [[ $- != *i* ]] && return
 
 export BASH_IT="$HOME/.bash_it"
-export BASH_IT_THEME='makemyarch'
-export BASH_IT_REMOTE='https://github.com/arpanrec/bash-it'
-export BASH_IT_DEVELOPMENT_BRANCH='master'
-unset MAILCHECK
-export IRC_CLIENT='irssi'
-export TODO="t"
-export BASH_IT_COMMAND_DURATION=true
-export COMMAND_DURATION_MIN_SECONDS=1
-export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
-export THEME_SHOW_EXITCODE=true
-source "$BASH_IT/bash_it.sh"
+if [ -f "$BASH_IT/bash_it.sh" ];
+then
+	export BASH_IT_THEME='makemyarch'
+	export BASH_IT_REMOTE='https://github.com/arpanrec/bash-it'
+	export BASH_IT_DEVELOPMENT_BRANCH='master'
+	unset MAILCHECK
+	export IRC_CLIENT='irssi'
+	export TODO="t"
+	export BASH_IT_COMMAND_DURATION=true
+	export COMMAND_DURATION_MIN_SECONDS=1
+	export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
+	export THEME_SHOW_EXITCODE=true
+	source "$BASH_IT/bash_it.sh"
+fi
