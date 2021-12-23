@@ -2,7 +2,12 @@
 # ~/.bashrc
 #
 
-# If not running interactively, don't do anything
+export PATH=$HOME/.local/bin:$PATH:/usr/sbin
+export GPG_TTY=$(tty)
+
+if hash vim &> /dev/null ; then
+export EDITOR=vim
+fi
 
 if command -v javac &> /dev/null ; then
 	javacexecpath=$(readlink -f $(which javac))
@@ -31,6 +36,7 @@ alias sftp='sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias codesudo="sudo code --user-data-dir=$HOME/.vscode-root --no-sandbox"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME'
 
+# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 export BASH_IT="$HOME/.bash_it"
