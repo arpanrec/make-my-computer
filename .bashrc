@@ -14,7 +14,7 @@ if [ -f $HOME/.dotfiles/bashsecrets.sh ]; then
 	source $HOME/.dotfiles/bashsecrets.sh
 fi
 
-export PATH=$HOME/.local/bin:$PATH:/usr/sbin
+export PATH=$HOME/.local/bin:$PATH
 export GPG_TTY=$(tty)
 
 if hash vim &> /dev/null ; then
