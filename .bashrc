@@ -3,11 +3,15 @@
 #
 
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+	source /etc/bashrc
+fi
+
+if [ -f /etc/bash.bashrc ]; then
+	source /etc/bash.bashrc
 fi
 
 if [ -f $HOME/.dotfiles/bashsecrets.sh ]; then
-	. $HOME/.dotfiles/bashsecrets.sh
+	source $HOME/.dotfiles/bashsecrets.sh
 fi
 
 PATH=$HOME/.local/bin:$PATH:/usr/sbin
