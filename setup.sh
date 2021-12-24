@@ -313,7 +313,7 @@ echo "-----------------------------------------------------------------------"
 echo "       Settings libvirt nested virtualization group and socket         "
 echo "-----------------------------------------------------------------------"
 
-## Virtmanager
+## libvirt
 sed -i '/^#.*unix_sock_group/s/^#//' /etc/libvirt/libvirtd.conf
 sed -i '/^#.*unix_sock_rw_perms/s/^#//' /etc/libvirt/libvirtd.conf
 grep -i "unix_sock_group" /etc/libvirt/libvirtd.conf
