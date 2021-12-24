@@ -58,6 +58,7 @@ echo "--------------------------------------"
 
 if [[ -n "$nameofmachine" ]]; then
 hostnamectl hostname "$nameofmachine"
+echo "$nameofmachine" > /etc/hostname
 fi
 
 pacman -Sy archlinux-keyring --noconfirm
