@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
 set -e
 read -p "Please name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
-read -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Leave empty and press Enter to Skip*) : " pipewire_yes_no
+read -n1 -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Press any other key to Skip*) : " pipewire_yes_no
 read -p "Please enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
-read -p "Enter \"Y\" to install UEFI Grub in /boot/efi mounted Fat32 drive, (Leave empty and press Enter to Skip*) : " install_grub
-read -p "Enter \"Y\" to enable \"nested virtualization\" in qemu kvm, (Leave empty and press Enter to Skip*) : " kvm_nested
-read -p "Enter \"Y\" to skip AUR packages, [Skipping this will break userprofile/themes] (Leave empty and press Enter to install AUR Packages*) : " aur_packages_install
+
+if [[ ! -d "/sys/firmware/efi" ]]; then
+read -n1 -p "Enter \"Y\" to install UEFI Grub in mounted Fat32 drive, (Press any other key to Skip*) : " install_grub_uefi
+if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]]; then
+read -p "Enter EFI directory location, (Default /boot/efi*, p) : ress n to skip grub install" install_grub_efi_dir
+if [ -z "$install_grub_efi_dir" ] ; then
+install_grub_efi_dir="/boot/efi"
+elif [[ "$install_grub_efi_dir" == "n" || "$install_grub_efi_dir" == "N" ]]; then
+unset install_grub_efi_dir
+fi
+fi
+fi
+
+read -n1 -p "Enter \"Y\" to enable \"nested virtualization\" in qemu kvm, (Press any other key to Skip*) : " kvm_nested
+read -n1 -p "Enter \"Y\" to skip AUR packages, [Skipping this will break userprofile/themes] (Press any other key to install AUR Packages*) : " aur_packages_install
 
 echo "--------------------------------------"
 echo "--     Time zone : Asia/Kolkata     --"
@@ -114,11 +126,11 @@ echo "--------------------------------------------------"
 proc_type=$(cat /proc/cpuinfo | grep vendor | uniq | awk '{print $3}')
 echo "proc_type: $proc_type"
 case "$proc_type" in
-    GenuineIntel)
+GenuineIntel)
 echo "Installing Intel microcode"
 ALL_PAKGS+=('intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
 ;;
-    AuthenticAMD)
+AuthenticAMD)
 echo "Installing AMD microcode"
 ALL_PAKGS+=('amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
 ;;
@@ -216,10 +228,12 @@ echo ""
 
 fi
 
-case $pipewire_yes_no in
-    [Yy]* ) ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack');;
-    * ) ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
-esac
+# Pipewire or Pulseaudio selection
+if [[ "$pipewire_yes_no" == "Y" || "$pipewire_yes_no" == "y" ]]; then
+ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack')
+else
+ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
+fi
 
 echo "--------------------------------------------------"
 echo "         Installing Hell lot of packages          "
@@ -238,13 +252,11 @@ echo "-----------------------------------------------------------------------"
 echo "       Install Grub Boot-loader with UEFI in directory /boot/efi       "
 echo "-----------------------------------------------------------------------"
 
-case $install_grub in
-[Yy]* )
+if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]] && [ -n "$install_grub_efi_dir" ] ; then
 mkinitcpio -P
-grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=/boot/efi --root-directory=/ --recheck
+grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=${install_grub_efi_dir} --root-directory=/ --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
-;;
-esac
+fi
 
 echo "------------------------------------------"
 echo "       heil wheel group in sudoers        "
@@ -265,22 +277,19 @@ echo "makemyarch_build_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/10-makemy
 if ! command -v yay &> /dev/null
 then
 # Yay User
-    BASEDIR=$(dirname "$0")
-    sudo -H -u makemyarch_build_user bash -c "$BASEDIR/install_yay.sh"
+BASEDIR=$(dirname "$0")
+sudo -H -u makemyarch_build_user bash -c "$BASEDIR/install_yay.sh"
 fi
 
 PKGS_AUR=('ttf-menlo-powerline-git' 'kde-thumbnailer-apk' 'resvg' 'sweet-gtk-theme-mars' 'kvantum-theme-sweet-mars' 'kvantum-theme-sweet-git' 'sweet-cursor-theme-git' 'sweet-theme-git' 'sweet-folders-icons-git' 'sweet-kde-git' 'sweet-kde-theme-mars-git' 'candy-icons-git' 'layan-kde-git' 'layan-gtk-theme-git' 'layan-cursor-theme-git' 'kvantum-theme-layan-git' 'tela-icon-theme' 'nordic-darker-standard-buttons-theme' 'nordic-darker-theme' 'kvantum-theme-nordic-git' 'sddm-nordic-theme-git' 'nordic-kde-git' 'nordic-theme-git' 'ttf-meslo' 'google-chrome' 'brave-bin' 'timeshift' 'visual-studio-code-bin' 'nordvpn' 'sublime-text-4')
 
 PKG_AUR_JOIN=$(printf " %s" "${PKGS_AUR[@]}")
 
-case $aur_packages_install in
-[Yy]* )
+if [[ $aur_packages_install == "Y" || $aur_packages_install == "y" ]]; then
 echo "Skipping AUR Packages Install"
-;;
-* )
+else
 sudo -H -u makemyarch_build_user bash -c "yay -S --answerclean None --answerdiff None --noconfirm --needed ${PKG_AUR_JOIN}"
-;;
-esac
+fi
 
 echo "--------------------------------------"
 echo "       Create User and Groups         "
@@ -303,10 +312,10 @@ sed -i '/^#.*unix_sock_rw_perms/s/^#//' /etc/libvirt/libvirtd.conf
 grep -i "unix_sock_group" /etc/libvirt/libvirtd.conf
 grep -i "unix_sock_rw_perms" /etc/libvirt/libvirtd.conf
 
-if [[ -n "$kvm_nested" ]]; then
 
+if [[ $kvm_nested == "Y" || $kvm_nested == "y" ]]; then
 case "$proc_type" in
-    GenuineIntel)
+GenuineIntel)
 echo "Enable Intel nested virtualization"
 modprobe -r kvm_intel
 modprobe kvm_intel nested=1
@@ -317,7 +326,7 @@ systool -m kvm_intel -v | grep nested
 echo "cat /sys/module/kvm_intel/parameters/nested"
 cat /sys/module/kvm_intel/parameters/nested 
 ;;
-    AuthenticAMD)
+AuthenticAMD)
 echo "Enable AMD nested virtualization"
 modprobe -r kvm_amd
 modprobe kvm_amd nested=1
@@ -329,7 +338,6 @@ echo "cat /sys/module/kvm_amd/parameters/nested"
 cat /sys/module/kvm_amd/parameters/nested
 ;;
 esac
-
 fi
 
 echo "--------------------------------------"
@@ -337,8 +345,8 @@ echo "       Enable Mandatory Services      "
 echo "--------------------------------------"
 
 for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
-    echo "Enable Service: ${MAN_SERVICE}"
-    systemctl enable "$MAN_SERVICE"
+echo "Enable Service: ${MAN_SERVICE}"
+systemctl enable "$MAN_SERVICE"
 done
 
 echo "-----------------------------------------"
