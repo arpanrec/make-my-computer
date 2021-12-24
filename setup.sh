@@ -4,7 +4,7 @@ read -p "\nPlease name your machine, (Leave empty and press Enter to Skip*) : " 
 read -n1 -p "\nEnter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Press any other key to Skip*) : " pipewire_yes_no
 read -p "\nPlease enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
 
-if [[ ! -d "/sys/firmware/efi" ]]; then
+if [[ -d "/sys/firmware/efi" ]]; then
 read -n1 -p "\nEnter \"Y\" to install UEFI Grub in mounted Fat32 drive, (Press any other key to Skip*) : " install_grub_uefi
 if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]]; then
 read -p "\nEnter EFI directory location, (Default /boot/efi*, p) : ress n to skip grub install" install_grub_efi_dir
