@@ -204,7 +204,7 @@ echo "-----------------------------------------------------------"
 echo "                   Setting VMware Drivers                   "
 echo "-----------------------------------------------------------"
 
-ALL_PAKGS+=('open-vm-tools' 'gtkmm3')
+ALL_PAKGS+=('open-vm-tools' 'gtkmm3' 'xf86-input-vmmouse' 'xf86-video-vmware' 'mesa')
 
 MAN_SERVICES+=('vmtoolsd' 'vmware-vmblock-fuse')
 
