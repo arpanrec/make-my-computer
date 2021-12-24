@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 set -e
-read -p "\nPlease name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
-read -n1 -p "\nEnter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Press any other key to Skip*) : " pipewire_yes_no
-read -p "\nPlease enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
+echo "Starting setup.sh"
+read -p "Please name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
+echo ""
+read -n1 -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Press any other key to Skip*) : " pipewire_yes_no
+echo ""
+read -p "Please enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
+echo ""
 
 if [[ -d "/sys/firmware/efi" ]]; then
-read -n1 -p "\nEnter \"Y\" to install UEFI Grub in mounted Fat32 drive, (Press any other key to Skip*) : " install_grub_uefi
+read -n1 -p "Enter \"Y\" to install UEFI Grub in mounted Fat32 drive, (Press any other key to Skip*) : " install_grub_uefi
+echo ""
 if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]]; then
-read -p "\nEnter EFI directory location, (Default /boot/efi*, p) : ress n to skip grub install" install_grub_efi_dir
+read -p "Enter EFI directory location, (Default /boot/efi*, press n to skip grub install) : " install_grub_efi_dir
+echo ""
 if [ -z "$install_grub_efi_dir" ] ; then
 install_grub_efi_dir="/boot/efi"
 elif [[ "$install_grub_efi_dir" == "n" || "$install_grub_efi_dir" == "N" ]]; then
@@ -16,8 +22,10 @@ fi
 fi
 fi
 
-read -n1 -p "\nEnter \"Y\" to enable \"nested virtualization\" in qemu kvm, (Press any other key to Skip*) : " kvm_nested
-read -n1 -p "\nEnter \"Y\" to skip AUR packages, [Skipping this will break userprofile/themes] (Press any other key to install AUR Packages*) : " aur_packages_install
+read -n1 -p "Enter \"Y\" to enable \"nested virtualization\" in qemu kvm, (Press any other key to Skip*) : " kvm_nested
+echo ""
+read -n1 -p "Enter \"Y\" to skip AUR packages, [Skipping this will break userprofile/themes] (Press any other key to install AUR Packages*) : " aur_packages_install
+echo ""
 
 echo "--------------------------------------"
 echo "--     Time zone : Asia/Kolkata     --"
@@ -127,11 +135,11 @@ proc_type=$(cat /proc/cpuinfo | grep vendor | uniq | awk '{print $3}')
 echo "proc_type: $proc_type"
 case "$proc_type" in
 GenuineIntel)
-echo "Installing Intel microcode"
+echo "Installing Intel microcode 'intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils'"
 ALL_PAKGS+=('intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
 ;;
 AuthenticAMD)
-echo "Installing AMD microcode"
+echo "Installing AMD microcode 'amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk'"
 ALL_PAKGS+=('amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
 ;;
 esac
