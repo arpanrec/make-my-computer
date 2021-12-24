@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -xe
+set -e
 read -p "Please name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
 read -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Leave empty and press Enter to Skip*) : " pipewire_yes_no
 read -p "Please enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
