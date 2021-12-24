@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -xe
 read -p "Please name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
 read -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Leave empty and press Enter to Skip*) : " pipewire_yes_no
 read -p "Please enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
@@ -105,6 +105,8 @@ ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-ne
 # Not Sure if this is needed
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver' 'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
 
+MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'sddm' 'dbus-broker' 'libvirtd' 'nordvpnd' 'cups' 'apparmor' 'bluetooth')
+
 echo "--------------------------------------------------"
 echo "--determine processor type and install microcode--"
 echo "--------------------------------------------------"
@@ -192,6 +194,23 @@ ALL_PAKGS+=('libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-dr
 
 echo ""
 echo "Packages to be installed: 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils'"
+echo ""
+
+fi
+
+if lspci | grep -E "VMware SVGA"; then
+
+echo "-----------------------------------------------------------"
+echo "                   Setting VMware Drivers                   "
+echo "-----------------------------------------------------------"
+
+ALL_PAKGS+=('open-vm-tools' 'gtkmm3')
+
+MAN_SERVICES+=('vmtoolsd' 'vmware-vmblock-fuse')
+
+echo ""
+echo "Packages to be installed: 'open-vm-tools' 'gtkmm3'"
+echo "Services to be enabled: 'vmtoolsd' 'vmware-vmblock-fuse'"
 echo ""
 
 fi
@@ -315,7 +334,6 @@ fi
 echo "--------------------------------------"
 echo "       Enable Mandatory Services      "
 echo "--------------------------------------"
-MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'sddm' 'dbus-broker' 'libvirtd' 'nordvpnd' 'cups' 'apparmor' 'bluetooth') 
 
 for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
     echo "Enable Service: ${MAN_SERVICE}"
