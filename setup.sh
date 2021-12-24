@@ -248,11 +248,10 @@ getent group sudo || groupadd sudo
 getent group wheel || groupadd wheel
 echo -e "root\nroot" | passwd
 
-echo "-----------------------------------------------------------------------"
-echo "       Install Grub Boot-loader with UEFI in directory /boot/efi       "
-echo "-----------------------------------------------------------------------"
-
 if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]] && [ -n "$install_grub_efi_dir" ] ; then
+echo "-----------------------------------------------------------------------------------"
+echo "       Install Grub Boot-loader with UEFI in directory $install_grub_efi_dir       "
+echo "-----------------------------------------------------------------------------------"
 mkinitcpio -P
 grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=${install_grub_efi_dir} --root-directory=/ --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
