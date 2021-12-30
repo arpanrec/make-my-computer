@@ -17,14 +17,14 @@ fi
 export PATH=$HOME/.local/bin:$PATH
 export GPG_TTY=$(tty)
 
-if hash vim &> /dev/null ; then
+if hash vim &>/dev/null; then
 	export EDITOR=vim
 fi
 
-if command -v javac &> /dev/null ; then
+if command -v javac &>/dev/null; then
 	javacexecpath=$(readlink -f $(which javac))
 	export JAVA_HOME=${javacexecpath::-10}
-elif command -v java &> /dev/null ; then
+elif command -v java &>/dev/null; then
 	echo "Java compiler not installed which is not recommended, Using java instead"
 	javaexecpath=$(readlink -f $(which java))
 	export JAVA_HOME=${javaexecpath::-9}
@@ -32,12 +32,11 @@ else
 	echo "Java not installed, please install java"
 fi
 
-if [ -f "$HOME/.local/share/maven/bin/mvn" ];
-then
+if [ -f "$HOME/.local/share/maven/bin/mvn" ]; then
 	export PATH=$HOME/.local/share/maven/bin:$PATH
 fi
 
-if command -v mvn &> /dev/null ; then
+if command -v mvn &>/dev/null; then
 	mvnexecpath=$(readlink -f $(which mvn))
 	export M2_HOME=${mvnexecpath::-8}
 	export MAVEN_HOME=${M2_HOME}
@@ -57,8 +56,7 @@ alias config="/usr/bin/git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME"
 [[ $- != *i* ]] && return
 
 export BASH_IT="$HOME/.bash_it"
-if [ -f "$BASH_IT/bash_it.sh" ];
-then
+if [ -f "$BASH_IT/bash_it.sh" ]; then
 	export BASH_IT_THEME='makemyarch'
 	export BASH_IT_REMOTE='https://github.com/arpanrec/bash-it'
 	export BASH_IT_DEVELOPMENT_BRANCH='master'
@@ -73,8 +71,7 @@ then
 fi
 alias config="git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME"
 
-
-if hash powerline-shell &> /dev/null ; then
+if hash powerline-shell &>/dev/null && [[ ! -f "$BASH_IT/bash_it.sh" ]]; then
 	function _update_ps1() {
 		PS1=$(powerline-shell $?)
 	}
