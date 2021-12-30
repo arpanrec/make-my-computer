@@ -1,8 +1,9 @@
+#!/usr/bin/env bash
 #
 # ~/.bashrc
 #
 
-if [ -f /etc/bashrc ]; then
+if [ -f "/etc/bashrc" ]; then
 	source /etc/bashrc
 fi
 
@@ -10,23 +11,16 @@ if [ -f /etc/bash.bashrc ]; then
 	source /etc/bash.bashrc
 fi
 
-if [ -f $HOME/.dotfiles/bashsecrets.sh ]; then
-	source $HOME/.dotfiles/bashsecrets.sh
-fi
-
-export PATH=$HOME/.local/bin:$PATH
-export GPG_TTY=$(tty)
-
-if hash vim &>/dev/null; then
-	export EDITOR=vim
+if [ -f "$HOME/.dotfiles/bashsecrets.sh" ]; then
+	source "$HOME/.dotfiles/bashsecrets.sh"
 fi
 
 if command -v javac &>/dev/null; then
-	javacexecpath=$(readlink -f $(which javac))
+	javacexecpath=$(readlink -f "$(which javac)")
 	export JAVA_HOME=${javacexecpath::-10}
 elif command -v java &>/dev/null; then
 	echo "Java compiler not installed which is not recommended, Using java instead"
-	javaexecpath=$(readlink -f $(which java))
+	javaexecpath=$(readlink -f "$(which java)")
 	export JAVA_HOME=${javaexecpath::-9}
 else
 	echo "Java not installed, please install java"
@@ -37,11 +31,19 @@ if [ -f "$HOME/.local/share/maven/bin/mvn" ]; then
 fi
 
 if command -v mvn &>/dev/null; then
-	mvnexecpath=$(readlink -f $(which mvn))
+	mvnexecpath=$(readlink -f "$(which mvn)")
 	export M2_HOME=${mvnexecpath::-8}
 	export MAVEN_HOME=${M2_HOME}
 else
 	echo "maven not installed, please install maven"
+fi
+
+export PATH=$HOME/.local/bin:$PATH
+GPG_TTY="$(tty)"
+export GPG_TTY
+
+if hash vim &>/dev/null; then
+	export EDITOR=vim
 fi
 
 alias ls="ls --color=auto"
@@ -50,7 +52,7 @@ alias df="sudo df -h"
 alias ssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias sftp="sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias codesudo="sudo code --user-data-dir=/tmp/vscode-root-user-data-dir --no-sandbox"
-alias config="/usr/bin/git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME"
+alias config='git --git-dir="$HOME/.dotfiles/bare" --work-tree=$HOME'
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -69,7 +71,6 @@ if [ -f "$BASH_IT/bash_it.sh" ]; then
 	export THEME_SHOW_EXITCODE=true
 	source "$BASH_IT/bash_it.sh"
 fi
-alias config="git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME"
 
 if hash powerline-shell &>/dev/null && [[ ! -f "$BASH_IT/bash_it.sh" ]]; then
 	function _update_ps1() {
