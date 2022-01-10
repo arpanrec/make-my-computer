@@ -53,7 +53,7 @@ fi
 alias ls="ls --color=auto"
 alias ll="ls --color=auto -alrh"
 alias df="sudo df -h"
-alias ssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+#alias ssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias sftp="sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias codesudo="sudo code --user-data-dir=/tmp/vscode-root-user-data-dir --no-sandbox"
 alias config='git --git-dir="$HOME/.dotfiles/bare" --work-tree=$HOME'
