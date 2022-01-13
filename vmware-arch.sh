@@ -9,7 +9,7 @@ chmod +x /tmp/nebula/vmware.bundle
 /bin/sh /tmp/nebula/vmware.bundle
 
 modprobe -a vmw_vmci vmmon
-
+vmware-modconfig --console --install-all
 cat <<EOT > "/etc/systemd/system/vmware.service"
 [Unit]
 Description=VMware daemon
