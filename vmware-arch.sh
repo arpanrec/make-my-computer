@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 pacman -S --needed --noconfirm fuse2 gtkmm linux-headers ncurses libcanberra pcsclite
 mkdir /etc/init.d/ /tmp/nebula -p
-wget --no-clobber --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0" --no-check-certificate -O /tmp/nebula/vmware.bundle https://www.vmware.com/go/getWorkstation-linux
-/bin/sh /tmp/nebula/vmware.bundle
-rm -rf /tmp/nebula/vmware.bundle
+if [ -f "/tmp/nebula/vmware.bundle" ]; then
+  wget --no-clobber --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0" --no-check-certificate -O /tmp/nebula/vmware.bundle https://www.vmware.com/go/getWorkstation-linux
+  /bin/sh /tmp/nebula/vmware.bundle
+  # rm -rf /tmp/nebula/vmware.bundle
+fi
+
 
 modprobe -a vmw_vmci vmmon
 
