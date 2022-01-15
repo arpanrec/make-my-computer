@@ -3,14 +3,15 @@ set -xe
 
 mkdir -p ${HOME}/.dotfiles
 rm -rf $HOME/.dotfiles/bare
+git clone https://github.com/arpanrec/dotfiles.git --bare $HOME/.dotfiles/bare
+git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config status.showUntrackedFiles no
+git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME remote set-url origin git@github.com:arpanrec/dotfiles.git
+
 rm -rf $HOME/.bash_it
 git clone https://github.com/arpanrec/bash-it --depth=1 ~/.bash_it
-git clone git@github.com:arpanrec/dotfiles.git --bare $HOME/.dotfiles/bare
+
 echo "alias config=\"git --git-dir=\$HOME/.dotfiles/bare --work-tree=\$HOME\"" >> $HOME/.bashrc
 source $HOME/.bashrc
-
-git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config status.showUntrackedFiles no
-
 if hash bw jq &> /dev/null ; then
     BW_STATUS="$(bw status | jq .status -r)"
     if [ $BW_STATUS != "unlocked" ] ; then
