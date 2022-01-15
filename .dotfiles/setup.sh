@@ -5,7 +5,7 @@ mkdir -p ${HOME}/.dotfiles
 rm -rf $HOME/.dotfiles/bare
 rm -rf $HOME/.bash_it
 git clone https://github.com/arpanrec/bash-it --depth=1 ~/.bash_it
-git clone https://github.com/arpanrec/dotfiles.git --bare $HOME/.dotfiles/bare
+git clone git@github.com:arpanrec/dotfiles.git --bare $HOME/.dotfiles/bare
 echo "alias config=\"git --git-dir=\$HOME/.dotfiles/bare --work-tree=\$HOME\"" >> $HOME/.bashrc
 source $HOME/.bashrc
 
