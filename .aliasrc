@@ -1,5 +1,5 @@
 alias ls="ls --color=auto"
-alias ll="ls --color=auto -alrh"
+alias ll="ls --color=auto -alrht"
 alias df="sudo df -h"
 alias ssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias sftp="sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
