@@ -17,7 +17,7 @@ if [ -f "$HOME/.local/share/maven/bin/mvn" ]; then
 	export PATH=$HOME/.local/share/maven/bin:$PATH
 fi
 
-if command -v mvn &>/dev/null; then
+if [ command -v mvn &>/dev/null ]; then
 	mvnexecpath=$(readlink -f "$(which mvn)")
 	export M2_HOME=${mvnexecpath::-8}
 	export MAVEN_HOME=${M2_HOME}
