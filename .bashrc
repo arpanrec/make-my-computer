@@ -11,6 +11,11 @@ if [ -f /etc/bash.bashrc ]; then
 	source /etc/bash.bashrc
 fi
 
+if [ -f /usr/local/bin/zsh ]; then
+	export SHELL=/usr/local/bin/zsh
+	exec /usr/local/bin/zsh -l
+fi
+
 [ -f "$HOME/.exporterrc" ] && source $HOME/.exporterrc
 [ -f "$HOME/.aliasrc" ] && source $HOME/.aliasrc
 
