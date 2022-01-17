@@ -1,5 +1,5 @@
-if [ -f "$HOME/.dotfiles/bashsecrets.sh" ]; then
-	source "$HOME/.dotfiles/bashsecrets.sh"
+if [ -f "$HOME/.secrets" ]; then
+	source "$HOME/.secrets"
 fi
 
 if [ command -v javac &>/dev/null ]; then
