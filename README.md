@@ -11,6 +11,7 @@ rm -rf ${HOME}/.dotfiles/bare && \
 git clone https://github.com/arpanrec/dotfiles.git --bare $HOME/.dotfiles/bare && \
 alias config="git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME" && \
 config config status.showUntrackedFiles no && \
-rm -rf $HOME/.bash_it && \
-git clone https://github.com/arpanrec/bash-it ~/.bash_it
+config reset --hard HEAD && \
+rm -rf $HOME/.bash_it && git clone https://github.com/arpanrec/bash-it $HOME/.bash_it && \
+rm -rf $HOME/.oh-my-zsh && git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
 ```
