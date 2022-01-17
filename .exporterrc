@@ -1,16 +1,16 @@
 if [ -f "$HOME/.secrets" ]; then
 	source "$HOME/.secrets"
 else
-	echo "$HOME/.secrets file missing"
+	touch $HOME/.secrets
 fi
 
 if hash javac &>/dev/null; then
 	export JAVA_HOME=$(dirname $(dirname $(readlink -f "$(which javac)")))
 elif hash java &>/dev/null; then
-	echo "Java compiler not installed which is not recommended, Using java instead"
+	echo "Java compiler (javac) not installed, which is not recommended, Using java instead"
 	export JAVA_HOME=$(dirname $(dirname $(readlink -f "$(which java)")))
 else
-	echo "Java not installed, please install java"
+	echo "Java not installed, please install Java"
 fi
 
 if [ -f "$HOME/.local/share/maven/bin/mvn" ]; then
@@ -21,7 +21,7 @@ if hash mvn &>/dev/null; then
 	export M2_HOME=$(dirname $(dirname $(readlink -f "$(which mvn)")))
 	export MAVEN_HOME=${M2_HOME}
 else
-	echo "maven not installed, please install maven"
+	echo "mvn not installed, please install Apache Maven"
 fi
 
 export PATH=$HOME/.local/bin:$PATH
@@ -31,5 +31,5 @@ export GPG_TTY
 if hash vim &>/dev/null; then
 	export EDITOR=vim
 else
-	echo "VIM Not installed"
+	echo "VIM not installed"
 fi
