@@ -2,10 +2,6 @@ if [ -f "$HOME/.dotfiles/bashsecrets.sh" ]; then
 	source "$HOME/.dotfiles/bashsecrets.sh"
 fi
 
-if [ -f "$HOME/.dotfiles/linode_cli_completion.sh" ]; then
-	source "$HOME/.dotfiles/linode_cli_completion.sh"
-fi
-
 if [ command -v javac &>/dev/null ]; then
 	javacexecpath=$(readlink -f "$(which javac)")
 	export JAVA_HOME=${javacexecpath::-10}

@@ -11,8 +11,11 @@ if [ -f /etc/bash.bashrc ]; then
 	source /etc/bash.bashrc
 fi
 
-if [ -f "$HOME/.dotfiles/common.sh" ]; then
-	source $HOME/.dotfiles/common.sh
+[ -f "$HOME/.exporterrc" ] && source $HOME/.exporterrc
+[ -f "$HOME/.aliasrc" ] && source $HOME/.aliasrc
+
+if [ -f "$HOME/.dotfiles/linode_cli_completion.sh" ]; then
+	source "$HOME/.dotfiles/linode_cli_completion.sh"
 fi
 
 # If not running interactively, don't do anything
