@@ -10,11 +10,11 @@ if [ command -v javac &>/dev/null ]; then
 	javacexecpath=$(readlink -f "$(which javac)")
 	export JAVA_HOME=${javacexecpath::-10}
 elif [ command -v java &>/dev/null ]; then
-	print "Java compiler not installed which is not recommended, Using java instead"
+	printf "Java compiler not installed which is not recommended, Using java instead"
 	javaexecpath=$(readlink -f "$(which java)")
 	export JAVA_HOME=${javaexecpath::-9}
 else
-	print "Java not installed, please install java"
+	printf "Java not installed, please install java"
 fi
 
 if [ -f "$HOME/.local/share/maven/bin/mvn" ]; then
@@ -44,4 +44,4 @@ alias ssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias sftp="sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias codesudo="sudo code --user-data-dir=/tmp/vscode-root-user-data-dir --no-sandbox"
 alias config='git --git-dir="$HOME/.dotfiles/bare" --work-tree=$HOME'
-print "Common files executed"
+printf "Common files executed"
