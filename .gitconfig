@@ -11,6 +11,6 @@
 [push]
 	followTags = true
 [commit]
-	gpgsign = true
+#	gpgsign = true
 [core]
 	eol = lf
