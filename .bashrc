@@ -11,7 +11,41 @@ if [ -f /etc/bash.bashrc ]; then
 	source /etc/bash.bashrc
 fi
 
-[ -f "$HOME/.exporterrc" ] && source $HOME/.exporterrc
+if [ -f "$HOME/.secrets" ]; then
+	source "$HOME/.secrets"
+fi
+
+if [ command -v javac &>/dev/null ]; then
+	javacexecpath=$(readlink -f "$(which javac)")
+	export JAVA_HOME=${javacexecpath::-10}
+elif [ command -v java &>/dev/null ]; then
+	echo "Java compiler not installed which is not recommended, Using java instead"
+	javaexecpath=$(readlink -f "$(which java)")
+	export JAVA_HOME=${javaexecpath::-9}
+else
+	echo "Java not installed, please install java"
+fi
+
+if [ -f "$HOME/.local/share/maven/bin/mvn" ]; then
+	export PATH=$HOME/.local/share/maven/bin:$PATH
+fi
+
+if [ command -v mvn &>/dev/null ]; then
+	mvnexecpath=$(readlink -f "$(which mvn)")
+	export M2_HOME=${mvnexecpath::-8}
+	export MAVEN_HOME=${M2_HOME}
+else
+	echo "maven not installed, please install maven"
+fi
+
+export PATH=$HOME/.local/bin:$PATH
+GPG_TTY="$(tty)"
+export GPG_TTY
+
+if hash vim &>/dev/null; then
+	export EDITOR=vim
+fi
+
 [ -f "$HOME/.aliasrc" ] && source $HOME/.aliasrc
 
 if [ -f "$HOME/.dotfiles/linode_cli_completion.sh" ]; then
