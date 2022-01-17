@@ -1,4 +1,3 @@
-
 if [ -f "$HOME/.dotfiles/bashsecrets.sh" ]; then
 	source "$HOME/.dotfiles/bashsecrets.sh"
 fi
@@ -7,10 +6,10 @@ if [ -f "$HOME/.dotfiles/linode_cli_completion.sh" ]; then
 	source "$HOME/.dotfiles/linode_cli_completion.sh"
 fi
 
-if command -v javac &>/dev/null; then
+if [ command -v javac &>/dev/null ]; then
 	javacexecpath=$(readlink -f "$(which javac)")
 	export JAVA_HOME=${javacexecpath::-10}
-elif command -v java &>/dev/null; then
+elif [ command -v java &>/dev/null ]; then
 	echo "Java compiler not installed which is not recommended, Using java instead"
 	javaexecpath=$(readlink -f "$(which java)")
 	export JAVA_HOME=${javaexecpath::-9}
@@ -45,3 +44,4 @@ alias df="sudo df -h"
 alias sftp="sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias codesudo="sudo code --user-data-dir=/tmp/vscode-root-user-data-dir --no-sandbox"
 alias config='git --git-dir="$HOME/.dotfiles/bare" --work-tree=$HOME'
+print imported common
