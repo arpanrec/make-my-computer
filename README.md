@@ -8,7 +8,7 @@ curl https://raw.githubusercontent.com/arpanrec/dotfiles/init/.dotfiles/setup.sh
 ```sh
 mkdir -p ${HOME}/.dotfiles && \
 rm -rf ${HOME}/.dotfiles/bare && \
-git clone https://github.com/arpanrec/dotfiles.git --bare $HOME/.dotfiles/bare && \
+git clone --single-branch --branch linux https://github.com/arpanrec/dotfiles.git --bare $HOME/.dotfiles/bare && \
 alias config="git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME" && \
 config config status.showUntrackedFiles no && \
 config reset --hard HEAD && \
