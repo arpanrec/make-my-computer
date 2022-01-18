@@ -22,6 +22,8 @@ fi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+[ -f "/usr/local/bin/zsh" ] && exec /usr/local/bin/zsh -l
+
 export BASH_IT="$HOME/.bash_it"
 if [ -f "$BASH_IT/bash_it.sh" ]; then
 	export BASH_IT_THEME='makemyarch'
