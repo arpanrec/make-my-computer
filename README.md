@@ -20,6 +20,7 @@ rm -rf $HOME/.zsh-syntax-highlighting && git clone --depth=1 https://github.com/
 
 ```sh
 git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config status.showUntrackedFiles no
+git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME branch --set-upstream-to origin bash-zsh
 alias config="git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME"
 config reset --hard HEAD
 ```
