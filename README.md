@@ -19,7 +19,7 @@ rm -rf $HOME/.zsh-syntax-highlighting && git clone --depth=1 https://github.com/
 ### Activate
 
 ```sh
+git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config status.showUntrackedFiles no
 alias config="git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME"
-config config status.showUntrackedFiles no
 config reset --hard HEAD
 ```
