@@ -105,7 +105,7 @@ ALL_PAKGS+=('packagekit-qt5' 'qbittorrent' 'kdialog')
 
 ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats' 'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'taglib' 'ark')
 
-ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-jack' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
+ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-pipewire-jack' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
 
 ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy' 'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'breeze-gtk' 'oxygen')
 
