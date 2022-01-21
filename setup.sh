@@ -93,7 +93,7 @@ ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' '
 
 ALL_PAKGS+=('bash-completion' 'python-pip' 'python-packaging' 'vim' 'rclone' 'git' 'fuse' 'fuse2' 'fuse3')
 
-ALL_PAKGS+=('jdk11-openjdk' 'java-atk-wrapper-openjdk11' 'openjdk11-doc' 'openjdk11-src' 'maven' 'groovy' 'groovy-docs' 'gradle' 'gradle-src' 'gradle-doc' 'go' 'docker' 'criu' 'docker-scan')
+ALL_PAKGS+=('jdk-openjdk' 'java-atk-wrapper-openjdk' 'openjdk-doc' 'openjdk-src' 'maven' 'groovy' 'groovy-docs' 'gradle' 'gradle-src' 'gradle-doc' 'go' 'docker' 'criu' 'docker-scan')
 
 ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet' 'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs' 'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm')
 
