@@ -12,7 +12,7 @@ rm -rf $HOME/.oh-my-zsh && git clone --depth=1 https://github.com/ohmyzsh/ohmyzs
 rm -rf $HOME/.fzf && git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && \
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k && \
 git clone --depth=1 https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions && \
-rm -rf $HOME/.zsh-autosuggestions && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh-autosuggestions && \
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 rm -rf $HOME/.zsh-syntax-highlighting && git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh-syntax-highlighting
 ```
 
