@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 set -e
 
+pre_pro=( java javac go pip3 )
+for prog in "${pre_pro[@]}"
+do
+if ! hash ${prog} &>/dev/null ; then
+	echo ${prog} not Installed
+    exit 1
+fi
+done
+
 BITWARDEN_CLI_VERSION=1.20.0
 BITWARDEN_VERSION=1.30.0
 MATTERMOST_VERSION=5.0.2
 NEOVIM_VERSION=0.6.1
+JQ_VERSION=1.6
 
 mkdir -p "$HOME/tmp/" "$HOME/.local/bin"
 
@@ -25,6 +35,8 @@ echo ""
 read -n1 -p "Enter \"Y\" to install postman (Press any other key to Skip*) : " install_postman
 echo ""
 read -n1 -p "Enter \"Y\" to install neo vim $NEOVIM_VERSION (Press any other key to Skip*) : " install_neovim
+echo ""
+read -n1 -p "Enter \"Y\" to install Jq $JQ_VERSION (Press any other key to Skip*) : " install_jq
 echo ""
 
 if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
@@ -167,4 +179,15 @@ fi
 tar -zxf "$HOME/tmp/nvim-linux64.tar.gz" -C "$HOME/.local/share/nvim-linux64/" --strip-components 1
 ln -s "$HOME/.local/share/nvim-linux64/bin/nvim" "$HOME/.local/bin/nvim"
 echo "# Install neovim END"
+fi
+
+if [[ "$install_jq" == "Y" || "$install_jq" == "y" ]]; then
+echo "# JQ Install Start"
+
+rm -rf "$HOME/.local/bin/jq"
+
+wget "https://github.com/stedolan/jq/releases/download/jq-$JQ_VERSION/jq-linux64" -O "$HOME/.local/bin/jq"
+
+chmod +x "$HOME/.local/bin/jq"
+echo "# JQ Install end"
 fi
