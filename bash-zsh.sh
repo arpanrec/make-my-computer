@@ -83,7 +83,7 @@ echo "# Redownload Dotfiles Start"
 redownload_dotfiles_old_backup_dir="${HOME}/.dotfiles/backup/$(date +%s)"
 
 mkdir -p "${redownload_dotfiles_old_backup_dir}"
-echo "\n Backup Old Files to ${redownload_dotfiles_old_backup_dir}"
+echo "Backup Old Files to ${redownload_dotfiles_old_backup_dir}"
 
 if [ -f "$HOME/.bashrc" ]; then
 cp "$HOME/.bashrc" "${redownload_dotfiles_old_backup_dir}/.bashrc"
@@ -224,8 +224,10 @@ echo "# JQ Install Start"
 
 rm -rf "$HOME/.local/bin/jq"
 
-wget "$JQ_DOWNLOAD_URL" -O "$HOME/.local/bin/jq"
-
+if [ ! -f "$HOME/tmp/jq-$JQ_VERSION" ]; then
+    wget "$JQ_DOWNLOAD_URL" -O "$HOME/tmp/jq-$JQ_VERSION"
+fi
+cp "$HOME/tmp/jq-$JQ_VERSION" "$HOME/.local/bin/jq"
 chmod +x "$HOME/.local/bin/jq"
 echo "# JQ Install end"
 fi
