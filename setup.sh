@@ -111,7 +111,7 @@ if [ ! -f "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz" ];
 wget "https://releases.mattermost.com/desktop/$MATTERMOST_VERSION/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz?src=dl" -O "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz"
 fi
 
-tar -zxvf "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz" -C "$HOME/.local/share/mattermost-desktop" --strip-components 1
+tar -zxf "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz" -C "$HOME/.local/share/mattermost-desktop" --strip-components 1
 
 cat <<EOT > "$HOME/.local/share/applications/mattermost-desktop.desktop"
 [Desktop Entry]
@@ -138,7 +138,7 @@ if [ ! -f "$HOME/tmp/linux64-postman.tar.gz" ]; then
     wget "https://dl.pstmn.io/download/latest/linux64" -O "$HOME/tmp/linux64-postman.tar.gz"
 fi
 
-tar -zxvf "$HOME/tmp/linux64-postman.tar.gz" -C "$HOME/.local/share/Postman" --strip-components 1
+tar -zxf "$HOME/tmp/linux64-postman.tar.gz" -C "$HOME/.local/share/Postman" --strip-components 1
 
 cat <<EOT > "$HOME/.local/share/applications/Postman.desktop"
 [Desktop Entry]
@@ -164,7 +164,7 @@ if [ ! -f "$HOME/tmp/nvim-linux64.tar.gz" ]; then
     wget "https://github.com/neovim/neovim/releases/download/v$NEOVIM_VERSION/nvim-linux64.tar.gz" -O "$HOME/tmp/nvim-linux64.tar.gz"
 fi
 
-tar -zxvf "$HOME/tmp/nvim-linux64.tar.gz" -C "$HOME/.local/share/nvim-linux64/" --strip-components 1
+tar -zxf "$HOME/tmp/nvim-linux64.tar.gz" -C "$HOME/.local/share/nvim-linux64/" --strip-components 1
 ln -s "$HOME/.local/share/nvim-linux64/bin/nvim" "$HOME/.local/bin/nvim"
 echo "# Install neovim END"
 fi
