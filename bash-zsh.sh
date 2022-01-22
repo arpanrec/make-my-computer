@@ -48,6 +48,9 @@ fi
 
 mkdir -p "$HOME/tmp/" "$HOME/.local/bin"
 
+read -n1 -p "Enter \"Y\" to Redownload bash_it, oh-my-zsh and fzf (Press any other key to Skip*) : " redownload_bashit_ohmyzsh_fzf
+echo ""
+
 read -n1 -p "Enter \"Y\" to Redownload Dotfiles (Press any other key to Skip*) : " redownload_dotfiles
 echo ""
 
@@ -63,8 +66,6 @@ echo ""
 fi
 fi
 
-read -n1 -p "Enter \"Y\" to Redownload bash_it, oh-my-zsh and fzf (Press any other key to Skip*) : " redownload_bashit_ohmyzsh_fzf
-echo ""
 read -n1 -p "Enter \"Y\" to install Bitwarden Command-line Interface $BITWARDEN_CLI_VERSION (Press any other key to Skip*) : " install_bitwarden_cli
 echo ""
 read -n1 -p "Enter \"Y\" to install Mattermost $MATTERMOST_VERSION (Press any other key to Skip*) : " install_mattermost
@@ -83,6 +84,22 @@ read -n1 -p "Enter \"Y\" to install maven $MAVEN_VERSION (Press any other key to
 echo ""
 read -n1 -p "Enter \"Y\" to install node js $NODE_JS_VERSION (Press any other key to Skip*) : " install_node_js
 echo ""
+
+if [[ "$redownload_bashit_ohmyzsh_fzf" == "Y" || "$redownload_bashit_ohmyzsh_fzf" == "y" ]]; then
+echo "# Redownload bash_it, oh-my-zsh and fzf Start"
+
+rm -rf "$HOME/.bash_it" "$HOME/.oh-my-zsh" "$HOME/.fzf"
+git clone --depth=1 https://github.com/Bash-it/bash-it "$HOME/.bash_it"
+git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone --depth=1 https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone --depth=1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
+"$HOME/.fzf/install" --all
+
+echo "# Redownload bash_it, oh-my-zsh and fzf END"
+fi
 
 if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
 echo "# Redownload Dotfiles Start"
@@ -128,22 +145,6 @@ ln -s "$HOME/.dotfiles/gitconfig" "$HOME/.gitconfig"
 fi
 
 echo "# Redownload Dotfiles END"
-fi
-
-if [[ "$redownload_bashit_ohmyzsh_fzf" == "Y" || "$redownload_bashit_ohmyzsh_fzf" == "y" ]]; then
-echo "# Redownload bash_it, oh-my-zsh and fzf Start"
-
-rm -rf "$HOME/.bash_it" "$HOME/.oh-my-zsh" "$HOME/.fzf"
-git clone --depth=1 https://github.com/Bash-it/bash-it "$HOME/.bash_it"
-git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
-git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone --depth=1 https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone --depth=1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
-"$HOME/.fzf/install" --all
-
-echo "# Redownload bash_it, oh-my-zsh and fzf END"
 fi
 
 if [[ "$install_bitwarden_cli" == "Y" || "$install_bitwarden_cli" == "y" ]]; then
