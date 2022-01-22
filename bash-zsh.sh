@@ -10,8 +10,6 @@ if ! hash ${prog} &>/dev/null ; then
 fi
 done
 
-OS_ARCH_ARCH=amd
-
 BITWARDEN_CLI_VERSION=1.20.0
 BITWARDEN_VERSION=1.30.0
 MATTERMOST_VERSION=5.0.2
