@@ -52,8 +52,15 @@ read -n1 -p "Enter \"Y\" to Redownload Dotfiles (Press any other key to Skip*) :
 echo ""
 
 if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
+echo "All the contents for $HOME directory will be replaced by https://github.com/arpanrec/dotfiles/tree/bash-zsh"
+echo "Double check the files present in https://github.com/arpanrec/dotfiles/tree/bash-zsh"
+unset redownload_dotfiles
+read -n1 -p "Enter \"Y\" to If you still wanna get the contents (Press any other key to Skip*) : " redownload_dotfiles
+echo ""
+if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
 read -n1 -p "Enter \"Y\" to create softlink of gitconfig $HOME/.dotfiles/gitconfig => $HOME/.gitconfig (Press any other key to Skip*) : " redownload_dotfiles_link_git_config
 echo ""
+fi
 fi
 
 read -n1 -p "Enter \"Y\" to Redownload bash_it, oh-my-zsh and fzf (Press any other key to Skip*) : " redownload_bashit_ohmyzsh_fzf
