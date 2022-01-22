@@ -236,11 +236,11 @@ echo "# GO Install Start"
 rm -rf "$HOME/.local/share/go"
 mkdir -p "$HOME/.local/share/go"
 
-if [ ! -f "$HOME/tmp/go$GO_VERSION.linux.tar.gz" ]; then
-    wget "$GO_DOWNLOAD_URL" -O "$HOME/tmp/go$GO_VERSION.linux.tar.gz"
+if [ ! -f "$HOME/tmp/go-$GO_VERSION.linux.tar.gz" ]; then
+    wget "$GO_DOWNLOAD_URL" -O "$HOME/tmp/go-$GO_VERSION.linux.tar.gz"
 fi
 
-tar -zxf "$HOME/tmp/go$GO_VERSION.linux.tar.gz" -C "$HOME/.local/share/go" --strip-components 1
+tar -zxf "$HOME/tmp/go-$GO_VERSION.linux.tar.gz" -C "$HOME/.local/share/go" --strip-components 1
 
 echo "# GO Install End"
 fi
