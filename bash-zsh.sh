@@ -19,6 +19,7 @@ NEOVIM_VERSION=0.6.1
 JQ_VERSION=1.6
 GO_VERSION=1.17.6
 JDK_VERSION=17
+MAVEN_VERSION=3.8.4
 
 unset BITWARDEN_CLI_DOWNLOAD_URL
 unset BITWARDEN_DOWNLOAD_URL
@@ -28,6 +29,7 @@ unset NEOVIM_DOWNLOAD_URL
 unset JQ_DOWNLOAD_URL
 unset GO_DOWNLOAD_URL
 unset JDK_DOWNLOAD_URL
+unset MAVEN_DOWNLOAD_URL
 
 if [[  "$(uname -m)" == 'x86_64'  ]]; then
 
@@ -38,7 +40,8 @@ POSTMAN_DOWNLOAD_URL="https://dl.pstmn.io/download/latest/linux64"
 NEOVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/v${NEOVIM_VERSION}/nvim-linux64.tar.gz"
 JQ_DOWNLOAD_URL="https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64"
 GO_DOWNLOAD_URL="https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
-JDK_DOWNLOAD_URL="wget https://download.oracle.com/java/${JDK_VERSION}/latest/jdk-${JDK_VERSION}_linux-x64_bin.tar.gz"
+JDK_DOWNLOAD_URL="https://download.oracle.com/java/${JDK_VERSION}/latest/jdk-${JDK_VERSION}_linux-x64_bin.tar.gz"
+MAVEN_DOWNLOAD_URL="https://dlcdn.apache.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz"
 
 fi
 
@@ -67,6 +70,8 @@ echo ""
 read -n1 -p "Enter \"Y\" to install go $GO_VERSION (Press any other key to Skip*) : " install_go
 echo ""
 read -n1 -p "Enter \"Y\" to install JDK $JDK_VERSION (Press any other key to Skip*) : " install_jdk
+echo ""
+read -n1 -p "Enter \"Y\" to install maven $MAVEN_VERSION (Press any other key to Skip*) : " install_maven
 echo ""
 
 if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
@@ -251,4 +256,19 @@ fi
 tar -zxf "${HOME}/tmp/jdk-${JDK_VERSION}.linux.tar.gz" -C "$HOME/.local/share/java" --strip-components 1
 
 echo "# JDK Install End"
+fi
+
+if [[ "$install_maven" == "Y" || "$install_maven" == "y" ]]; then
+echo "# Maven Install Start"
+
+rm -rf "$HOME/.local/share/maven"
+mkdir -p "$HOME/.local/share/maven"
+
+if [ ! -f "${HOME}/tmp/mvn-${MAVEN_VERSION}.linux.tar.gz" ]; then
+    wget "${MAVEN_DOWNLOAD_URL}" -O "${HOME}/tmp/mvn-${MAVEN_VERSION}.linux.tar.gz"
+fi
+
+tar -zxf "${HOME}/tmp/mvn-${MAVEN_VERSION}.linux.tar.gz" -C "$HOME/.local/share/maven" --strip-components 1
+
+echo "# Maven Install End"
 fi
