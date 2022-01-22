@@ -10,11 +10,34 @@ if ! hash ${prog} &>/dev/null ; then
 fi
 done
 
+OS_ARCH_ARCH=amd
+
 BITWARDEN_CLI_VERSION=1.20.0
 BITWARDEN_VERSION=1.30.0
 MATTERMOST_VERSION=5.0.2
 NEOVIM_VERSION=0.6.1
 JQ_VERSION=1.6
+GO_VERSION=1.17.6
+
+unset BITWARDEN_CLI_DOWNLOAD_URL
+unset BITWARDEN_DOWNLOAD_URL
+unset MATTERMOST_DOWNLOAD_URL
+unset POSTMAN_DOWNLOAD_URL
+unset NEOVIM_DOWNLOAD_URL
+unset JQ_DOWNLOAD_URL
+unset GO_DOWNLOAD_URL
+
+if [[  "$(uname -m)" == 'x86_64'  ]]; then
+
+BITWARDEN_CLI_DOWNLOAD_URL="https://github.com/bitwarden/cli/releases/download/v$BITWARDEN_CLI_VERSION/bw-linux-$BITWARDEN_CLI_VERSION.zip"
+BITWARDEN_DOWNLOAD_URL=""
+MATTERMOST_DOWNLOAD_URL="https://releases.mattermost.com/desktop/$MATTERMOST_VERSION/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz?src=dl"
+POSTMAN_DOWNLOAD_URL="https://dl.pstmn.io/download/latest/linux64"
+NEOVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/v$NEOVIM_VERSION/nvim-linux64.tar.gz"
+JQ_DOWNLOAD_URL="https://github.com/stedolan/jq/releases/download/jq-$JQ_VERSION/jq-linux64"
+GO_DOWNLOAD_URL="https://go.dev/dl/go$GO_VERSION.linux-amd64.tar.gz"
+
+fi
 
 mkdir -p "$HOME/tmp/" "$HOME/.local/bin"
 
@@ -37,6 +60,8 @@ echo ""
 read -n1 -p "Enter \"Y\" to install neo vim $NEOVIM_VERSION (Press any other key to Skip*) : " install_neovim
 echo ""
 read -n1 -p "Enter \"Y\" to install Jq $JQ_VERSION (Press any other key to Skip*) : " install_jq
+echo ""
+read -n1 -p "Enter \"Y\" to install go $GO_VERSION (Press any other key to Skip*) : " install_go
 echo ""
 
 if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
@@ -106,11 +131,11 @@ echo "# Bitwarden CLI Install Start"
 
 rm -rf "$HOME/.local/bin/bw"
 
-if [ ! -f "$HOME/tmp/bw-linux.zip" ]; then
-    wget "https://github.com/bitwarden/cli/releases/download/v$BITWARDEN_CLI_VERSION/bw-linux-$BITWARDEN_CLI_VERSION.zip" -O "$HOME/tmp/bw-linux.zip"
+if [ ! -f "$HOME/tmp/bw-linux-$BITWARDEN_CLI_VERSION.zip" ]; then
+    wget "$BITWARDEN_CLI_DOWNLOAD_URL" -O "$HOME/tmp/bw-linux-$BITWARDEN_CLI_VERSION.zip"
 fi
 
-unzip -o "$HOME/tmp/bw-linux.zip" -d "$HOME/.local/bin/"
+unzip -o "$HOME/tmp/bw-linux-$BITWARDEN_CLI_VERSION.zip" -d "$HOME/.local/bin/"
 chmod +x "$HOME/.local/bin/bw"
 echo "# Bitwarden CLI Install END"
 fi
@@ -119,11 +144,11 @@ if [[ "$install_mattermost" == "Y" || "$install_mattermost" == "y" ]]; then
 echo "# Mattermost Desktop Application Start"
 mkdir -p "$HOME/.local/share/mattermost-desktop"
 
-if [ ! -f "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz" ]; then
-wget "https://releases.mattermost.com/desktop/$MATTERMOST_VERSION/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz?src=dl" -O "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz"
+if [ ! -f "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" ]; then
+wget "$MATTERMOST_DOWNLOAD_URL" -O "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION.tar.gz"
 fi
 
-tar -zxf "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION-linux-x64.tar.gz" -C "$HOME/.local/share/mattermost-desktop" --strip-components 1
+tar -zxf "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" -C "$HOME/.local/share/mattermost-desktop" --strip-components 1
 
 cat <<EOT > "$HOME/.local/share/applications/mattermost-desktop.desktop"
 [Desktop Entry]
@@ -146,11 +171,11 @@ echo "# Postman Install Start"
 rm -rf "$HOME/.local/share/Postman"
 mkdir -p "$HOME/.local/share/Postman"
 
-if [ ! -f "$HOME/tmp/linux64-postman.tar.gz" ]; then
-    wget "https://dl.pstmn.io/download/latest/linux64" -O "$HOME/tmp/linux64-postman.tar.gz"
+if [ ! -f "$HOME/tmp/postman.tar.gz" ]; then
+    wget "$POSTMAN_DOWNLOAD_URL" -O "$HOME/tmp/postman.tar.gz"
 fi
 
-tar -zxf "$HOME/tmp/linux64-postman.tar.gz" -C "$HOME/.local/share/Postman" --strip-components 1
+tar -zxf "$HOME/tmp/postman.tar.gz" -C "$HOME/.local/share/Postman" --strip-components 1
 
 cat <<EOT > "$HOME/.local/share/applications/Postman.desktop"
 [Desktop Entry]
@@ -169,15 +194,15 @@ fi
 if [[ "$install_neovim" == "Y" || "$install_neovim" == "y" ]]; then
 echo "# Install neovim Start"
 
-rm -rf "$HOME/.local/share/nvim-linux64/" "$HOME/.local/bin/nvim"
-mkdir -p "$HOME/.local/share/nvim-linux64/"
+rm -rf "$HOME/.local/share/nvim/" "$HOME/.local/bin/nvim"
+mkdir -p "$HOME/.local/share/nvim/"
 
-if [ ! -f "$HOME/tmp/nvim-linux64.tar.gz" ]; then
-    wget "https://github.com/neovim/neovim/releases/download/v$NEOVIM_VERSION/nvim-linux64.tar.gz" -O "$HOME/tmp/nvim-linux64.tar.gz"
+if [ ! -f "$HOME/tmp/nvim-$NEOVIM_VERSION.tar.gz" ]; then
+    wget "$NEOVIM_DOWNLOAD_URL" -O "$HOME/tmp/nvim-$NEOVIM_VERSION.tar.gz"
 fi
 
-tar -zxf "$HOME/tmp/nvim-linux64.tar.gz" -C "$HOME/.local/share/nvim-linux64/" --strip-components 1
-ln -s "$HOME/.local/share/nvim-linux64/bin/nvim" "$HOME/.local/bin/nvim"
+tar -zxf "$HOME/tmp/nvim-$NEOVIM_VERSION.tar.gz" -C "$HOME/.local/share/nvim/" --strip-components 1
+ln -s "$HOME/.local/share/nvim/bin/nvim" "$HOME/.local/bin/nvim"
 echo "# Install neovim END"
 fi
 
@@ -186,8 +211,23 @@ echo "# JQ Install Start"
 
 rm -rf "$HOME/.local/bin/jq"
 
-wget "https://github.com/stedolan/jq/releases/download/jq-$JQ_VERSION/jq-linux64" -O "$HOME/.local/bin/jq"
+wget "$JQ_DOWNLOAD_URL" -O "$HOME/.local/bin/jq"
 
 chmod +x "$HOME/.local/bin/jq"
 echo "# JQ Install end"
+fi
+
+if [[ "$install_go" == "Y" || "$install_go" == "y" ]]; then
+echo "# GO Install Start"
+
+rm -rf "$HOME/.local/share/go"
+mkdir -p "$HOME/.local/share/go"
+
+if [ ! -f "$HOME/tmp/go$GO_VERSION.linux.tar.gz" ]; then
+    wget "$GO_DOWNLOAD_URL" -O "$HOME/tmp/go$GO_VERSION.linux.tar.gz"
+fi
+
+tar -zxf "$HOME/tmp/go$GO_VERSION.linux.tar.gz" -C "$HOME/.local/share/go" --strip-components 1
+
+echo "# GO Install End"
 fi
