@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-pre_pro=( java javac maven go pip3 )
+pre_pro=( java javac mvn go pip3 )
 for prog in "${pre_pro[@]}"
 do
 if ! hash ${prog} &>/dev/null ; then
