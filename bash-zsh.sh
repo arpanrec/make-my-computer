@@ -27,6 +27,7 @@ MAVEN_VERSION=3.8.4
 NODE_JS_VERSION=16.13.2
 NCURSES_VERSION=6.3
 ZSH_VERSION=5.8
+VSCODE_VERSION=1.63.2
 
 unset BITWARDEN_CLI_DOWNLOAD_URL
 unset BITWARDEN_DOWNLOAD_URL
@@ -40,6 +41,7 @@ unset MAVEN_DOWNLOAD_URL
 unset NODE_JS_DOWNLOAD_URL
 unset NCURSES_DOWNLOAD_URL
 unset ZSH_DOWNLOAD_URL
+unset VSCODE_DOWNLOAD_URL
 
 if [[  "$(uname -m)" == 'x86_64'  ]]; then
 
@@ -55,7 +57,7 @@ MAVEN_DOWNLOAD_URL="https://dlcdn.apache.org/maven/maven-3/$MAVEN_VERSION/binari
 NODE_JS_DOWNLOAD_URL="https://nodejs.org/dist/v$NODE_JS_VERSION/node-v$NODE_JS_VERSION-linux-x64.tar.xz"
 NCURSES_DOWNLOAD_URL="https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$NCURSES_VERSION.tar.gz"
 ZSH_DOWNLOAD_URL="https://onboardcloud.dl.sourceforge.net/project/zsh/zsh/$ZSH_VERSION/zsh-$ZSH_VERSION.tar.xz"
-
+VSCODE_DOWNLOAD_URL="https://update.code.visualstudio.com/$VSCODE_VERSION/linux-x64/stable"
 fi
 
 read -n1 -p "Enter \"Y\" to Redownload bash_it, oh-my-zsh and fzf (Press any other key to Skip*) : " redownload_bashit_ohmyzsh_fzf
@@ -93,6 +95,8 @@ echo ""
 read -n1 -p "Enter \"Y\" to install maven $MAVEN_VERSION (Press any other key to Skip*) : " install_maven
 echo ""
 read -n1 -p "Enter \"Y\" to install node js $NODE_JS_VERSION (Press any other key to Skip*) : " install_node_js
+echo ""
+read -n1 -p "Enter \"Y\" to install vscode $VSCODE_VERSION (Press any other key to Skip*) : " install_vscode
 echo ""
 read -n1 -p "Enter \"Y\" to install ncurses $NCURSES_VERSION (Press any other key to Skip*) : " install_ncurses
 echo ""
@@ -314,6 +318,116 @@ fi
 tar -xf "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/node" --strip-components 1
 
 echo "# Node JS Install End"
+fi
+
+if [[ "$install_vscode" == "Y" || "$install_vscode" == "y" ]]; then
+echo "# VSCODE Install Start"
+
+rm -rf "$PATH_TO_LOCAL_PREFX/share/vscode"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/vscode"
+
+if [ ! -f "$TEMP_DOWNLOAD_PATH/vscode-$VSCODE_VERSION.linux.tar.gz" ]; then
+    wget --no-check-certificate "$VSCODE_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/vscode-$VSCODE_VERSION.linux.tar.gz"
+fi
+
+tar -zxf "$TEMP_DOWNLOAD_PATH/vscode-$VSCODE_VERSION.linux.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/vscode" --strip-components 1
+
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/code.desktop"
+[Desktop Entry]
+Name=Visual Studio Code - MMC
+Comment=Code Editing. Redefined.
+GenericName=Text Editor
+Exec=$PATH_TO_LOCAL_PREFX/share/vscode/code --no-sandbox --unity-launch %F
+Icon=com.visualstudio.code
+Type=Application
+StartupNotify=false
+StartupWMClass=Code
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;application/x-code-workspace;
+Actions=new-empty-window;
+Keywords=vscode;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=$PATH_TO_LOCAL_PREFX/share/vscode/code --no-sandbox --new-window %F
+Icon=com.visualstudio.codevisualstudio.code
+EOT
+
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/code-url-handler.desktop"
+[Desktop Entry]
+Name=Visual Studio Code - URL Handler - MMC
+Comment=Code Editing. Redefined.
+GenericName=Text Editor
+Exec=$PATH_TO_LOCAL_PREFX/share/vscode/code --no-sandbox --open-url %U
+Icon=com.visualstudio.code
+Type=Application
+NoDisplay=true
+StartupNotify=true
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=x-scheme-handler/vscode;
+Keywords=vscode;
+EOT
+
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/bin/code"
+#!/usr/bin/env sh
+#
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+
+# test that VSCode wasn't installed inside WSL
+if grep -qi Microsoft /proc/version && [ -z "$DONT_PROMPT_WSL_INSTALL" ]; then
+	echo "To use Visual Studio Code with the Windows Subsystem for Linux, please install Visual Studio Code in Windows and uninstall the Linux version in WSL. You can then use the \`code\` command in a WSL terminal just as you would in a normal command prompt." 1>&2
+	printf "Do you want to continue anyway? [y/N] " 1>&2
+	read -r YN
+	YN=$(printf '%s' "$YN" | tr '[:upper:]' '[:lower:]')
+	case "$YN" in
+		y | yes )
+		;;
+		* )
+			exit 1
+		;;
+	esac
+	echo "To no longer see this prompt, start Visual Studio Code with the environment variable DONT_PROMPT_WSL_INSTALL defined." 1>&2
+fi
+
+# If root, ensure that --user-data-dir or --file-write is specified
+if [ "$(id -u)" = "0" ]; then
+	for i in "$@"
+	do
+		case "$i" in
+			--user-data-dir | --user-data-dir=* | --file-write )
+				CAN_LAUNCH_AS_ROOT=1
+			;;
+		esac
+	done
+	if [ -z $CAN_LAUNCH_AS_ROOT ]; then
+		echo "You are trying to start Visual Studio Code as a super user which isn't recommended. If this was intended, please specify an alternate user data directory using the \`--user-data-dir\` argument." 1>&2
+		exit 1
+	fi
+fi
+
+if [ ! -L "$0" ]; then
+	# if path is not a symlink, find relatively
+	VSCODE_PATH="$(dirname "$0")/.."
+else
+	if command -v readlink >/dev/null; then
+		# if readlink exists, follow the symlink and find relatively
+		VSCODE_PATH="$(dirname "$(readlink -f "$0")")/.."
+	else
+		# else use the standard install location
+		VSCODE_PATH="$PATH_TO_LOCAL_PREFX/share/vscode/code"
+	fi
+fi
+
+ELECTRON="$VSCODE_PATH/code"
+CLI="$VSCODE_PATH/resources/app/out/cli.js"
+ELECTRON_RUN_AS_NODE=1 "$ELECTRON" "$CLI" "$@"
+exit $?
+EOT
+
+chmod +x "$PATH_TO_LOCAL_PREFX/bin/code"
+
+echo "# VSCODE Install End"
 fi
 
 if [[ "$install_ncurses" == "Y" || "$install_ncurses" == "y" ]]; then
