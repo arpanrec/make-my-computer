@@ -19,6 +19,7 @@ GO_VERSION=1.17.6
 JDK_VERSION=17
 MAVEN_VERSION=3.8.4
 NODE_JS_VERSION=16.13.2
+NCURSES_VERSION=6.3
 
 unset BITWARDEN_CLI_DOWNLOAD_URL
 unset BITWARDEN_DOWNLOAD_URL
@@ -43,6 +44,7 @@ GO_DOWNLOAD_URL="https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
 JDK_DOWNLOAD_URL="https://download.oracle.com/java/${JDK_VERSION}/latest/jdk-${JDK_VERSION}_linux-x64_bin.tar.gz"
 MAVEN_DOWNLOAD_URL="https://dlcdn.apache.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz"
 NODE_JS_DOWNLOAD_URL="https://nodejs.org/dist/v$NODE_JS_VERSION/node-v$NODE_JS_VERSION-linux-x64.tar.xz"
+NCURSES_DOWNLOAD_URL="https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$NCURSES_VERSION.tar.gz"
 
 fi
 
@@ -83,6 +85,8 @@ echo ""
 read -n1 -p "Enter \"Y\" to install maven $MAVEN_VERSION (Press any other key to Skip*) : " install_maven
 echo ""
 read -n1 -p "Enter \"Y\" to install node js $NODE_JS_VERSION (Press any other key to Skip*) : " install_node_js
+echo ""
+read -n1 -p "Enter \"Y\" to install ncurses $NCURSES_VERSION (Press any other key to Skip*) : " install_ncurses
 echo ""
 
 if [[ "$redownload_bashit_ohmyzsh_fzf" == "Y" || "$redownload_bashit_ohmyzsh_fzf" == "y" ]]; then
@@ -299,4 +303,23 @@ fi
 tar -xf "${HOME}/tmp/nodejs-${NODE_JS_VERSION}.linux.tar.gz" -C "$HOME/.local/share/node" --strip-components 1
 
 echo "# Node JS Install End"
+fi
+
+if [[ "$install_ncurses" == "Y" || "$install_ncurses" == "y" ]]; then
+echo "# Ncurses Install Start"
+
+rm -rf "$HOME/.local/share/ncurses" "$HOME/tmp/source/ncurses"
+mkdir -p "$HOME/.local/share/ncurses" "$HOME/tmp/source/ncurses"
+
+if [ ! -f "${HOME}/tmp/ncurses-${NCURSES_VERSION}.linux.tar.gz" ]; then
+    wget "${NCURSES_DOWNLOAD_URL}" -O "${HOME}/tmp/ncurses-${NCURSES_VERSION}.linux.tar.gz"
+fi
+
+tar -xf "${HOME}/tmp/ncurses-${NCURSES_VERSION}.linux.tar.gz" -C "$HOME/tmp/source/ncurses" --strip-components 1
+
+cd "$HOME/tmp/source/ncurses"
+"./configure" --prefix="$HOME/.local" --with-shared --without-debug --enable-widec
+make
+make install
+echo "# Ncurses Install end"
 fi
