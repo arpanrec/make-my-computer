@@ -361,9 +361,17 @@ fi
 tar -xf "$TEMP_DOWNLOAD_PATH/zsh-${ZSH_VERSION}.linux.tar.xz" -C "$SOURCE_PACKAGE_PATH/zsh" --strip-components 1
 
 cd "$SOURCE_PACKAGE_PATH/zsh"
-"./configure" --prefix="$PATH_TO_LOCAL_PREFX" --with-shared --without-debug --enable-widec
+
+export CFLAGS=-I$HOME/.local/include
+export CPPFLAGS="-I$HOME/.local/include" LDFLAGS="-L$HOME/.local/lib"
+
+"./configure" --prefix="$PATH_TO_LOCAL_PREFX"
 make
 make install
+
+unset CFLAGS
+unset CPPFLAGS
+
 echo "# ZSH Install end"
 fi
 
