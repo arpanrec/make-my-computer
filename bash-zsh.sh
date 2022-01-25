@@ -169,14 +169,14 @@ fi
 if [[ "$install_bitwarden_cli" == "Y" || "$install_bitwarden_cli" == "y" ]]; then
 echo "# Bitwarden CLI Install Start"
 
-rm -rf "$HOME/.local/bin/bw"
+rm -rf "$PATH_TO_LOCAL_PREFX/bin/bw"
 
-if [ ! -f "$HOME/tmp/bw-linux-$BITWARDEN_CLI_VERSION.zip" ]; then
-    wget "$BITWARDEN_CLI_DOWNLOAD_URL" -O "$HOME/tmp/bw-linux-$BITWARDEN_CLI_VERSION.zip"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/bw-linux-$BITWARDEN_CLI_VERSION.zip" ]; then
+    wget "$BITWARDEN_CLI_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/bw-linux-$BITWARDEN_CLI_VERSION.zip"
 fi
 
-unzip -o "$HOME/tmp/bw-linux-$BITWARDEN_CLI_VERSION.zip" -d "$HOME/.local/bin/"
-chmod +x "$HOME/.local/bin/bw"
+unzip -o "$TEMP_DOWNLOAD_PATH/bw-linux-$BITWARDEN_CLI_VERSION.zip" -d "$PATH_TO_LOCAL_PREFX/bin/"
+chmod +x "$PATH_TO_LOCAL_PREFX/bin/bw"
 echo "# Bitwarden CLI Install END"
 fi
 
