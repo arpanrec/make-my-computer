@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-pre_pro=( wget unzip tar pip3 g++ make openssl gpg2 )
+pre_pro=( wget unzip tar pip3 )
 for prog in "${pre_pro[@]}"
 do
 if ! hash ${prog} &>/dev/null ; then
