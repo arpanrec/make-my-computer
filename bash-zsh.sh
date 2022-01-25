@@ -27,7 +27,6 @@ MAVEN_VERSION=3.8.4
 NODE_JS_VERSION=16.13.2
 NCURSES_VERSION=6.3
 ZSH_VERSION=5.8
-OPENSSL_VERSION=3.0.1
 
 unset BITWARDEN_CLI_DOWNLOAD_URL
 unset BITWARDEN_DOWNLOAD_URL
@@ -41,7 +40,6 @@ unset MAVEN_DOWNLOAD_URL
 unset NODE_JS_DOWNLOAD_URL
 unset NCURSES_DOWNLOAD_URL
 unset ZSH_DOWNLOAD_URL
-unset OPENSSL_DOWNLOAD_URL
 
 if [[  "$(uname -m)" == 'x86_64'  ]]; then
 
@@ -57,7 +55,6 @@ MAVEN_DOWNLOAD_URL="https://dlcdn.apache.org/maven/maven-3/$MAVEN_VERSION/binari
 NODE_JS_DOWNLOAD_URL="https://nodejs.org/dist/v$NODE_JS_VERSION/node-v$NODE_JS_VERSION-linux-x64.tar.xz"
 NCURSES_DOWNLOAD_URL="https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$NCURSES_VERSION.tar.gz"
 ZSH_DOWNLOAD_URL="https://onboardcloud.dl.sourceforge.net/project/zsh/zsh/$ZSH_VERSION/zsh-$ZSH_VERSION.tar.xz"
-OPENSSL_DOWNLOAD_URL="https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
 
 fi
 
@@ -100,8 +97,6 @@ echo ""
 read -n1 -p "Enter \"Y\" to install ncurses $NCURSES_VERSION (Press any other key to Skip*) : " install_ncurses
 echo ""
 read -n1 -p "Enter \"Y\" to install zsh $ZSH_VERSION (Press any other key to Skip*) : " install_zsh
-echo ""
-read -n1 -p "Enter \"Y\" to install openssl $OPENSSL_VERSION (Press any other key to Skip*) : " install_openssl
 echo ""
 
 if [[ "$redownload_bashit_ohmyzsh_fzf" == "Y" || "$redownload_bashit_ohmyzsh_fzf" == "y" ]]; then
@@ -373,23 +368,4 @@ unset CFLAGS
 unset CPPFLAGS
 
 echo "# ZSH Install end"
-fi
-
-if [[ "$install_openssl" == "Y" || "$install_openssl" == "y" ]]; then
-echo "# Openssl Install Start"
-
-rm -rf "$SOURCE_PACKAGE_PATH/ssl"
-mkdir -p "$SOURCE_PACKAGE_PATH/ssl"
-
-if [ ! -f "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz" ]; then
-    wget --no-check-certificate "${OPENSSL_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz"
-fi
-
-tar -zxf "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz" -C "$SOURCE_PACKAGE_PATH/ssl" --strip-components 1
-
-cd "$SOURCE_PACKAGE_PATH/ssl"
-"./Configure" --prefix="$PATH_TO_LOCAL_PREFX" shared zlib
-make
-make install
-echo "# Openssl Install end"
 fi
