@@ -14,6 +14,8 @@ TEMP_DOWNLOAD_PATH="$HOME/.tmp"
 SOURCE_PACKAGE_PATH="$HOME/.local/src"
 PATH_TO_LOCAL_PREFX="$HOME/.local"
 
+mkdir -p "$TEMP_DOWNLOAD_PATH" "$SOURCE_PACKAGE_PATH"
+
 BITWARDEN_CLI_VERSION=1.20.0
 BITWARDEN_VERSION=1.30.0
 MATTERMOST_VERSION=5.0.2
@@ -58,8 +60,6 @@ ZSH_DOWNLOAD_URL="https://onboardcloud.dl.sourceforge.net/project/zsh/zsh/$ZSH_V
 OPENSSL_DOWNLOAD_URL="https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
 
 fi
-
-mkdir -p "$HOME/tmp/" "$HOME/.local/bin"
 
 read -n1 -p "Enter \"Y\" to Redownload bash_it, oh-my-zsh and fzf (Press any other key to Skip*) : " redownload_bashit_ohmyzsh_fzf
 echo ""
