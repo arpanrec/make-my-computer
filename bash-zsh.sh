@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-pre_pro=( wget --no-check-certificate  unzip tar pip3 )
+pre_pro=( wget unzip tar pip3 )
 for prog in "${pre_pro[@]}"
 do
 if ! hash ${prog} &>/dev/null ; then
