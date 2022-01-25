@@ -173,7 +173,7 @@ echo "# Bitwarden CLI Install Start"
 rm -rf "$PATH_TO_LOCAL_PREFX/bin/bw"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/bw-linux-$BITWARDEN_CLI_VERSION.zip" ]; then
-    wget --no-check-certificate  "$BITWARDEN_CLI_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/bw-linux-$BITWARDEN_CLI_VERSION.zip"
+    wget --no-check-certificate "$BITWARDEN_CLI_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/bw-linux-$BITWARDEN_CLI_VERSION.zip"
 fi
 
 unzip -o "$TEMP_DOWNLOAD_PATH/bw-linux-$BITWARDEN_CLI_VERSION.zip" -d "$PATH_TO_LOCAL_PREFX/bin/"
@@ -186,7 +186,7 @@ echo "# Mattermost Desktop Application Start"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/mattermost-desktop"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" ]; then
-wget --no-check-certificate  "$MATTERMOST_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/mattermost-desktop-$MATTERMOST_VERSION.tar.gz"
+    wget --no-check-certificate "$MATTERMOST_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/mattermost-desktop-$MATTERMOST_VERSION.tar.gz"
 fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/mattermost-desktop" --strip-components 1
@@ -213,7 +213,7 @@ rm -rf "$PATH_TO_LOCAL_PREFX/share/Postman"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/Postman"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/postman.tar.gz" ]; then
-    wget --no-check-certificate  "$POSTMAN_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/postman.tar.gz"
+    wget --no-check-certificate "$POSTMAN_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/postman.tar.gz"
 fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/postman.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/Postman" --strip-components 1
@@ -239,7 +239,7 @@ rm -rf "$PATH_TO_LOCAL_PREFX/share/nvim/" "$PATH_TO_LOCAL_PREFX/bin/nvim"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/nvim/"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/nvim-$NEOVIM_VERSION.tar.gz" ]; then
-    wget --no-check-certificate  "$NEOVIM_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/nvim-$NEOVIM_VERSION.tar.gz"
+    wget --no-check-certificate "$NEOVIM_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/nvim-$NEOVIM_VERSION.tar.gz"
 fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/nvim-$NEOVIM_VERSION.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/nvim/" --strip-components 1
@@ -253,7 +253,7 @@ echo "# JQ Install Start"
 rm -rf "$PATH_TO_LOCAL_PREFX/bin/jq"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/jq-$JQ_VERSION" ]; then
-    wget --no-check-certificate  "$JQ_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/jq-$JQ_VERSION"
+    wget --no-check-certificate "$JQ_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/jq-$JQ_VERSION"
 fi
 cp "$TEMP_DOWNLOAD_PATH/jq-$JQ_VERSION" "$PATH_TO_LOCAL_PREFX/bin/jq"
 chmod +x "$PATH_TO_LOCAL_PREFX/bin/jq"
@@ -267,7 +267,7 @@ rm -rf "$PATH_TO_LOCAL_PREFX/share/go"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/go"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/go-$GO_VERSION.linux.tar.gz" ]; then
-    wget --no-check-certificate  "$GO_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/go-$GO_VERSION.linux.tar.gz"
+    wget --no-check-certificate "$GO_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/go-$GO_VERSION.linux.tar.gz"
 fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/go-$GO_VERSION.linux.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/go" --strip-components 1
@@ -283,7 +283,7 @@ rm -rf "$PATH_TO_LOCAL_PREFX/share/java"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/java"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/jdk-${JDK_VERSION}.linux.tar.gz" ]; then
-    wget --no-check-certificate  "${JDK_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/jdk-${JDK_VERSION}.linux.tar.gz"
+    wget --no-check-certificate "${JDK_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/jdk-${JDK_VERSION}.linux.tar.gz"
 fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/jdk-${JDK_VERSION}.linux.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/java" --strip-components 1
@@ -298,7 +298,7 @@ rm -rf "$PATH_TO_LOCAL_PREFX/share/maven"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/maven"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/mvn-${MAVEN_VERSION}.linux.tar.gz" ]; then
-    wget --no-check-certificate  "${MAVEN_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/mvn-${MAVEN_VERSION}.linux.tar.gz"
+    wget --no-check-certificate "${MAVEN_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/mvn-${MAVEN_VERSION}.linux.tar.gz"
 fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/mvn-${MAVEN_VERSION}.linux.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/maven" --strip-components 1
@@ -313,7 +313,7 @@ rm -rf "$PATH_TO_LOCAL_PREFX/share/node"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/node"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" ]; then
-    wget --no-check-certificate  "${NODE_JS_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz"
+    wget --no-check-certificate "${NODE_JS_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz"
 fi
 
 tar -xf "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/node" --strip-components 1
@@ -331,7 +331,7 @@ export CXXFLAGS=' -fPIC'
 export CFLAGS=' -fPIC'
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz" ]; then
-    wget --no-check-certificate  "${NCURSES_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz"
+    wget --no-check-certificate "${NCURSES_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz"
 fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz" -C "$SOURCE_PACKAGE_PATH/ncurses" --strip-components 1
@@ -355,7 +355,7 @@ rm -rf "$SOURCE_PACKAGE_PATH/zsh"
 mkdir -p "$SOURCE_PACKAGE_PATH/zsh"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/zsh-${ZSH_VERSION}.linux.tar.xz" ]; then
-    wget --no-check-certificate  "${ZSH_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/zsh-${ZSH_VERSION}.linux.tar.xz"
+    wget --no-check-certificate "${ZSH_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/zsh-${ZSH_VERSION}.linux.tar.xz"
 fi
 
 tar -xf "$TEMP_DOWNLOAD_PATH/zsh-${ZSH_VERSION}.linux.tar.xz" -C "$SOURCE_PACKAGE_PATH/zsh" --strip-components 1
@@ -374,7 +374,7 @@ rm -rf "$SOURCE_PACKAGE_PATH/ssl"
 mkdir -p "$SOURCE_PACKAGE_PATH/ssl"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz" ]; then
-    wget --no-check-certificate  "${OPENSSL_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz"
+    wget --no-check-certificate "${OPENSSL_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz"
 fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz" -C "$SOURCE_PACKAGE_PATH/ssl" --strip-components 1
