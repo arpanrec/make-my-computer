@@ -327,6 +327,9 @@ echo "# Ncurses Install Start"
 rm -rf "$SOURCE_PACKAGE_PATH/ncurses"
 mkdir -p "$SOURCE_PACKAGE_PATH/ncurses"
 
+export CXXFLAGS=' -fPIC'
+export CFLAGS=' -fPIC'
+
 if [ ! -f "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz" ]; then
     wget "${NCURSES_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz"
 fi
@@ -334,9 +337,14 @@ fi
 tar -zxf "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz" -C "$SOURCE_PACKAGE_PATH/ncurses" --strip-components 1
 
 cd "$SOURCE_PACKAGE_PATH/ncurses"
-"./configure" --prefix="$PATH_TO_LOCAL_PREFX" --with-shared --without-debug --enable-widec
+"./configure" --prefix="$PATH_TO_LOCAL_PREFX" --enable-shared --with-shared --without-debug --enable-widec
+cd progs
+./capconvert
+cd ..
 make
 make install
+unset CXXFLAGS
+unset CFLAGS
 echo "# Ncurses Install end"
 fi
 
