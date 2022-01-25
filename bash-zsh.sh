@@ -155,7 +155,8 @@ fi
 rm -rf "${HOME}/.dotfiles/bare"
 git clone --depth=1 --single-branch --branch bash-zsh https://github.com/arpanrec/dotfiles.git --bare "$HOME/.dotfiles/bare"
 git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config status.showUntrackedFiles no
-git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME pull --set-upstream origin bash-zsh
+git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config branch.bash-zsh.remote origin
+git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config branch.bash-zsh.merge refs/heads/bash-zsh
 git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME reset --hard HEAD
 
 if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
