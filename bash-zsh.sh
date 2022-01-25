@@ -20,6 +20,7 @@ JDK_VERSION=17
 MAVEN_VERSION=3.8.4
 NODE_JS_VERSION=16.13.2
 NCURSES_VERSION=6.3
+ZSH_VERSION=5.8
 
 unset BITWARDEN_CLI_DOWNLOAD_URL
 unset BITWARDEN_DOWNLOAD_URL
@@ -31,6 +32,8 @@ unset GO_DOWNLOAD_URL
 unset JDK_DOWNLOAD_URL
 unset MAVEN_DOWNLOAD_URL
 unset NODE_JS_DOWNLOAD_URL
+unset NCURSES_DOWNLOAD_URL
+unset ZSH_DOWNLOAD_URL
 
 if [[  "$(uname -m)" == 'x86_64'  ]]; then
 
@@ -45,6 +48,7 @@ JDK_DOWNLOAD_URL="https://download.oracle.com/java/${JDK_VERSION}/latest/jdk-${J
 MAVEN_DOWNLOAD_URL="https://dlcdn.apache.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz"
 NODE_JS_DOWNLOAD_URL="https://nodejs.org/dist/v$NODE_JS_VERSION/node-v$NODE_JS_VERSION-linux-x64.tar.xz"
 NCURSES_DOWNLOAD_URL="https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$NCURSES_VERSION.tar.gz"
+ZSH_DOWNLOAD_URL="https://onboardcloud.dl.sourceforge.net/project/zsh/zsh/$ZSH_VERSION/zsh-$ZSH_VERSION.tar.xz"
 
 fi
 
@@ -87,6 +91,8 @@ echo ""
 read -n1 -p "Enter \"Y\" to install node js $NODE_JS_VERSION (Press any other key to Skip*) : " install_node_js
 echo ""
 read -n1 -p "Enter \"Y\" to install ncurses $NCURSES_VERSION (Press any other key to Skip*) : " install_ncurses
+echo ""
+read -n1 -p "Enter \"Y\" to install zsh $ZSH_VERSION (Press any other key to Skip*) : " install_zsh
 echo ""
 
 if [[ "$redownload_bashit_ohmyzsh_fzf" == "Y" || "$redownload_bashit_ohmyzsh_fzf" == "y" ]]; then
@@ -322,4 +328,23 @@ cd "$HOME/tmp/source/ncurses"
 make
 make install
 echo "# Ncurses Install end"
+fi
+
+if [[ "$install_zsh" == "Y" || "$install_zsh" == "y" ]]; then
+echo "# ZSH Install Start"
+
+rm -rf "$HOME/tmp/source/zsh"
+mkdir -p "$HOME/tmp/source/zsh"
+
+if [ ! -f "${HOME}/tmp/zsh-${ZSH_VERSION}.linux.tar.gz" ]; then
+    wget "${ZSH_DOWNLOAD_URL}" -O "${HOME}/tmp/zsh-${ZSH_VERSION}.linux.tar.gz"
+fi
+
+tar -xf "${HOME}/tmp/zsh-${ZSH_VERSION}.linux.tar.gz" -C "$HOME/tmp/source/zsh" --strip-components 1
+
+cd "$HOME/tmp/source/zsh"
+"./configure" --prefix="$HOME/.local" --with-shared --without-debug --enable-widec
+make
+make install
+echo "# ZSH Install end"
 fi
