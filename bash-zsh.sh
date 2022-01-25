@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-pre_pro=( wget unzip tar pip3 )
+pre_pro=( wget unzip tar pip3 gpg2 gcc )
 for prog in "${pre_pro[@]}"
 do
 if ! hash ${prog} &>/dev/null ; then
