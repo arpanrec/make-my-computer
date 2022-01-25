@@ -182,23 +182,23 @@ fi
 
 if [[ "$install_mattermost" == "Y" || "$install_mattermost" == "y" ]]; then
 echo "# Mattermost Desktop Application Start"
-mkdir -p "$HOME/.local/share/mattermost-desktop"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/mattermost-desktop"
 
-if [ ! -f "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" ]; then
-wget "$MATTERMOST_DOWNLOAD_URL" -O "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION.tar.gz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" ]; then
+wget "$MATTERMOST_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/mattermost-desktop-$MATTERMOST_VERSION.tar.gz"
 fi
 
-tar -zxf "$HOME/tmp/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" -C "$HOME/.local/share/mattermost-desktop" --strip-components 1
+tar -zxf "$TEMP_DOWNLOAD_PATH/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/mattermost-desktop" --strip-components 1
 
-cat <<EOT > "$HOME/.local/share/applications/mattermost-desktop.desktop"
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/mattermost-desktop.desktop"
 [Desktop Entry]
 Type=Application
 Version=$MATTERMOST_VERSION
 Name=Mattermost
 Comment=Mattermost is a secure, open source platform for communication, collaboration, and workflow orchestration across tools and teams.
-Path=$HOME/.local/share/mattermost-desktop
-Exec=$HOME/.local/share/mattermost-desktop/mattermost-desktop
-Icon=$HOME/.local/share/mattermost-desktop/app_icon.png
+Path=$PATH_TO_LOCAL_PREFX/share/mattermost-desktop
+Exec=$PATH_TO_LOCAL_PREFX/share/mattermost-desktop/mattermost-desktop
+Icon=$PATH_TO_LOCAL_PREFX/share/mattermost-desktop/app_icon.png
 Terminal=false
 Categories=Office;Network;WebBrowser;
 EOT
@@ -208,21 +208,21 @@ fi
 if [[ "$install_postman" == "Y" || "$install_postman" == "y" ]]; then
 echo "# Postman Install Start"
 
-rm -rf "$HOME/.local/share/Postman"
-mkdir -p "$HOME/.local/share/Postman"
+rm -rf "$PATH_TO_LOCAL_PREFX/share/Postman"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/Postman"
 
-if [ ! -f "$HOME/tmp/postman.tar.gz" ]; then
-    wget "$POSTMAN_DOWNLOAD_URL" -O "$HOME/tmp/postman.tar.gz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/postman.tar.gz" ]; then
+    wget "$POSTMAN_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/postman.tar.gz"
 fi
 
-tar -zxf "$HOME/tmp/postman.tar.gz" -C "$HOME/.local/share/Postman" --strip-components 1
+tar -zxf "$TEMP_DOWNLOAD_PATH/postman.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/Postman" --strip-components 1
 
-cat <<EOT > "$HOME/.local/share/applications/Postman.desktop"
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/Postman.desktop"
 [Desktop Entry]
 Encoding=UTF-8
 Name=Postman
-Exec=$HOME/.local/share/Postman/app/Postman %U
-Icon=$HOME/.local/share/Postman/app/resources/app/assets/icon.png
+Exec=$PATH_TO_LOCAL_PREFX/share/Postman/app/Postman %U
+Icon=$PATH_TO_LOCAL_PREFX/share/Postman/app/resources/app/assets/icon.png
 Terminal=false
 Type=Application
 Categories=Development;
@@ -234,42 +234,42 @@ fi
 if [[ "$install_neovim" == "Y" || "$install_neovim" == "y" ]]; then
 echo "# Install neovim Start"
 
-rm -rf "$HOME/.local/share/nvim/" "$HOME/.local/bin/nvim"
-mkdir -p "$HOME/.local/share/nvim/"
+rm -rf "$PATH_TO_LOCAL_PREFX/share/nvim/" "$PATH_TO_LOCAL_PREFX/bin/nvim"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/nvim/"
 
-if [ ! -f "$HOME/tmp/nvim-$NEOVIM_VERSION.tar.gz" ]; then
-    wget "$NEOVIM_DOWNLOAD_URL" -O "$HOME/tmp/nvim-$NEOVIM_VERSION.tar.gz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/nvim-$NEOVIM_VERSION.tar.gz" ]; then
+    wget "$NEOVIM_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/nvim-$NEOVIM_VERSION.tar.gz"
 fi
 
-tar -zxf "$HOME/tmp/nvim-$NEOVIM_VERSION.tar.gz" -C "$HOME/.local/share/nvim/" --strip-components 1
-ln -s "$HOME/.local/share/nvim/bin/nvim" "$HOME/.local/bin/nvim"
+tar -zxf "$TEMP_DOWNLOAD_PATH/nvim-$NEOVIM_VERSION.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/nvim/" --strip-components 1
+ln -s "$PATH_TO_LOCAL_PREFX/share/nvim/bin/nvim" "$PATH_TO_LOCAL_PREFX/bin/nvim"
 echo "# Install neovim END"
 fi
 
 if [[ "$install_jq" == "Y" || "$install_jq" == "y" ]]; then
 echo "# JQ Install Start"
 
-rm -rf "$HOME/.local/bin/jq"
+rm -rf "$PATH_TO_LOCAL_PREFX/bin/jq"
 
-if [ ! -f "$HOME/tmp/jq-$JQ_VERSION" ]; then
-    wget "$JQ_DOWNLOAD_URL" -O "$HOME/tmp/jq-$JQ_VERSION"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/jq-$JQ_VERSION" ]; then
+    wget "$JQ_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/jq-$JQ_VERSION"
 fi
-cp "$HOME/tmp/jq-$JQ_VERSION" "$HOME/.local/bin/jq"
-chmod +x "$HOME/.local/bin/jq"
+cp "$TEMP_DOWNLOAD_PATH/jq-$JQ_VERSION" "$PATH_TO_LOCAL_PREFX/bin/jq"
+chmod +x "$PATH_TO_LOCAL_PREFX/bin/jq"
 echo "# JQ Install end"
 fi
 
 if [[ "$install_go" == "Y" || "$install_go" == "y" ]]; then
 echo "# GO Install Start"
 
-rm -rf "$HOME/.local/share/go"
-mkdir -p "$HOME/.local/share/go"
+rm -rf "$PATH_TO_LOCAL_PREFX/share/go"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/go"
 
-if [ ! -f "$HOME/tmp/go-$GO_VERSION.linux.tar.gz" ]; then
-    wget "$GO_DOWNLOAD_URL" -O "$HOME/tmp/go-$GO_VERSION.linux.tar.gz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/go-$GO_VERSION.linux.tar.gz" ]; then
+    wget "$GO_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/go-$GO_VERSION.linux.tar.gz"
 fi
 
-tar -zxf "$HOME/tmp/go-$GO_VERSION.linux.tar.gz" -C "$HOME/.local/share/go" --strip-components 1
+tar -zxf "$TEMP_DOWNLOAD_PATH/go-$GO_VERSION.linux.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/go" --strip-components 1
 
 echo "# GO Install End"
 fi
@@ -278,14 +278,14 @@ fi
 if [[ "$install_jdk" == "Y" || "$install_jdk" == "y" ]]; then
 echo "# JDK Install Start"
 
-rm -rf "$HOME/.local/share/java"
-mkdir -p "$HOME/.local/share/java"
+rm -rf "$PATH_TO_LOCAL_PREFX/share/java"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/java"
 
-if [ ! -f "${HOME}/tmp/jdk-${JDK_VERSION}.linux.tar.gz" ]; then
-    wget "${JDK_DOWNLOAD_URL}" -O "${HOME}/tmp/jdk-${JDK_VERSION}.linux.tar.gz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/jdk-${JDK_VERSION}.linux.tar.gz" ]; then
+    wget "${JDK_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/jdk-${JDK_VERSION}.linux.tar.gz"
 fi
 
-tar -zxf "${HOME}/tmp/jdk-${JDK_VERSION}.linux.tar.gz" -C "$HOME/.local/share/java" --strip-components 1
+tar -zxf "$TEMP_DOWNLOAD_PATH/jdk-${JDK_VERSION}.linux.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/java" --strip-components 1
 
 echo "# JDK Install End"
 fi
@@ -293,14 +293,14 @@ fi
 if [[ "$install_maven" == "Y" || "$install_maven" == "y" ]]; then
 echo "# Maven Install Start"
 
-rm -rf "$HOME/.local/share/maven"
-mkdir -p "$HOME/.local/share/maven"
+rm -rf "$PATH_TO_LOCAL_PREFX/share/maven"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/maven"
 
-if [ ! -f "${HOME}/tmp/mvn-${MAVEN_VERSION}.linux.tar.gz" ]; then
-    wget "${MAVEN_DOWNLOAD_URL}" -O "${HOME}/tmp/mvn-${MAVEN_VERSION}.linux.tar.gz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/mvn-${MAVEN_VERSION}.linux.tar.gz" ]; then
+    wget "${MAVEN_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/mvn-${MAVEN_VERSION}.linux.tar.gz"
 fi
 
-tar -zxf "${HOME}/tmp/mvn-${MAVEN_VERSION}.linux.tar.gz" -C "$HOME/.local/share/maven" --strip-components 1
+tar -zxf "$TEMP_DOWNLOAD_PATH/mvn-${MAVEN_VERSION}.linux.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/maven" --strip-components 1
 
 echo "# Maven Install End"
 fi
@@ -308,14 +308,14 @@ fi
 if [[ "$install_node_js" == "Y" || "$install_node_js" == "y" ]]; then
 echo "# Node JS Install Start"
 
-rm -rf "$HOME/.local/share/node"
-mkdir -p "$HOME/.local/share/node"
+rm -rf "$PATH_TO_LOCAL_PREFX/share/node"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/node"
 
-if [ ! -f "${HOME}/tmp/nodejs-${NODE_JS_VERSION}.linux.tar.xz" ]; then
-    wget "${NODE_JS_DOWNLOAD_URL}" -O "${HOME}/tmp/nodejs-${NODE_JS_VERSION}.linux.tar.xz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" ]; then
+    wget "${NODE_JS_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz"
 fi
 
-tar -xf "${HOME}/tmp/nodejs-${NODE_JS_VERSION}.linux.tar.xz" -C "$HOME/.local/share/node" --strip-components 1
+tar -xf "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/node" --strip-components 1
 
 echo "# Node JS Install End"
 fi
@@ -323,17 +323,17 @@ fi
 if [[ "$install_ncurses" == "Y" || "$install_ncurses" == "y" ]]; then
 echo "# Ncurses Install Start"
 
-rm -rf "$HOME/.local/share/ncurses" "$HOME/tmp/source/ncurses"
-mkdir -p "$HOME/.local/share/ncurses" "$HOME/tmp/source/ncurses"
+rm -rf "$SOURCE_PACKAGE_PATH/ncurses"
+mkdir -p "$SOURCE_PACKAGE_PATH/ncurses"
 
-if [ ! -f "${HOME}/tmp/ncurses-${NCURSES_VERSION}.linux.tar.gz" ]; then
-    wget "${NCURSES_DOWNLOAD_URL}" -O "${HOME}/tmp/ncurses-${NCURSES_VERSION}.linux.tar.gz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz" ]; then
+    wget "${NCURSES_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz"
 fi
 
-tar -zxf "${HOME}/tmp/ncurses-${NCURSES_VERSION}.linux.tar.gz" -C "$HOME/tmp/source/ncurses" --strip-components 1
+tar -zxf "$TEMP_DOWNLOAD_PATH/ncurses-${NCURSES_VERSION}.linux.tar.gz" -C "$SOURCE_PACKAGE_PATH/ncurses" --strip-components 1
 
-cd "$HOME/tmp/source/ncurses"
-"./configure" --prefix="$HOME/.local" --with-shared --without-debug --enable-widec
+cd "$SOURCE_PACKAGE_PATH/ncurses"
+"./configure" --prefix="$PATH_TO_LOCAL_PREFX" --with-shared --without-debug --enable-widec
 make
 make install
 echo "# Ncurses Install end"
@@ -342,17 +342,17 @@ fi
 if [[ "$install_zsh" == "Y" || "$install_zsh" == "y" ]]; then
 echo "# ZSH Install Start"
 
-rm -rf "$HOME/tmp/source/zsh"
-mkdir -p "$HOME/tmp/source/zsh"
+rm -rf "$SOURCE_PACKAGE_PATH/zsh"
+mkdir -p "$SOURCE_PACKAGE_PATH/zsh"
 
-if [ ! -f "${HOME}/tmp/zsh-${ZSH_VERSION}.linux.tar.xz" ]; then
-    wget "${ZSH_DOWNLOAD_URL}" -O "${HOME}/tmp/zsh-${ZSH_VERSION}.linux.tar.xz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/zsh-${ZSH_VERSION}.linux.tar.xz" ]; then
+    wget "${ZSH_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/zsh-${ZSH_VERSION}.linux.tar.xz"
 fi
 
-tar -xf "${HOME}/tmp/zsh-${ZSH_VERSION}.linux.tar.xz" -C "$HOME/tmp/source/zsh" --strip-components 1
+tar -xf "$TEMP_DOWNLOAD_PATH/zsh-${ZSH_VERSION}.linux.tar.xz" -C "$SOURCE_PACKAGE_PATH/zsh" --strip-components 1
 
-cd "$HOME/tmp/source/zsh"
-"./configure" --prefix="$HOME/.local" --with-shared --without-debug --enable-widec
+cd "$SOURCE_PACKAGE_PATH/zsh"
+"./configure" --prefix="$PATH_TO_LOCAL_PREFX" --with-shared --without-debug --enable-widec
 make
 make install
 echo "# ZSH Install end"
@@ -361,17 +361,17 @@ fi
 if [[ "$install_openssl" == "Y" || "$install_openssl" == "y" ]]; then
 echo "# Openssl Install Start"
 
-rm -rf "$HOME/tmp/source/openssl"
-mkdir -p "$HOME/tmp/source/openssl"
+rm -rf "$SOURCE_PACKAGE_PATH/ssl"
+mkdir -p "$SOURCE_PACKAGE_PATH/ssl"
 
-if [ ! -f "${HOME}/tmp/openssl-${OPENSSL_VERSION}.linux.tar.gz" ]; then
-    wget "${OPENSSL_DOWNLOAD_URL}" -O "${HOME}/tmp/openssl-${OPENSSL_VERSION}.linux.tar.gz"
+if [ ! -f "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz" ]; then
+    wget "${OPENSSL_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz"
 fi
 
-tar -zxf "${HOME}/tmp/openssl-${OPENSSL_VERSION}.linux.tar.gz" -C "$HOME/tmp/source/openssl" --strip-components 1
+tar -zxf "$TEMP_DOWNLOAD_PATH/ssl-${OPENSSL_VERSION}.linux.tar.gz" -C "$SOURCE_PACKAGE_PATH/ssl" --strip-components 1
 
-cd "$HOME/tmp/source/openssl"
-"./Configure" --prefix="$HOME/.local" shared zlib
+cd "$SOURCE_PACKAGE_PATH/ssl"
+"./Configure" --prefix="$PATH_TO_LOCAL_PREFX" shared zlib
 make
 make install
 echo "# Openssl Install end"
