@@ -18,7 +18,7 @@ sudo dnf install -y libglvnd-devel cmake ncurses-devel git
 # chsh
 sudo dnf install -y util-linux-user
 
-# JAVA
+# JAVA and other dev tools
 sudo dnf install -y java-11-openjdk-devel maven-openjdk17 python3-pip
 
 sudo dnf install -y google-chrome-stable vim zsh neofetch rclone rsync \
