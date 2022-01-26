@@ -125,7 +125,9 @@ ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras'
 
 else
 
-ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' gnome-shell nautilus gnome-terminal gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-keyring dialog)
+ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool' 'gnome-control-center' 'xdg-user-dirs' 'gdm' 'gnome-keyring' 'dialog')
+
+ALL_PAKGS+=('libappindicator-gtk3' 'libappindicator-gtk2')
 
 fi
 
