@@ -3,11 +3,16 @@ set -e
 echo "Starting setup.sh"
 read -p "Please name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
 echo ""
+echo ""
 read -n1 -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Press any other key to Skip*) : " pipewire_yes_no
+echo ""
+echo ""
+read -n1 -p "Enter \"Y\" Install KDE, [Current/Default selection is Gnome] (Press any other key to Skip*) : " kde_yes_no
+echo ""
 echo ""
 read -p "Please enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
 echo ""
-
+echo ""
 if [[ -d "/sys/firmware/efi" ]]; then
 read -n1 -p "Enter \"Y\" to install UEFI Grub in mounted Fat32 drive, (Press any other key to Skip*) : " install_grub_uefi
 echo ""
@@ -104,21 +109,29 @@ ALL_PAKGS+=('bash-completion' 'python-pip' 'python-packaging' 'vim' 'rclone' 'gi
 
 ALL_PAKGS+=('jdk-openjdk' 'java-atk-wrapper-openjdk' 'openjdk-doc' 'openjdk-src' 'maven' 'groovy' 'groovy-docs' 'gradle' 'gradle-src' 'gradle-doc' 'go' 'docker' 'criu' 'docker-scan')
 
-ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet' 'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs' 'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm')
+if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
+
+ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet' 'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs' 'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm' 'konsole')
 
 ALL_PAKGS+=('kwallet-pam' 'kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
-
-ALL_PAKGS+=('terminator' 'konsole')
 
 ALL_PAKGS+=('packagekit-qt5' 'qbittorrent' 'kdialog')
 
 ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats' 'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'taglib' 'ark')
 
-ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-pipewire-jack' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
-
 ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy' 'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'breeze-gtk' 'oxygen')
 
-ALL_PAKGS+=('ttf-roboto' 'ttf-ubuntu-font-family' 'cantarell-fonts' 'gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' 'noto-fonts' 'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'powerline-fonts')
+ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' )
+
+else
+
+ALL_PAKGS+=('xorg' 'xorg-server' gnome-shell nautilus gnome-terminal guake gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-keyring dialog)
+
+fi
+
+ALL_PAKGS+=('terminator')
+
+ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-pipewire-jack' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
 
 ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
 
@@ -135,7 +148,17 @@ ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-ne
 # Not Sure if this is needed
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver' 'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
 
-MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'sddm' 'dbus-broker' 'libvirtd' 'nordvpnd' 'cups' 'apparmor' 'bluetooth')
+MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'dbus-broker' 'libvirtd' 'nordvpnd' 'cups' 'apparmor' 'bluetooth')
+
+if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
+
+MAN_SERVICES+=( 'sddm' )
+
+else
+
+MAN_SERVICES+=( 'gdm' )
+
+fi
 
 echo "--------------------------------------------------"
 echo "--determine processor type and install microcode--"
@@ -297,7 +320,13 @@ BASEDIR=$(dirname "$0")
 sudo -H -u makemyarch_build_user bash -c "$BASEDIR/install_yay.sh"
 fi
 
-PKGS_AUR=('ttf-menlo-powerline-git' 'kde-thumbnailer-apk' 'resvg' 'sweet-gtk-theme-mars' 'kvantum-theme-sweet-mars' 'kvantum-theme-sweet-git' 'sweet-cursor-theme-git' 'sweet-theme-git' 'sweet-folders-icons-git' 'sweet-kde-git' 'sweet-kde-theme-mars-git' 'candy-icons-git' 'layan-kde-git' 'layan-gtk-theme-git' 'layan-cursor-theme-git' 'kvantum-theme-layan-git' 'tela-icon-theme' 'nordic-darker-standard-buttons-theme' 'nordic-darker-theme' 'kvantum-theme-nordic-git' 'sddm-nordic-theme-git' 'nordic-kde-git' 'nordic-theme-git' 'ttf-meslo' 'google-chrome' 'brave-bin' 'timeshift' 'visual-studio-code-bin' 'nordvpn' 'sublime-text-4')
+PKGS_AUR=( 'google-chrome' 'brave-bin' 'timeshift' 'visual-studio-code-bin' 'nordvpn' 'sublime-text-4')
+
+if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
+
+PKGS_AUR+=( 'kde-thumbnailer-apk' 'resvg' 'sweet-gtk-theme-mars' 'kvantum-theme-sweet-mars' 'kvantum-theme-sweet-git' 'sweet-cursor-theme-git' 'sweet-theme-git' 'sweet-folders-icons-git' 'sweet-kde-git' 'sweet-kde-theme-mars-git' 'candy-icons-git' 'layan-kde-git' 'layan-gtk-theme-git' 'layan-cursor-theme-git' 'kvantum-theme-layan-git' 'tela-icon-theme' 'nordic-darker-standard-buttons-theme' 'nordic-darker-theme' 'kvantum-theme-nordic-git' 'sddm-nordic-theme-git' 'nordic-kde-git' 'nordic-theme-git' )
+
+fi
 
 PKG_AUR_JOIN=$(printf " %s" "${PKGS_AUR[@]}")
 
@@ -365,6 +394,8 @@ echo "Enable Service: ${MAN_SERVICE}"
 systemctl enable "$MAN_SERVICE"
 done
 
+if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
+
 echo "-----------------------------------------"
 echo "       Setting SDDM Theme as Nordic      "
 echo "-----------------------------------------"
@@ -375,3 +406,5 @@ cat <<EOF > /etc/sddm.conf
 Current=Nordic
 EOF
 cat /etc/sddm.conf
+
+fi
