@@ -121,7 +121,7 @@ ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'ki
 
 ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy' 'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'breeze-gtk' 'oxygen')
 
-ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' )
+ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
 
 else
 
@@ -129,7 +129,7 @@ ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' gnome-shell nautilus gnome-termina
 
 fi
 
-ALL_PAKGS+=('terminator')
+ALL_PAKGS+=('terminator' 'zsh')
 
 ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-pipewire-jack' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
 
@@ -137,7 +137,7 @@ ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'lib
 
 ALL_PAKGS+=('thunderbird' 'libotr')
 
-ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane' 'imagescan' 'sane' 'apparmor' 'python-pyqt5' 'python-gobject' 'dbus-python' 'print-manager' 'system-config-printer' 'python-pysmbc' 'cups-pk-helper')
+ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane' 'imagescan' 'sane' 'apparmor' 'python-pyqt5' 'python-gobject' 'dbus-python' 'system-config-printer' 'python-pysmbc' 'cups-pk-helper')
 
 ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'bitwarden' 'inetutils' 'net-tools' 'sysstat' 'bashtop' 'gnuplot' 'webkit2gtk' 'bitwarden-cli' 'jq')
 
@@ -344,7 +344,11 @@ if [[ -n "$username" ]]; then
 id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt,nordvpn -m -d /home/$username $username
 echo -e "password\npassword" | passwd $username
 BASEDIR=$(dirname "$0")
-sudo -H -u $username bash -c "$BASEDIR/user.sh"
+
+if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
+sudo -H -u $username bash -c "$BASEDIR/kde-user.sh"
+fi
+
 fi
 
 echo "-----------------------------------------------------------------------"
