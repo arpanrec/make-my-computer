@@ -77,8 +77,17 @@ echo "             Set Host Name            "
 echo "--------------------------------------"
 
 if [[ -n "$nameofmachine" ]]; then
+touch /etc/hosts
+touch /etc/hostname
 hostnamectl hostname "$nameofmachine"
 echo "$nameofmachine" > /etc/hostname
+
+cat <<EOT > "/etc/hosts"
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   $nameofmachine $nameofmachine.localdomain
+EOT
+
 fi
 
 pacman -Sy archlinux-keyring --noconfirm
