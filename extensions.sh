@@ -14,15 +14,15 @@ __download_extension() {
     echo ---------"Downloading $__extension_name with id : $__extension_id"---------
     echo ---------------------------------------------------------------------------
     __extension_info_json=$(curl -sSL "https://extensions.gnome.org/extension-info/?pk=$__extension_id&shell_version=$__gnome_shell_version")
-    __extension_uuid=$( echo $__extension_info_json | jq .uuid -r )
-    __extension_download_url=$( echo $__extension_info_json | jq .download_url -r )
-    __extension_version_tag=$( echo $__extension_info_json | jq .version_tag -r )
+    __extension_uuid=$( echo "$__extension_info_json" | jq .uuid -r )
+    __extension_download_url=$( echo "$__extension_info_json" | jq .download_url -r )
+    __extension_version_tag=$( echo "$__extension_info_json" | jq .version_tag -r )
 
 
     if [ -n "$__extension_uuid" ] && [ -n "$__extension_download_url" ] ; then
         mkdir -p "$HOME/.local/share/gnome-shell/extensions/$__extension_uuid"
 
-        if [ "$(ls -A $HOME/.local/share/gnome-shell/extensions/$__extension_uuid)" ]; then
+        if [ "$(ls -A "$HOME/.local/share/gnome-shell/extensions/$__extension_uuid")" ]; then
             echo "Directory is not empty :: $HOME/.local/share/gnome-shell/extensions/$__extension_uuid"
             echo ""
             echo ""
