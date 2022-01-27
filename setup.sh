@@ -126,7 +126,7 @@ ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras'
 else
 
 ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool' 'gnome-control-center' 'xdg-user-dirs' 'gdm' 'gnome-keyring' 'dialog')
-
+ALL_PAKGS+=(eog-plugins gnome-calendar gnome-calculator gnome-clocks gnome-contacts cheese gnome-bluetooth gnome-applets totem ffmpegthumbnailer ffmpeg ffmpeg2theora ffmpeg2theora gnome-backgrounds gnome-nettool)
 ALL_PAKGS+=('libappindicator-gtk3' 'libappindicator-gtk2')
 
 fi
