@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 set -e
 echo "Starting setup.sh"
-read -p "Please name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
+read -r -p "Please name your machine, (Leave empty and press Enter to Skip*) : " nameofmachine
 echo ""
 echo ""
-read -n1 -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Press any other key to Skip*) : " pipewire_yes_no
+read -r -n1 -p "Enter \"Y\" to replace PulseAudio with Pipewire, [Current/Default selection is PulseAudio] (Press any other key to Skip*) : " pipewire_yes_no
 echo ""
 echo ""
-read -n1 -p "Enter \"Y\" Install KDE, [Current/Default selection is Gnome] (Press any other key to Skip*) : " kde_yes_no
+read -r -n1 -p "Enter \"Y\" Install KDE, [Current/Default selection is Gnome] (Press any other key to Skip*) : " kde_yes_no
 echo ""
 echo ""
-read -p "Please enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
+read -r -p "Please enter username, [default password: password], (Leave empty and press Enter to Skip*) :  " username
 echo ""
 echo ""
 if [[ -d "/sys/firmware/efi" ]]; then
-read -n1 -p "Enter \"Y\" to install UEFI Grub in mounted Fat32 drive, (Press any other key to Skip*) : " install_grub_uefi
+read -r -n1 -p "Enter \"Y\" to install UEFI Grub in mounted Fat32 drive, (Press any other key to Skip*) : " install_grub_uefi
 echo ""
 if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]]; then
-read -p "Enter EFI directory location, (Default /boot/efi*, press n to skip grub install) : " install_grub_efi_dir
+read -r -p "Enter EFI directory location, (Default /boot/efi*, press n to skip grub install) : " install_grub_efi_dir
 echo ""
 if [ -z "$install_grub_efi_dir" ] ; then
 install_grub_efi_dir="/boot/efi"
@@ -27,9 +27,9 @@ fi
 fi
 fi
 
-read -n1 -p "Enter \"Y\" to enable \"nested virtualization\" in qemu kvm, (Press any other key to Skip*) : " kvm_nested
+read -r -n1 -p "Enter \"Y\" to enable \"nested virtualization\" in qemu kvm, (Press any other key to Skip*) : " kvm_nested
 echo ""
-read -n1 -p "Enter \"Y\" to skip AUR packages, [Skipping this will break userprofile/themes] (Press any other key to install AUR Packages*) : " aur_packages_install
+read -r -n1 -p "Enter \"Y\" to skip AUR packages, [Skipping this will break userprofile/themes] (Press any other key to install AUR Packages*) : " aur_packages_install
 echo ""
 
 echo "--------------------------------------"
@@ -40,7 +40,7 @@ hwclock --systohc
 timedatectl set-ntp true
 echo ""
 echo ""
-echo "Current date time : " $(date)
+echo "Current date time : " "$(date)"
 echo ""
 echo ""
 
@@ -63,7 +63,7 @@ nc=$(grep -c ^processor /proc/cpuinfo)
 echo "You have " $nc" cores."
 echo "-------------------------------------------------"
 echo "Changing the makeflags for "$nc" cores."
-TOTALMEM=$(cat /proc/meminfo | grep -i 'memtotal' | grep -o '[[:digit:]]*')
+TOTALMEM=$(grep -i 'memtotal' /proc/meminfo | grep -o '[[:digit:]]*')
 if [[  $TOTALMEM -gt 8000000 ]]; then
 sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$nc\"/g" /etc/makepkg.conf
 echo "Changing the compression settings for "$nc" cores."
@@ -228,7 +228,7 @@ Description=Update Nvidia module in initcpio
 Depends=mkinitcpio
 When=PostTransaction
 NeedsTargets
-Exec=/bin/sh -c 'while read -r trg; do case \$trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
+Exec=/bin/sh -c 'while read -r -r trg; do case \$trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
 EOT
 echo "Nvidia pacman hook installed /etc/pacman.d/hooks/nvidia.hook"
 cat /etc/pacman.d/hooks/nvidia.hook
