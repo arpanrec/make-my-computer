@@ -60,13 +60,13 @@ echo ""
 
 
 nc=$(grep -c ^processor /proc/cpuinfo)
-echo "You have " $nc" cores."
+echo "You have $nc cores."
 echo "-------------------------------------------------"
-echo "Changing the makeflags for "$nc" cores."
+echo "Changing the makeflags for $nc cores."
 TOTALMEM=$(grep -i 'memtotal' /proc/meminfo | grep -o '[[:digit:]]*')
 if [[  $TOTALMEM -gt 8000000 ]]; then
 sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$nc\"/g" /etc/makepkg.conf
-echo "Changing the compression settings for "$nc" cores."
+echo "Changing the compression settings for $nc cores."
 sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $nc -z -)/g" /etc/makepkg.conf
 fi
 
@@ -183,7 +183,7 @@ fi
 echo "--------------------------------------------------"
 echo "--determine processor type and install microcode--"
 echo "--------------------------------------------------"
-proc_type=$(cat /proc/cpuinfo | grep vendor | uniq | awk '{print $3}')
+proc_type=$(grep vendor /proc/cpuinfo | uniq | awk '{print $3}')
 echo "proc_type: $proc_type"
 case "$proc_type" in
 GenuineIntel)
@@ -323,7 +323,7 @@ echo "------------------------------------------"
 
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-cat /etc/sudoers | grep wheel
+grep wheel /etc/sudoers
 
 echo "-------------------------------------------------------"
 echo "             Install Yay and AUR Packages              "
@@ -365,12 +365,12 @@ echo "       Create User and Groups         "
 echo "--------------------------------------"
 
 if [[ -n "$username" ]]; then
-id -u $username &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt,nordvpn -m -d /home/$username $username
-echo -e "password\npassword" | passwd $username
+id -u "$username" &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt,nordvpn -m -d "/home/$username" "$username"
+echo -e "password\npassword" | passwd "$username"
 BASEDIR=$(dirname "$0")
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
-sudo -H -u $username bash -c "$BASEDIR/kde-user.sh"
+sudo -H -u "$username" bash -c "$BASEDIR/kde-user.sh"
 fi
 
 fi
