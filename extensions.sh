@@ -42,3 +42,7 @@ __download_extension 'user-themes' '19'
 __download_extension 'AppIndicator and KStatusNotifierItem Support' '615'
 
 __download_extension 'workspace-indicator' '21'
+
+__download_extension 'applications-menu' '6'
+
+__download_extension 'vitals' '1460'
