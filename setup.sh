@@ -105,7 +105,9 @@ ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 
 
 ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g' 'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'unarchiver' 'lzop' 'lrzip' 'curl')
 
-ALL_PAKGS+=('bash-completion' 'python-pip' 'python-packaging' 'vim' 'rclone' 'git' 'fuse' 'fuse2' 'fuse3')
+ALL_PAKGS+=('bash-completion' 'python-pip' 'python-packaging' 'rclone' 'git' 'fuse' 'fuse2' 'fuse3')
+
+ALL_PAKGS+=('python-neovim' 'neovim' 'xclip' 'xsel' 'wl-clipboard')
 
 ALL_PAKGS+=('jdk-openjdk' 'java-atk-wrapper-openjdk' 'openjdk-doc' 'openjdk-src' 'maven' 'groovy' 'groovy-docs' 'gradle' 'gradle-src' 'gradle-doc' 'go' 'docker' 'criu' 'docker-scan')
 
