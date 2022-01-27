@@ -24,7 +24,7 @@ fi
 
 mkdir -p "$tmp_vmware_dir/vmware-host-modules-w$vmware_version_installed-k$current_kernel_version"
 
-if [ ! "$(ls -A $tmp_vmware_dir/vmware-host-modules-w$vmware_version_installed-k$current_kernel_version)" ]; then
+if [ ! "$(ls -A $tmp_vmware_dir/vmware-host-modules-w"$vmware_version_installed"-k"$current_kernel_version")" ]; then
   tar -zxvf "$tmp_vmware_dir/w$vmware_version_installed-k$current_kernel_version.tar.gz" -C "$tmp_vmware_dir/"
 fi
 
