@@ -37,6 +37,8 @@ __download_extension() {
     fi
 }
 
-__download_extension user-themes 19
+__download_extension 'user-themes' '19'
 
 __download_extension 'AppIndicator and KStatusNotifierItem Support' '615'
+
+__download_extension 'workspace-indicator' '21'
