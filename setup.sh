@@ -103,43 +103,51 @@ pacman -Syu --noconfirm
 
 ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 'git' 'vim' 'ntfs-3g' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2')
 
-ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g' 'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'unarchiver' 'lzop' 'lrzip' 'curl')
+ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g'
+'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'unarchiver' 'lzop' 'lrzip' 'curl')
 
 ALL_PAKGS+=('bash-completion' 'python-pip' 'python-packaging' 'rclone' 'git' 'fuse' 'fuse2' 'fuse3')
 
 ALL_PAKGS+=('python-neovim' 'neovim' 'xclip' 'xsel' 'wl-clipboard')
 
-ALL_PAKGS+=('jdk-openjdk' 'java-atk-wrapper-openjdk' 'openjdk-doc' 'openjdk-src' 'maven' 'groovy' 'groovy-docs' 'gradle' 'gradle-src' 'gradle-doc' 'go' 'docker' 'criu' 'docker-scan')
+ALL_PAKGS+=('jdk-openjdk' 'java-atk-wrapper-openjdk' 'openjdk-doc' 'openjdk-src' 'maven' 'groovy'
+'groovy-docs' 'gradle' 'gradle-src' 'gradle-doc' 'go' 'docker' 'criu' 'docker-scan')
 
 ALL_PAKGS+=('lm_sensors')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
-ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet' 'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs' 'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm' 'konsole')
+ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet'
+'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs' 'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm' 'konsole')
 
 ALL_PAKGS+=('kwallet-pam' 'kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
 
 ALL_PAKGS+=('packagekit-qt5' 'qbittorrent' 'kdialog')
 
-ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats' 'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'taglib' 'ark')
+ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats'
+'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'taglib' 'ark')
 
-ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy' 'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'breeze-gtk' 'oxygen')
+ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy'
+'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'breeze-gtk' 'oxygen')
 
 ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
 
 else
 
-ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool' 'gnome-control-center' 'xdg-user-dirs' 'gdm' 'gnome-keyring' 'dialog')
-ALL_PAKGS+=('eog-plugins' 'gnome-calendar' 'gnome-calculator' 'gnome-clocks' 'gnome-contacts' 'cheese' 'gnome-bluetooth' 'gnome-applets' 'totem' 'ffmpegthumbnailer' 'ffmpeg' 'ffmpeg2theora' 'ffmpeg2theora' 'gnome-backgrounds' 'gnome-nettool'
+ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool'
+'gnome-control-center' 'xdg-user-dirs' 'gdm' 'gnome-keyring' 'dialog')
+ALL_PAKGS+=('eog-plugins' 'gnome-calendar' 'gnome-calculator' 'gnome-clocks' 'gnome-contacts' 'cheese'
+'gnome-bluetooth' 'gnome-applets' 'totem' 'ffmpegthumbnailer' 'ffmpeg' 'ffmpeg2theora' 'ffmpeg2theora' 'gnome-backgrounds' 'gnome-nettool'
 'libgtop' 'gnome-icon-theme-symbolic' 'gnome-icon-theme' 'dconf' 'gnome-system-monitor'
 )
+ALL_PAKGS+=('gvfs' 'gvfs-afc' 'gvfs-goa' 'gvfs-google' 'gvfs-gphoto2' 'gvfs-mtp' 'gvfs-nfs' 'gvfs-smb')
 ALL_PAKGS+=('libappindicator-gtk3' 'libappindicator-gtk2')
 
 fi
 
 ALL_PAKGS+=('terminator' 'zsh')
 
-ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-pipewire-jack' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
+ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
 
 ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
 
@@ -423,6 +431,7 @@ cat <<EOF > /etc/sddm.conf
 [Theme]
 Current=Nordic
 EOF
+
 cat /etc/sddm.conf
 
 fi
