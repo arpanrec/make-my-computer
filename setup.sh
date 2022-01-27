@@ -143,6 +143,8 @@ ALL_PAKGS+=('eog-plugins' 'gnome-calendar' 'gnome-calculator' 'gnome-clocks' 'gn
 ALL_PAKGS+=('gvfs' 'gvfs-afc' 'gvfs-goa' 'gvfs-google' 'gvfs-gphoto2' 'gvfs-mtp' 'gvfs-nfs' 'gvfs-smb')
 ALL_PAKGS+=('libappindicator-gtk3' 'libappindicator-gtk2')
 
+ALL_PAKGS+=('gnome-sound-recorder')
+
 fi
 
 ALL_PAKGS+=('terminator' 'zsh')
