@@ -134,7 +134,7 @@ ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras'
 
 else
 
-ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool'
+ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool' 'fprintd'
 'gnome-control-center' 'xdg-user-dirs' 'gdm' 'gnome-keyring' 'dialog')
 ALL_PAKGS+=('eog-plugins' 'gnome-calendar' 'gnome-calculator' 'gnome-clocks' 'gnome-contacts' 'cheese'
 'gnome-bluetooth' 'gnome-applets' 'totem' 'ffmpegthumbnailer' 'ffmpeg' 'ffmpeg2theora' 'ffmpeg2theora' 'gnome-backgrounds' 'gnome-nettool'
@@ -149,7 +149,7 @@ fi
 
 ALL_PAKGS+=('terminator' 'zsh')
 
-ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-libpulse' 'lib32-speexdsp' 'lib32-glib2')
+ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-speexdsp' 'lib32-glib2')
 
 ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
 
@@ -159,7 +159,7 @@ ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane'
 
 ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'bitwarden' 'inetutils' 'net-tools' 'sysstat' 'bashtop' 'gnuplot' 'webkit2gtk' 'bitwarden-cli' 'jq')
 
-ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'gst-plugin-pipewire' 'a52dec' 'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'celluloid' 'kcodecs')
+ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec' 'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'celluloid' 'kcodecs')
 
 ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
 'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi' 'qemu-block-rbd' 'samba' 'ebtables' 'virt-viewer'
@@ -290,9 +290,9 @@ fi
 
 # Pipewire or Pulseaudio selection
 if [[ "$pipewire_yes_no" == "Y" || "$pipewire_yes_no" == "y" ]]; then
-ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack')
+ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack' 'gst-plugin-pipewire' 'pipewire-v4l2' 'pipewire-zeroconf' 'lib32-pipewire-v4l2')
 else
-ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
+ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'lib32-libpulse' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
 fi
 
 echo "--------------------------------------------------"
@@ -428,7 +428,8 @@ echo "-----------------------------------------"
 echo "       Setting SDDM Theme as Nordic      "
 echo "-----------------------------------------"
 
-echo -e "\nSetup SDDM Theme"
+echo -e "Setup SDDM Theme"
+
 cat <<EOF > /etc/sddm.conf
 [Theme]
 Current=Nordic
