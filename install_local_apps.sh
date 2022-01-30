@@ -115,6 +115,7 @@ git clone --depth=1 https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone --depth=1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
 "$HOME/.fzf/install" --all
+"$HOME/.oh-my-zsh/custom/themes/powerlevel10k/gitstatus/install" -f
 
 echo "# Redownload bash_it, oh-my-zsh and fzf END"
 fi
