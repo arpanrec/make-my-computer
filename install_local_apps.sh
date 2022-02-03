@@ -399,6 +399,7 @@ make
 make install
 unset CXXFLAGS
 unset CFLAGS
+source "$HOME/.bashrc"
 echo "# Ncurses Install end"
 fi
 
