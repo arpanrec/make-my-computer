@@ -4,8 +4,8 @@ set -e
 pre_pro=( wget unzip tar pip3 gpg2 gcc )
 for prog in "${pre_pro[@]}"
 do
-if ! hash ${prog} &>/dev/null ; then
-	echo ${prog} not Installed
+if ! hash "${prog}" &>/dev/null ; then
+	echo "${prog}" not Installed
     exit 1
 fi
 done
@@ -46,7 +46,7 @@ unset VSCODE_DOWNLOAD_URL
 if [[  "$(uname -m)" == 'x86_64'  ]]; then
 
 BITWARDEN_CLI_DOWNLOAD_URL="https://github.com/bitwarden/cli/releases/download/v${BITWARDEN_CLI_VERSION}/bw-linux-${BITWARDEN_CLI_VERSION}.zip"
-BITWARDEN_DOWNLOAD_URL=""
+BITWARDEN_DOWNLOAD_URL="https://github.com/bitwarden/desktop/releases/download/v${BITWARDEN_VERSION}/Bitwarden-${BITWARDEN_VERSION}-x86_64.AppImage"
 MATTERMOST_DOWNLOAD_URL="https://releases.mattermost.com/desktop/${MATTERMOST_VERSION}/mattermost-desktop-${MATTERMOST_VERSION}-linux-x64.tar.gz?src=dl"
 POSTMAN_DOWNLOAD_URL="https://dl.pstmn.io/download/latest/linux64"
 NEOVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/v${NEOVIM_VERSION}/nvim-linux64.tar.gz"
@@ -117,11 +117,11 @@ git clone --depth=1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
 "$HOME/.fzf/install" --all
 "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/gitstatus/install" -f
 
-echo "# Redownload bash_it, oh-my-zsh and fzf END"
+echo "# Re-download bash_it, oh-my-zsh and fzf END"
 fi
 
 if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
-echo "# Redownload Dotfiles Start"
+echo "# Re-download Dotfiles Start"
 
 redownload_dotfiles_old_backup_dir="${HOME}/.dotfiles/backup/$(date +%s)"
 
@@ -154,17 +154,17 @@ fi
 
 rm -rf "${HOME}/.dotfiles/bare"
 git clone --depth=1 --single-branch --branch bash-zsh https://github.com/arpanrec/dotfiles.git --bare "$HOME/.dotfiles/bare"
-git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config status.showUntrackedFiles no
-git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config branch.bash-zsh.remote origin
-git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME config branch.bash-zsh.merge refs/heads/bash-zsh
-git --git-dir=$HOME/.dotfiles/bare --work-tree=$HOME reset --hard HEAD
+git --git-dir="$HOME/.dotfiles/bare" --work-tree="$HOME" config status.showUntrackedFiles no
+git --git-dir="$HOME/.dotfiles/bare" --work-tree="$HOME" config branch.bash-zsh.remote origin
+git --git-dir="$HOME/.dotfiles/bare" --work-tree="$HOME" config branch.bash-zsh.merge refs/heads/bash-zsh
+git --git-dir="$HOME/.dotfiles/bare" --work-tree="$HOME" reset --hard HEAD
 
 if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
 rm -rf "$HOME/.gitconfig"
 ln -s "$HOME/.dotfiles/gitconfig" "$HOME/.gitconfig"
 fi
 
-echo "# Redownload Dotfiles END"
+echo "# Re-download Dotfiles END"
 fi
 
 if [[ "$install_bitwarden_cli" == "Y" || "$install_bitwarden_cli" == "y" ]]; then
