@@ -178,7 +178,7 @@ if [ ! -f "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VE
     wget --no-check-certificate "$BITWARDEN_DOWNLOAD_URL" -O "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage"
 fi
 
-if [ ! -f "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage" ]; then
+if [ ! -f "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-Icon-1024x1024-${BITWARDEN_VERSION}.png" ]; then
     wget --no-check-certificate https://github.com/bitwarden/brand/blob/master/icons/1024x1024.png -O "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-Icon-1024x1024-${BITWARDEN_VERSION}.png"
 fi
 
