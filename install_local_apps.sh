@@ -78,6 +78,9 @@ echo ""
 fi
 fi
 
+read -n1 -p "Enter \"Y\" to install Bitwarden $BITWARDEN_VERSION (Press any other key to Skip*) : " install_bitwarden_app_image
+echo ""
+
 read -n1 -p "Enter \"Y\" to install Bitwarden Command-line Interface $BITWARDEN_CLI_VERSION (Press any other key to Skip*) : " install_bitwarden_cli
 echo ""
 read -n1 -p "Enter \"Y\" to install Mattermost $MATTERMOST_VERSION (Press any other key to Skip*) : " install_mattermost
@@ -104,7 +107,7 @@ read -n1 -p "Enter \"Y\" to install zsh $ZSH_VERSION (Press any other key to Ski
 echo ""
 
 if [[ "$redownload_bashit_ohmyzsh_fzf" == "Y" || "$redownload_bashit_ohmyzsh_fzf" == "y" ]]; then
-echo "# Redownload bash_it, oh-my-zsh and fzf Start"
+echo "# Re-download bash_it, oh-my-zsh and fzf Start"
 
 rm -rf "$HOME/.bash_it" "$HOME/.oh-my-zsh" "$HOME/.fzf"
 git clone --depth=1 https://github.com/Bash-it/bash-it "$HOME/.bash_it"
@@ -167,6 +170,30 @@ fi
 echo "# Re-download Dotfiles END"
 fi
 
+if [[ "$install_bitwarden_app_image" == "Y" || "$install_bitwarden_app_image" == "y" ]]; then
+echo "# Bitwarden Desktop Application Start"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop"
+
+if [ ! -f "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage" ]; then
+    wget --no-check-certificate "$BITWARDEN_DOWNLOAD_URL" -O "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage"
+fi
+
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/bitwarden-desktop.desktop"
+[Desktop Entry]
+Name=Bitwarden
+Exec=$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage
+Version=$BITWARDEN_VERSION
+Terminal=false
+Type=Application
+StartupWMClass=Bitwarden
+GenericName=Password Manager
+Comment=A secure and free password manager for all of your devices.
+MimeType=x-scheme-handler/bitwarden;
+Categories=Utility;
+EOT
+echo "# Bitwarden Desktop Application End"
+fi
+
 if [[ "$install_bitwarden_cli" == "Y" || "$install_bitwarden_cli" == "y" ]]; then
 echo "# Bitwarden CLI Install Start"
 
@@ -183,6 +210,7 @@ fi
 
 if [[ "$install_mattermost" == "Y" || "$install_mattermost" == "y" ]]; then
 echo "# Mattermost Desktop Application Start"
+rm -rf "$PATH_TO_LOCAL_PREFX/share/mattermost-desktop"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/mattermost-desktop"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/mattermost-desktop-$MATTERMOST_VERSION.tar.gz" ]; then
