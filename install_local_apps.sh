@@ -178,6 +178,8 @@ if [ ! -f "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VE
     wget --no-check-certificate "$BITWARDEN_DOWNLOAD_URL" -O "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage"
 fi
 
+chmod +x "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage"
+
 cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/bitwarden-desktop.desktop"
 [Desktop Entry]
 Name=Bitwarden
