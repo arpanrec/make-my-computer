@@ -181,8 +181,8 @@ if [ ! -f "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VE
     wget --no-check-certificate "$BITWARDEN_DOWNLOAD_URL" -O "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage"
 fi
 
-if [ ! -f "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-Icon-1024x1024-${BITWARDEN_VERSION}.png" ]; then
-    wget --no-check-certificate https://github.com/bitwarden/brand/blob/master/icons/1024x1024.png -O "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-Icon-1024x1024-${BITWARDEN_VERSION}.png"
+if [ ! -f "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-Icon-${BITWARDEN_VERSION}.png" ]; then
+    wget --no-check-certificate "https://raw.githubusercontent.com/bitwarden/brand/master/icons/square-48x48.png" -O "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-Icon-${BITWARDEN_VERSION}.png"
 fi
 
 chmod +x "$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage"
@@ -191,7 +191,7 @@ cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/bitwarden-desktop.desktop"
 [Desktop Entry]
 Name=Bitwarden
 Exec=$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-${BITWARDEN_VERSION}.AppImage
-Icon=$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-Icon-1024x1024-${BITWARDEN_VERSION}.png
+Icon=$PATH_TO_LOCAL_PREFX/share/bitwarden-desktop/Bitwarden-Icon-${BITWARDEN_VERSION}.png
 Version=$BITWARDEN_VERSION
 Terminal=false
 Type=Application
