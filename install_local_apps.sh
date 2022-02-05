@@ -246,26 +246,26 @@ fi
 
 if [[ "$redownload_telegram" == "Y" || "$redownload_telegram" == "y" ]]; then
 echo "# Telegram Desktop Application Start"
-mkdir -p "$PATH_TO_LOCAL_PREFX/share/telegram-desktop"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" ]; then
     wget --no-check-certificate "$TELEGRAM_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz"
 fi
 
-tar -xf "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/telegram-desktop" --strip-components 1
+tar -xf "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp" --strip-components 1
 
 if [ ! -f "$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram-Icon-${BITWARDEN_VERSION}.png" ]; then
-    wget --no-check-certificate "https://avatars.githubusercontent.com/u/6113871?s=200&v=4" -O "$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram-Icon-${BITWARDEN_VERSION}.png"
+    wget --no-check-certificate "https://avatars.githubusercontent.com/u/6113871?s=200&v=4" -O "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram-Icon-${BITWARDEN_VERSION}.png"
 fi
 
-cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/Telegram-desktop.desktop"
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/userapp-Telegram.desktop"
 [Desktop Entry]
 Version=$TELEGRAM_VERSION
 Name=Telegram Desktop
 Comment=Official desktop version of Telegram messaging app
-TryExec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram
-Exec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram -- %u
-Icon=$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram-Icon-${BITWARDEN_VERSION}.png
+TryExec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram
+Exec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram -- %u
+Icon=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram-Icon-${BITWARDEN_VERSION}.png
 Terminal=false
 StartupWMClass=TelegramDesktop
 Type=Application
