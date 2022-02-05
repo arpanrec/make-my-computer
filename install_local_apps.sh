@@ -254,8 +254,8 @@ fi
 
 tar -xf "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp" --strip-components 1
 
-if [ ! -f "$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram-Icon-${BITWARDEN_VERSION}.png" ]; then
-    wget --no-check-certificate "https://avatars.githubusercontent.com/u/6113871?s=200&v=4" -O "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram-Icon-${BITWARDEN_VERSION}.png"
+if [ ! -f "$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram-Icon-${TELEGRAM_VERSION}.png" ]; then
+    wget --no-check-certificate "https://avatars.githubusercontent.com/u/6113871?s=200&v=4" -O "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram-Icon-${TELEGRAM_VERSION}.png"
 fi
 
 cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/userapp-Telegram.desktop"
