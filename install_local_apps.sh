@@ -324,6 +324,11 @@ fi
 
 tar -zxf "$TEMP_DOWNLOAD_PATH/nvim-$NEOVIM_VERSION.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/nvim/" --strip-components 1
 ln -s "$PATH_TO_LOCAL_PREFX/share/nvim/bin/nvim" "$PATH_TO_LOCAL_PREFX/bin/nvim"
+
+echo "Installing vim plug"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
 echo "# Install neovim END"
 fi
 
