@@ -246,7 +246,7 @@ fi
 
 if [[ "$redownload_telegram" == "Y" || "$redownload_telegram" == "y" ]]; then
 echo "# Telegram Desktop Application Start"
-mkdir -p "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp" "$PATH_TO_LOCAL_PREFX/share/TelegramDesktop/"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" ]; then
     wget --no-check-certificate "$TELEGRAM_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz"
@@ -264,7 +264,7 @@ Version=$TELEGRAM_VERSION
 Name=Telegram Desktop
 Comment=Official desktop version of Telegram messaging app
 TryExec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram
-Exec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram
+Exec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram -workdir $PATH_TO_LOCAL_PREFX/share/TelegramDesktop/ -- %u
 Icon=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram-Icon-${BITWARDEN_VERSION}.png
 Terminal=false
 StartupWMClass=TelegramDesktop
