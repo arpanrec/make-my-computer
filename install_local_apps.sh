@@ -278,7 +278,7 @@ X-GNOME-UsesNotifications=true
 X-GNOME-SingleWindow=true
 
 [Desktop Action Quit]
-Exec=telegram-desktop -quit
+Exec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram -workdir $PATH_TO_LOCAL_PREFX/share/TelegramDesktop/ -quit
 Name=Quit Telegram
 Icon=application-exit
 EOT
