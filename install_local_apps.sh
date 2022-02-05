@@ -246,6 +246,7 @@ fi
 
 if [[ "$redownload_telegram" == "Y" || "$redownload_telegram" == "y" ]]; then
 echo "# Telegram Desktop Application Start"
+rm -rf "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp" "$PATH_TO_LOCAL_PREFX/share/TelegramDesktop/"
 
 if [ ! -f "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" ]; then
