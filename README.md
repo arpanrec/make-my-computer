@@ -4,5 +4,5 @@
 
 ### Get resources
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/arpanrec/make-my-computer/office-centos7/install_local_apps.sh)
+bash <(curl -s https://raw.githubusercontent.com/arpanrec/make-my-computer/user-apps/install_local_apps.sh)
 ```
