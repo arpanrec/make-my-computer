@@ -16,6 +16,7 @@ PATH_TO_LOCAL_PREFX="$HOME/.local"
 
 mkdir -p "$TEMP_DOWNLOAD_PATH" "$SOURCE_PACKAGE_PATH"
 
+TELEGRAM_VERSION=3.5.1
 BITWARDEN_CLI_VERSION=1.20.0
 BITWARDEN_VERSION=1.30.0
 MATTERMOST_VERSION=5.0.2
@@ -29,6 +30,7 @@ NCURSES_VERSION=6.3
 ZSH_VERSION=5.8
 VSCODE_VERSION=1.63.2
 
+unset TELEGRAM_DOWNLOAD_URL
 unset BITWARDEN_CLI_DOWNLOAD_URL
 unset BITWARDEN_DOWNLOAD_URL
 unset MATTERMOST_DOWNLOAD_URL
@@ -58,6 +60,7 @@ NODE_JS_DOWNLOAD_URL="https://nodejs.org/dist/v$NODE_JS_VERSION/node-v$NODE_JS_V
 NCURSES_DOWNLOAD_URL="https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$NCURSES_VERSION.tar.gz"
 ZSH_DOWNLOAD_URL="https://onboardcloud.dl.sourceforge.net/project/zsh/zsh/$ZSH_VERSION/zsh-$ZSH_VERSION.tar.xz"
 VSCODE_DOWNLOAD_URL="https://update.code.visualstudio.com/$VSCODE_VERSION/linux-x64/stable"
+TELEGRAM_DOWNLOAD_URL="https://updates.tdesktop.com/tlinux/tsetup.${TELEGRAM_VERSION}.tar.xz"
 fi
 
 read -n1 -p "Enter \"Y\" to Redownload bash_it, oh-my-zsh and fzf (Press any other key to Skip*) : " redownload_bashit_ohmyzsh_fzf
@@ -77,10 +80,10 @@ read -n1 -p "Enter \"Y\" to create softlink of gitconfig $HOME/.dotfiles/gitconf
 echo ""
 fi
 fi
-
+read -n1 -p "Enter \"Y\" to Re-download Telegram $TELEGRAM_VERSION (Press any other key to Skip*) : " redownload_telegram
+echo ""
 read -n1 -p "Enter \"Y\" to install Bitwarden $BITWARDEN_VERSION (Press any other key to Skip*) : " install_bitwarden_app_image
 echo ""
-
 read -n1 -p "Enter \"Y\" to install Bitwarden Command-line Interface $BITWARDEN_CLI_VERSION (Press any other key to Skip*) : " install_bitwarden_cli
 echo ""
 read -n1 -p "Enter \"Y\" to install Mattermost $MATTERMOST_VERSION (Press any other key to Skip*) : " install_mattermost
@@ -239,6 +242,47 @@ Terminal=false
 Categories=Office;Network;WebBrowser;
 EOT
 echo "# Mattermost Desktop Application End"
+fi
+
+if [[ "$redownload_telegram" == "Y" || "$redownload_telegram" == "y" ]]; then
+echo "# Telegram Desktop Application Start"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/telegram-desktop"
+
+if [ ! -f "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" ]; then
+    wget --no-check-certificate "$TELEGRAM_DOWNLOAD_URL" -O "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz"
+fi
+
+tar -xf "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/telegram-desktop" --strip-components 1
+
+if [ ! -f "$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram-Icon-${BITWARDEN_VERSION}.png" ]; then
+    wget --no-check-certificate "https://avatars.githubusercontent.com/u/6113871?s=200&v=4" -O "$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram-Icon-${BITWARDEN_VERSION}.png"
+fi
+
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/Telegram-desktop.desktop"
+[Desktop Entry]
+Version=$TELEGRAM_VERSION
+Name=Telegram Desktop
+Comment=Official desktop version of Telegram messaging app
+TryExec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram
+Exec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram -- %u
+Icon=telegram
+Terminal=false
+StartupWMClass=TelegramDesktop
+Type=Application
+Categories=Chat;Network;InstantMessaging;Qt;
+MimeType=x-scheme-handler/tg;
+Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
+Actions=Quit;
+SingleMainWindow=true
+X-GNOME-UsesNotifications=true
+X-GNOME-SingleWindow=true
+
+[Desktop Action Quit]
+Exec=telegram-desktop -quit
+Name=Quit Telegram
+Icon=application-exit
+EOT
+echo "# Telegram Desktop Application End"
 fi
 
 if [[ "$install_postman" == "Y" || "$install_postman" == "y" ]]; then
