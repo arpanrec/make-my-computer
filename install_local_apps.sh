@@ -254,10 +254,34 @@ fi
 
 tar -xf "$TEMP_DOWNLOAD_PATH/telegram-desktop-$TELEGRAM_VERSION.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp" --strip-components 1
 
-"$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram" -workdir "$PATH_TO_LOCAL_PREFX/share/TelegramDesktop/" -- %u
+if [ ! -f "$PATH_TO_LOCAL_PREFX/share/telegram-desktop/Telegram-Icon-${TELEGRAM_VERSION}.png" ]; then
+    wget --no-check-certificate "https://avatars.githubusercontent.com/u/6113871?s=200&v=4" -O "$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram-Icon-${TELEGRAM_VERSION}.png"
+fi
 
-"$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram" -workdir "$PATH_TO_LOCAL_PREFX/share/TelegramDesktop/" -quit
+cat <<EOT > "$PATH_TO_LOCAL_PREFX/share/applications/userapp-Telegram.desktop"
+[Desktop Entry]
+Version=$TELEGRAM_VERSION
+Name=Telegram Desktop
+Comment=Official desktop version of Telegram messaging app
+TryExec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram
+Exec=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram -workdir $PATH_TO_LOCAL_PREFX/share/TelegramDesktop/ -- %u
+Icon=$PATH_TO_LOCAL_PREFX/share/telegram-desktop-userapp/Telegram-Icon-${BITWARDEN_VERSION}.png
+Terminal=false
+StartupWMClass=TelegramDesktop
+Type=Application
+Categories=Chat;Network;InstantMessaging;Qt;
+MimeType=x-scheme-handler/tg;
+Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
+Actions=Quit;
+SingleMainWindow=true
+X-GNOME-UsesNotifications=true
+X-GNOME-SingleWindow=true
 
+[Desktop Action Quit]
+Exec=telegram-desktop -quit
+Name=Quit Telegram
+Icon=application-exit
+EOT
 echo "# Telegram Desktop Application End"
 fi
 
