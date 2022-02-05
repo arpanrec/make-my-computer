@@ -2,15 +2,10 @@
 set -ex
 
 sudo dnf install -y \
-  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
 
 sudo dnf install -y \
-  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-sudo dnf remove -y xorg-x11-drv-nouveau
-
-sudo dnf install -y nvidia-settings akmod-nvidia xorg-x11-drv-nvidia-cuda gwe
-sudo dnf install -y steam
+  "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 
 sudo dnf groupinstall -y "Development Tools"
 sudo dnf install -y libglvnd-devel cmake ncurses-devel git 
