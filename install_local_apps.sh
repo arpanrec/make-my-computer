@@ -165,7 +165,7 @@ git --git-dir="$HOME/.dotfiles/bare" --work-tree="$HOME" config branch.bash-zsh.
 git --git-dir="$HOME/.dotfiles/bare" --work-tree="$HOME" config branch.bash-zsh.merge refs/heads/bash-zsh
 git --git-dir="$HOME/.dotfiles/bare" --work-tree="$HOME" reset --hard HEAD
 
-if [[ "$redownload_dotfiles" == "Y" || "$redownload_dotfiles" == "y" ]]; then
+if [[ "$redownload_dotfiles_link_git_config" == "Y" || "$redownload_dotfiles_link_git_config" == "y" ]]; then
 rm -rf "$HOME/.gitconfig"
 ln -s "$HOME/.dotfiles/gitconfig" "$HOME/.gitconfig"
 fi
