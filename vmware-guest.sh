@@ -34,6 +34,9 @@ sudo apt-get install -y golang
 # sudo apt-get install ubuntu-restricted-extras -y
 sudo apt-get install -y ffmpegthumbnailer ffmpeg vlc eog
 
+# Gnome
+sudo apt install -y gnome-tweak-tool
+
 # Service
 sudo systemctl enable NetworkManager
 sudo systemctl enable dhcpcd
