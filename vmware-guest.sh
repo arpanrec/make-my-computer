@@ -8,6 +8,10 @@ sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/p
 rm -f packages.microsoft.gpg
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O google-chrome-stable_current_amd64.deb
 
+sudo wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+
+sudo echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
 sudo add-apt-repository ppa:transmissionbt/ppa -y
 
 sudo add-apt-repository multiverse -y
@@ -24,7 +28,7 @@ dkms dhcpcd5
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Install VSCode
-sudo apt-get install code -y
+sudo apt-get install code sublime-text -y
 
 # Install java
 sudo apt-get install openjdk-17-jdk maven gradle gradle-doc groovy groovy-doc -y
