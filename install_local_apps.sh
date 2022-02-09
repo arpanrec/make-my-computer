@@ -362,7 +362,7 @@ yarn --cwd "$PATH_TO_LOCAL_PREFX/share/nvim/plugged/coc.nvim" install
 
 yarn --cwd "$PATH_TO_LOCAL_PREFX/share/nvim/plugged/coc.nvim" build
 
-pip install --user jedi
+python3 -m pip install --user --upgrade jedi
 
 "$PATH_TO_LOCAL_PREFX/bin/nvim" --headless +PlugInstall +qa
 
