@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -xe
 
 pre_pro=( wget unzip tar pip3 gpg2 gcc )
 for prog in "${pre_pro[@]}"
@@ -92,6 +92,16 @@ read -n1 -p "Enter \"Y\" to install postman (Press any other key to Skip*) : " i
 echo ""
 read -n1 -p "Enter \"Y\" to install neo vim $NEOVIM_VERSION (Press any other key to Skip*) : " install_neovim
 echo ""
+
+## Neovim requires nodejs
+if [[ "$install_neovim" == "Y" || "$install_neovim" == "y" ]]; then
+echo "Neovim COC requires nodejs"
+install_node_js=y
+else
+read -n1 -p "Enter \"Y\" to install node js $NODE_JS_VERSION (Press any other key to Skip*) : " install_node_js
+echo ""
+fi
+
 read -n1 -p "Enter \"Y\" to install Jq $JQ_VERSION (Press any other key to Skip*) : " install_jq
 echo ""
 read -n1 -p "Enter \"Y\" to install go $GO_VERSION (Press any other key to Skip*) : " install_go
@@ -99,8 +109,6 @@ echo ""
 read -n1 -p "Enter \"Y\" to install JDK $JDK_VERSION (Press any other key to Skip*) : " install_jdk
 echo ""
 read -n1 -p "Enter \"Y\" to install maven $MAVEN_VERSION (Press any other key to Skip*) : " install_maven
-echo ""
-read -n1 -p "Enter \"Y\" to install node js $NODE_JS_VERSION (Press any other key to Skip*) : " install_node_js
 echo ""
 read -n1 -p "Enter \"Y\" to install vscode $VSCODE_VERSION (Press any other key to Skip*) : " install_vscode
 echo ""
@@ -312,8 +320,25 @@ EOT
 echo "# Postman Install END"
 fi
 
+if [[ "$install_node_js" == "Y" || "$install_node_js" == "y" ]]; then
+echo "# Node JS Install Start"
+
+rm -rf "$PATH_TO_LOCAL_PREFX/share/node"
+mkdir -p "$PATH_TO_LOCAL_PREFX/share/node"
+
+if [ ! -f "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" ]; then
+    wget --no-check-certificate "${NODE_JS_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz"
+fi
+
+tar -xf "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/node" --strip-components 1
+
+echo "# Node JS Install End"
+fi
+
 if [[ "$install_neovim" == "Y" || "$install_neovim" == "y" ]]; then
 echo "# Install neovim Start"
+
+source "$HOME/.bashrc"
 
 rm -rf "$PATH_TO_LOCAL_PREFX/share/nvim/" "$PATH_TO_LOCAL_PREFX/bin/nvim"
 mkdir -p "$PATH_TO_LOCAL_PREFX/share/nvim/"
@@ -328,6 +353,18 @@ ln -s "$PATH_TO_LOCAL_PREFX/share/nvim/bin/nvim" "$PATH_TO_LOCAL_PREFX/bin/nvim"
 echo "Installing vim plug"
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+"$PATH_TO_LOCAL_PREFX/bin/nvim" --headless +PlugInstall +qa
+
+npm install -g yarn
+
+yarn --cwd "$PATH_TO_LOCAL_PREFX/share/nvim/plugged/coc.nvim" install
+
+yarn --cwd "$PATH_TO_LOCAL_PREFX/share/nvim/plugged/coc.nvim" build
+
+pip install --user jedi
+
+"$PATH_TO_LOCAL_PREFX/bin/nvim" --headless +PlugInstall +qa
 
 echo "# Install neovim END"
 fi
@@ -389,21 +426,6 @@ fi
 tar -zxf "$TEMP_DOWNLOAD_PATH/mvn-${MAVEN_VERSION}.linux.tar.gz" -C "$PATH_TO_LOCAL_PREFX/share/maven" --strip-components 1
 
 echo "# Maven Install End"
-fi
-
-if [[ "$install_node_js" == "Y" || "$install_node_js" == "y" ]]; then
-echo "# Node JS Install Start"
-
-rm -rf "$PATH_TO_LOCAL_PREFX/share/node"
-mkdir -p "$PATH_TO_LOCAL_PREFX/share/node"
-
-if [ ! -f "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" ]; then
-    wget --no-check-certificate "${NODE_JS_DOWNLOAD_URL}" -O "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz"
-fi
-
-tar -xf "$TEMP_DOWNLOAD_PATH/nodejs-${NODE_JS_VERSION}.linux.tar.xz" -C "$PATH_TO_LOCAL_PREFX/share/node" --strip-components 1
-
-echo "# Node JS Install End"
 fi
 
 if [[ "$install_vscode" == "Y" || "$install_vscode" == "y" ]]; then
