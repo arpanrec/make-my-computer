@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -xe
+set -e
 
 pre_pro=( wget unzip tar pip3 gpg2 gcc )
 for prog in "${pre_pro[@]}"
