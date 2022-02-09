@@ -18,7 +18,7 @@ sudo add-apt-repository multiverse -y
 
 sudo apt update
 
-sudo apt-get install -y apt-transport-https git dkms gnupg2 curl zsh neovim terminator \
+sudo apt-get install -y apt-transport-https git dkms gnupg2 curl zsh terminator \
     transmission-gtk htop
 
 sudo apt-get install -y linux-firmware linux-headers-$(uname -r) dkms \
@@ -27,15 +27,17 @@ dkms dhcpcd5
 
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
-# Install VSCode
-sudo apt-get install code sublime-text -y
+# Install
+# sudo apt-get install code -y # Install from userapps
+sudo apt-get install sublime-text -y
 
-# Install java
-sudo apt-get install openjdk-17-jdk maven gradle gradle-doc groovy groovy-doc -y
+# Install java from user apps
+# sudo apt-get install openjdk-17-jdk maven gradle gradle-doc groovy groovy-doc -y
 
 sudo apt-get install -y python3-pip
 
-sudo apt-get install -y golang
+# Install from userapps
+# sudo apt-get install -y golang
 
 # Codecs
 # sudo apt-get install ubuntu-restricted-extras -y
