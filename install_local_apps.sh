@@ -364,7 +364,7 @@ yarn --cwd "$PATH_TO_LOCAL_PREFX/share/nvim/plugged/coc.nvim" build
 
 python3 -m pip install --user --upgrade jedi
 
-"$PATH_TO_LOCAL_PREFX/bin/nvim" --headless +PlugInstall +qa
+"$PATH_TO_LOCAL_PREFX/bin/nvim" --headless +"CocInstall coc-python" +qa
 
 echo "# Install neovim END"
 fi
