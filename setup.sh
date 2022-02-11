@@ -320,8 +320,8 @@ echo "------------------------------------------"
 echo "       heil wheel group in sudoers        "
 echo "------------------------------------------"
 
-# Add sudo no password rights
-sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+# Add wheel no password rights
+sed -i 's/^#.*wheel.*ALL.*NOPASSWD.*ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 grep wheel /etc/sudoers
 
 echo "-------------------------------------------------------"
