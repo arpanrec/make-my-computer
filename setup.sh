@@ -131,6 +131,8 @@ ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-l
 
 ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
 
+ALL_PAKGS+=('networkmanager-openvpn' 'libnma')
+
 else
 
 ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool' 'fprintd'
@@ -143,6 +145,8 @@ ALL_PAKGS+=('gvfs' 'gvfs-afc' 'gvfs-goa' 'gvfs-google' 'gvfs-gphoto2' 'gvfs-mtp'
 ALL_PAKGS+=('libappindicator-gtk3' 'libappindicator-gtk2')
 
 ALL_PAKGS+=('gnome-sound-recorder')
+
+ALL_PAKGS+=('networkmanager-openvpn' 'libnma')
 
 fi
 
