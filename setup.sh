@@ -35,7 +35,9 @@ echo ""
 echo "--------------------------------------"
 echo "--     Time zone : Asia/Kolkata     --"
 echo "--------------------------------------"
+rm -rf /etc/localtime
 timedatectl set-timezone Asia/Kolkata
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 hwclock --systohc
 timedatectl set-ntp true
 echo ""
@@ -52,6 +54,7 @@ sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_US.UTF-8"
 localectl --no-ask-password set-keymap us
+echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 echo ""
 echo ""
 localectl
@@ -164,9 +167,10 @@ ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'inetutils' 'n
 
 ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec' 'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'celluloid' 'kcodecs')
 
+# gnome-menus might require for qemu
 ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
 'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi' 'qemu-block-rbd' 'samba' 'ebtables' 'virt-viewer'
-'virt-manager' 'gnome-menus' 'dbus-broker' 'tk' 'swtpm')
+'virt-manager' 'dbus-broker' 'tk' 'swtpm')
 
 # Not Sure if this is needed
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver' 'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
@@ -427,19 +431,5 @@ echo "Enable Service: ${MAN_SERVICE}"
 systemctl enable "$MAN_SERVICE"
 done
 
-if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
-
-echo "-----------------------------------------"
-echo "       Setting SDDM Theme as Nordic      "
-echo "-----------------------------------------"
-
-echo -e "Setup SDDM Theme"
-
-cat <<EOF > /etc/sddm.conf
-[Theme]
-Current=Nordic
-EOF
-
-cat /etc/sddm.conf
-
-fi
+echo "Completed"
+echo "It's a good idea to run pacman -R $(pacman -Qtdq) or yay -R $(yay -Qtdq)"
