@@ -377,11 +377,6 @@ id -u "$username" &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt -m
 echo -e "password\npassword" | passwd "$username"
 BASEDIR=$(dirname "$0")
 
-if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
-# sudo -H -u "$username" bash -c "$BASEDIR/kde-user.sh"
-    echo "Ignore"
-fi
-
 fi
 
 echo "-----------------------------------------------------------------------"
@@ -432,4 +427,4 @@ systemctl enable "$MAN_SERVICE"
 done
 
 echo "Completed"
-echo "It's a good idea to run pacman -R $(pacman -Qtdq) or yay -R $(yay -Qtdq)"
+echo 'Its a good idea to run pacman -R $(pacman -Qtdq) or yay -R $(yay -Qtdq)'
