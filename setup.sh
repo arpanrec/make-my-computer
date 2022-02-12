@@ -148,13 +148,13 @@ ALL_PAKGS+=('gnome-sound-recorder')
 
 ALL_PAKGS+=('networkmanager-openvpn' 'libnma')
 
+ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
+
 fi
 
 ALL_PAKGS+=('terminator' 'zsh')
 
 ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-speexdsp' 'lib32-glib2')
-
-ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
 
 ALL_PAKGS+=('thunderbird' 'libotr')
 
@@ -347,7 +347,8 @@ PKGS_AUR=( 'google-chrome' 'brave-bin' 'timeshift' 'sublime-text-4')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
-PKGS_AUR+=( 'kde-thumbnailer-apk' 'resvg' 'sweet-gtk-theme-mars' 'kvantum-theme-sweet-mars' 'kvantum-theme-sweet-git' 'sweet-cursor-theme-git' 'sweet-theme-git' 'sweet-folders-icons-git' 'sweet-kde-git' 'sweet-kde-theme-mars-git' 'candy-icons-git' 'layan-kde-git' 'layan-gtk-theme-git' 'layan-cursor-theme-git' 'kvantum-theme-layan-git' 'tela-icon-theme' 'nordic-darker-standard-buttons-theme' 'nordic-darker-theme' 'kvantum-theme-nordic-git' 'sddm-nordic-theme-git' 'nordic-kde-git' 'nordic-theme-git' )
+echo "Ignored"
+# PKGS_AUR+=( 'kde-thumbnailer-apk' 'resvg' 'sweet-gtk-theme-mars' 'kvantum-theme-sweet-mars' 'kvantum-theme-sweet-git' 'sweet-cursor-theme-git' 'sweet-theme-git' 'sweet-folders-icons-git' 'sweet-kde-git' 'sweet-kde-theme-mars-git' 'candy-icons-git' 'layan-kde-git' 'layan-gtk-theme-git' 'layan-cursor-theme-git' 'kvantum-theme-layan-git' 'tela-icon-theme' 'nordic-darker-standard-buttons-theme' 'nordic-darker-theme' 'kvantum-theme-nordic-git' 'sddm-nordic-theme-git' 'nordic-kde-git' 'nordic-theme-git' )
 
 else
 
@@ -373,7 +374,8 @@ echo -e "password\npassword" | passwd "$username"
 BASEDIR=$(dirname "$0")
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
-sudo -H -u "$username" bash -c "$BASEDIR/kde-user.sh"
+# sudo -H -u "$username" bash -c "$BASEDIR/kde-user.sh"
+    echo "Ignore"
 fi
 
 fi
