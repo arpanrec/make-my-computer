@@ -1,9 +1,7 @@
-# make-my-arch
-# dotfiles
+# Make My Computer
 
-## RUN
+## User Apps
 
-### Get resources
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/arpanrec/make-my-computer/user-apps/install_local_apps.sh)
+bash <(curl -s https://raw.githubusercontent.com/arpanrec/make-my-computer/main/user_apps/install.sh)
 ```
