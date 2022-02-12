@@ -171,7 +171,7 @@ ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-ne
 # Not Sure if this is needed
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver' 'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
 
-MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'dbus-broker' 'libvirtd' 'nordvpnd' 'cups' 'apparmor' 'bluetooth')
+MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'dbus-broker' 'libvirtd' 'cups' 'apparmor' 'bluetooth')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
@@ -343,7 +343,7 @@ BASEDIR=$(dirname "$0")
 sudo -H -u makemyarch_build_user bash -c "$BASEDIR/install_yay.sh"
 fi
 
-PKGS_AUR=( 'google-chrome' 'brave-bin' 'timeshift' 'visual-studio-code-bin' 'nordvpn' 'sublime-text-4')
+PKGS_AUR=( 'google-chrome' 'brave-bin' 'timeshift' 'sublime-text-4')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
@@ -368,7 +368,7 @@ echo "       Create User and Groups         "
 echo "--------------------------------------"
 
 if [[ -n "$username" ]]; then
-id -u "$username" &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt,nordvpn -m -d "/home/$username" "$username"
+id -u "$username" &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt -m -d "/home/$username" "$username"
 echo -e "password\npassword" | passwd "$username"
 BASEDIR=$(dirname "$0")
 
