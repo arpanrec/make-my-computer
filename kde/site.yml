@@ -92,25 +92,17 @@
         dest: "{{  pv_kde_user_config_dir  }}/Kvantum"
         remote_src: true
 
-    - name: KDE | Settings | Download Theme Nordic KDE
-      ansible.builtin.git:
-        repo: 'https://github.com/EliverLara/Nordic-kde'
-        dest: "{{  pv_kde_user_tmp_dir  }}/Nordic-kde"
-        depth: 1
-
     - name: KDE | Settings | Create desktoptheme directory
       ansible.builtin.file:
         state: directory
-        path: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Nordic"
+        path: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/"
         recurse: true
 
-    - name: KDE | Settings | Copy desktoptheme
-      ansible.builtin.copy:
-        src: "{{  pv_kde_user_tmp_dir  }}/Nordic-kde/"
+    - name: KDE | Settings | Download Theme Nordic KDE
+      ansible.builtin.git:
+        repo: 'https://github.com/EliverLara/Nordic-kde'
         dest: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Nordic"
-        remote_src: true
-
-    - name: KDE | Settings | Delete git bare from desktoptheme
-      ansible.builtin.file:
-        state: absent
-        path: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Nordic/.git"
+        depth: 1
+        #bare: true
+        separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/Nordic-kde"
+        force: yes
