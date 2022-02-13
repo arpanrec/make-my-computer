@@ -1,0 +1,9 @@
+---
+- name: KDE Setup Playbook
+  hosts: kde_host
+  gather_facts: false
+  become: false
+  tasks:
+    - shell: hostname
+      register: abc
+    - debug: var=abc
