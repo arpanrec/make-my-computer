@@ -161,11 +161,13 @@ ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate'
 
 ALL_PAKGS+=('thunderbird' 'libotr')
 
-ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane' 'imagescan' 'sane' 'apparmor' 'python-pyqt5' 'python-gobject' 'dbus-python' 'system-config-printer' 'python-pysmbc' 'cups-pk-helper')
+ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane' 'imagescan' 'sane' 'apparmor' 'python-pyqt5' 'python-gobject'
+'dbus-python' 'system-config-printer' 'python-pysmbc' 'cups-pk-helper')
 
 ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'inetutils' 'net-tools' 'sysstat' 'bashtop' 'gnuplot' 'webkit2gtk')
 
-ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec' 'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
+ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec'
+'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
 
 # gnome-menus might require for qemu
 ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
@@ -173,9 +175,11 @@ ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-ne
 'virt-manager' 'dbus-broker' 'tk' 'swtpm')
 
 # Not Sure if this is needed
-ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver' 'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
+ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver'
+'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
 
-MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'dbus-broker' 'libvirtd' 'cups' 'apparmor' 'bluetooth')
+MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'dbus-broker'
+'libvirtd' 'cups' 'apparmor' 'bluetooth')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
@@ -297,7 +301,8 @@ fi
 
 # Pipewire or Pulseaudio selection
 if [[ "$pipewire_yes_no" == "Y" || "$pipewire_yes_no" == "y" ]]; then
-ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack' 'gst-plugin-pipewire' 'pipewire-v4l2' 'pipewire-zeroconf' 'lib32-pipewire-v4l2')
+ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack'
+'gst-plugin-pipewire' 'pipewire-v4l2' 'pipewire-zeroconf' 'lib32-pipewire-v4l2')
 else
 ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'lib32-libpulse' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
 fi
