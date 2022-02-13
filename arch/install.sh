@@ -165,7 +165,7 @@ ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane'
 
 ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'inetutils' 'net-tools' 'sysstat' 'bashtop' 'gnuplot' 'webkit2gtk')
 
-ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec' 'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'celluloid' 'kcodecs')
+ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec' 'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
 
 # gnome-menus might require for qemu
 ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
@@ -400,7 +400,7 @@ echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
 echo "systool -m kvm_intel -v | grep nested"
 systool -m kvm_intel -v | grep nested
 echo "cat /sys/module/kvm_intel/parameters/nested"
-cat /sys/module/kvm_intel/parameters/nested 
+cat /sys/module/kvm_intel/parameters/nested
 ;;
 AuthenticAMD)
 echo "Enable AMD nested virtualization"
