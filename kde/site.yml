@@ -1,9 +1,20 @@
 ---
 - name: KDE Setup Playbook
   hosts: kde_host
-  gather_facts: false
+  gather_facts: true
   become: false
   tasks:
-    - shell: hostname
-      register: abc
-    - debug: var=abc
+    - name: KDE | Find User Home Directory
+      set_fact:
+        pv_kde_user_home_dir: "{{  ansible_facts.user_dir  }}"
+
+    - name: KDE | Find User Config Directory
+      set_fact:
+        pv_kde_user_config_dir: "{{  pv_kde_user_home_dir  }}/.config"
+
+    - name: KDE | Settings | Single click
+      community.general.ini_file:
+        path: "{{  pv_kde_user_config_dir  }}/kdeglobals"
+        section: KDE
+        option: SingleClick
+        value: 'false'
