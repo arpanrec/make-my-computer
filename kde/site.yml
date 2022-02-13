@@ -27,9 +27,15 @@
         recurse: true
       with_items:
         - "{{  pv_kde_user_home_dir  }}"
-        - "{{  pv_kde_user_config_dir  }}"
+        - "{{  pv_kde_user_share_dir  }}/themes"
+        - "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/"
+        - "{{  pv_kde_user_share_dir  }}/aurorae/themes"
+        - "{{  pv_kde_user_share_dir  }}/color-schemes"
+        - "{{  pv_kde_user_share_dir  }}/plasma/look-and-feel"
+        - "{{  pv_kde_user_config_dir  }}/Kvantum"
         - "{{  pv_kde_user_tmp_dir  }}"
-        - "{{  pv_kde_user_share_dir  }}"
+        #- "{{  pv_kde_user_tmp_dir  }}/Nordic-kde"
+        #- "{{  pv_kde_user_tmp_dir  }}/Nordic"
 
     - name: KDE | Settings | Single click
       community.general.ini_file:
@@ -41,68 +47,39 @@
     - name: KDE | Settings | Download Theme Nordic
       ansible.builtin.git:
         repo: 'https://github.com/EliverLara/Nordic.git'
-        dest: "{{  pv_kde_user_tmp_dir  }}/Nordic"
+        dest: "{{  pv_kde_user_share_dir  }}/themes/Nordic"
         depth: 1
-
-    - name: KDE | Settings | Create aurorae directory
-      ansible.builtin.file:
-        state: directory
-        path: "{{  pv_kde_user_share_dir  }}/aurorae/themes"
-        recurse: true
+        separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/Nordic-git-bare"
+        force: yes
 
     - name: KDE | Settings | Copy aurorae themes
       ansible.builtin.copy:
-        src: "{{  pv_kde_user_tmp_dir  }}/Nordic/kde/aurorae/Nordic/"
+        src: "{{  pv_kde_user_share_dir  }}/themes/Nordic/kde/aurorae/Nordic/"
         dest: "{{  pv_kde_user_share_dir  }}/aurorae/themes/Nordic"
         remote_src: true
 
-    - name: KDE | Settings | Create colorschemes directory
-      ansible.builtin.file:
-        state: directory
-        path: "{{  pv_kde_user_share_dir  }}/color-schemes"
-        recurse: true
-
     - name: KDE | Settings | Copy color schemes
       ansible.builtin.copy:
-        src: "{{  pv_kde_user_tmp_dir  }}/Nordic/kde/colorschemes/"
+        src: "{{  pv_kde_user_share_dir  }}/themes/Nordic/kde/colorschemes/"
         dest: "{{  pv_kde_user_share_dir  }}/color-schemes"
         remote_src: true
 
-    - name: KDE | Settings | Create look-and-feel directory
-      ansible.builtin.file:
-        state: directory
-        path: "{{  pv_kde_user_share_dir  }}/plasma/look-and-feel"
-        recurse: true
-
     - name: KDE | Settings | Copy look-and-feel schemes
       ansible.builtin.copy:
-        src: "{{  pv_kde_user_tmp_dir  }}/Nordic/kde/plasma/look-and-feel/"
+        src: "{{  pv_kde_user_share_dir  }}/themes/Nordic/kde/plasma/look-and-feel/"
         dest: "{{  pv_kde_user_share_dir  }}/plasma/look-and-feel"
         remote_src: true
 
-    - name: KDE | Settings | Create kvantum directory
-      ansible.builtin.file:
-        state: directory
-        path: "{{  pv_kde_user_config_dir  }}/Kvantum"
-        recurse: true
-
     - name: KDE | Settings | Copy Kvantum schemes
       ansible.builtin.copy:
-        src: "{{  pv_kde_user_tmp_dir  }}/Nordic/kde/kvantum/"
+        src: "{{  pv_kde_user_share_dir  }}/themes/Nordic/kde/kvantum/"
         dest: "{{  pv_kde_user_config_dir  }}/Kvantum"
         remote_src: true
 
-    - name: KDE | Settings | Create desktoptheme directory
-      ansible.builtin.file:
-        state: directory
-        path: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/"
-        recurse: true
-
     - name: KDE | Settings | Download Theme Nordic KDE
       ansible.builtin.git:
-        repo: 'https://github.com/EliverLara/Nordic-kde'
+        repo: 'https://github.com/EliverLara/Nordic-kde.git'
         dest: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Nordic"
         depth: 1
-        #bare: true
-        separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/Nordic-kde"
+        separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/NordicKdeTheme-git-bare"
         force: yes
