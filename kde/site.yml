@@ -37,13 +37,6 @@
         #- "{{  pv_kde_user_tmp_dir  }}/Nordic-kde"
         #- "{{  pv_kde_user_tmp_dir  }}/Nordic"
 
-    - name: KDE | Settings | Single click
-      community.general.ini_file:
-        path: "{{  pv_kde_user_config_dir  }}/kdeglobals"
-        section: KDE
-        option: SingleClick
-        value: 'false'
-
     - name: KDE | Settings | Download Theme Nordic
       ansible.builtin.git:
         repo: 'https://github.com/EliverLara/Nordic.git'
@@ -83,3 +76,18 @@
         depth: 1
         separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/NordicKdeTheme-git-bare"
         force: yes
+
+##########
+    - name: KDE | Settings | Single click
+      community.general.ini_file:
+        path: "{{  pv_kde_user_config_dir  }}/kdeglobals"
+        section: KDE
+        option: SingleClick
+        value: 'false'
+
+    - name: KDE | Settings | Kvantum Theme
+      community.general.ini_file:
+        path: "{{  pv_kde_user_config_dir  }}/Kvantum/kvantum.kvconfig"
+        section: General
+        option: theme
+        value: Nordic
