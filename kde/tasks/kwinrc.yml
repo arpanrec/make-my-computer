@@ -37,7 +37,7 @@
     no_extra_spaces: true
     section: Effect-Blur
     option: "{{  item.option  }}"
-    value: "{{  item.option  }}"
+    value: "{{  item.value  }}"
   with_items:
     - {option: BlurStrength, value: 10}
     - {option: NoiseStrength, value: 10}
