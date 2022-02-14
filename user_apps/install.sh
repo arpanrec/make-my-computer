@@ -14,7 +14,7 @@ read -n1 -p "Enter \"Y\" to install pip wheel setuptools (Press any other key to
 echo ""
 if [[ "$install_pip" == "Y" || "$install_pip" == "y" ]]; then
 echo "Updating Python packages"
-$(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv --user --upgrade
+$(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv jedi --user --upgrade
 fi
 
 TEMP_DOWNLOAD_PATH="$HOME/.tmp"
