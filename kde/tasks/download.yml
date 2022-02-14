@@ -1,11 +1,11 @@
 ---
-- name: KDE | Settings | Download Theme Nordic
+- name: KDE | Download | Download Theme Nordic
   ansible.builtin.git:
     repo: 'https://github.com/EliverLara/Nordic.git'
     dest: "{{  pv_kde_user_share_dir  }}/themes/Nordic"
     depth: 1
     separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/Nordic-git-bare"
-    force: yes
+    force: true
 
 - name: KDE | Settings | Copy aurorae themes
   ansible.builtin.copy:
@@ -31,10 +31,30 @@
     dest: "{{  pv_kde_user_config_dir  }}/Kvantum"
     remote_src: true
 
-- name: KDE | Settings | Download Theme Nordic KDE
+- name: KDE | Download | Download Theme Nordic KDE
   ansible.builtin.git:
     repo: 'https://github.com/EliverLara/Nordic-kde.git'
     dest: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Nordic"
     depth: 1
     separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/NordicKdeTheme-git-bare"
-    force: yes
+    force: true
+
+- name: KDE | Download | Tela Icon Themes
+  ansible.builtin.git:
+    repo: 'https://github.com/vinceliuice/Tela-icon-theme.git'
+    dest: "{{  pv_kde_user_tmp_dir  }}/Tela-icon-theme"
+    depth: 1
+
+- name: KDE | Settings | Tela Icon Themes
+  ansible.builtin.shell: "{{  pv_kde_user_tmp_dir  }}/Tela-icon-theme/install.sh -a"
+  args:
+    executable: /bin/bash
+    creates: "{{  pv_kde_user_share_dir  }}/icons/Tela"
+
+- name: KDE | Download | Candy Icon Themes
+  ansible.builtin.git:
+    repo: 'https://github.com/EliverLara/candy-icons.git'
+    dest: "{{  pv_kde_user_share_dir  }}/icons/candy-icons"
+    depth: 1
+    separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/candy-icons-bare"
+    force: true

@@ -34,10 +34,12 @@
         - "{{  pv_kde_user_share_dir  }}/plasma/look-and-feel"
         - "{{  pv_kde_user_config_dir  }}/Kvantum"
         - "{{  pv_kde_user_tmp_dir  }}"
+        #- "{{  pv_kde_user_share_dir  }}/icons/candy-icons"
         #- "{{  pv_kde_user_tmp_dir  }}/Nordic-kde"
         #- "{{  pv_kde_user_tmp_dir  }}/Nordic"
 
     - name: Download Tasks
       import_tasks: tasks/download.yml
+
     - name: Settings Tasks
       import_tasks: tasks/settings.yml
