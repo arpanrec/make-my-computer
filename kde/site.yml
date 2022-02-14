@@ -24,7 +24,6 @@
       ansible.builtin.file:
         state: directory
         path: "{{  item  }}"
-        recurse: true
       with_items:
         - "{{  pv_kde_user_home_dir  }}"
         - "{{  pv_kde_user_share_dir  }}/themes"
