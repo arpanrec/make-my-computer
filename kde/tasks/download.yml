@@ -3,6 +3,7 @@
   block:
     - name: KDE | Download | Theme | EliverLara Nordic | Clone git
       ansible.builtin.git:
+        single_branch: true
         repo: 'https://github.com/EliverLara/Nordic.git'
         dest: "{{  pv_kde_user_share_dir  }}/themes/Nordic"
         depth: 1
@@ -34,6 +35,7 @@
 
 - name: KDE | Download | Theme | EliverLara Nordic-kde
   ansible.builtin.git:
+    single_branch: true
     repo: 'https://github.com/EliverLara/Nordic-kde.git'
     dest: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Nordic"
     depth: 1
@@ -43,6 +45,7 @@
   block:
     - name: KDE | Download | Icon | vinceliuice Tela | Git Clone
       ansible.builtin.git:
+        single_branch: true
         repo: 'https://github.com/vinceliuice/Tela-icon-theme.git'
         dest: "{{  pv_kde_user_tmp_dir  }}/vinceliuice-Tela-icon-theme"
         depth: 1
@@ -57,6 +60,7 @@
 
 - name: KDE | Download | Icon | EliverLara Candy
   ansible.builtin.git:
+    single_branch: true
     repo: 'https://github.com/EliverLara/candy-icons.git'
     dest: "{{  pv_kde_user_share_dir  }}/icons/candy-icons"
     depth: 1
@@ -66,6 +70,7 @@
   block:
     - name: KDE | Download | Theme | vinceliuice Layan-kde | Git Clone
       ansible.builtin.git:
+        single_branch: true
         repo: 'https://github.com/vinceliuice/Layan-kde.git'
         dest: "{{  pv_kde_user_tmp_dir  }}/vinceliuice-Layan-kde"
         depth: 1
@@ -81,6 +86,7 @@
   block:
     - name: KDE | Download | Cursors | vinceliuice Layan-cursors | Git Clone
       ansible.builtin.git:
+        single_branch: true
         repo: 'https://github.com/vinceliuice/Layan-cursors.git'
         dest: "{{  pv_kde_user_tmp_dir  }}/vinceliuice-Layan-cursors"
         depth: 1
@@ -96,6 +102,7 @@
   block:
     - name: KDE | Download | Theme | vinceliuice Layan-gtk-theme | Git Clone
       ansible.builtin.git:
+        single_branch: true
         repo: 'https://github.com/vinceliuice/Layan-gtk-theme.git'
         dest: "{{  pv_kde_user_tmp_dir  }}/vinceliuice-Layan-gtk-theme"
         depth: 1
@@ -107,16 +114,59 @@
       args:
         executable: /bin/bash
 
-- name: KDE | Download | Theme | EliverLara Sweet-kde
-  ansible.builtin.git:
-    repo: 'https://github.com/EliverLara/Sweet-kde.git'
-    dest: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Sweet"
-    depth: 1
-    separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/EliverLara-Sweet-kde-git-bare"
+# - name: KDE | Download | Theme | EliverLara Sweet-kde
+#   ansible.builtin.git:
+#     single_branch: true
+#     repo: 'https://github.com/EliverLara/Sweet-kde.git'
+#     dest: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Sweet"
+#     depth: 1
+#     separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/EliverLara-Sweet-kde-git-bare"
 
-- name: KDE | Download | Theme | EliverLara Sweet
-  ansible.builtin.git:
-    repo: 'https://github.com/EliverLara/Sweet.git'
-    dest: "{{  pv_kde_user_share_dir  }}/themes/Sweet"
-    depth: 1
-    separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/EliverLara-Sweet-git-bare"
+# - name: KDE | Download | Theme | EliverLara Sweet
+#   ansible.builtin.git:
+#     single_branch: true
+#     repo: 'https://github.com/EliverLara/Sweet.git'
+#     dest: "{{  pv_kde_user_share_dir  }}/themes/Sweet"
+#     depth: 1
+#     separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/EliverLara-Sweet-git-bare"
+
+- name: KDE | Download | Theme | EliverLara Sweet Mars
+  block:
+    - name: KDE | Download | Theme | EliverLara Sweet Mars | Git Clone
+      ansible.builtin.git:
+        single_branch: true
+        repo: 'https://github.com/EliverLara/Sweet.git'
+        dest: "{{  pv_kde_user_share_dir  }}/themes/Sweet"
+        depth: 1
+        separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/EliverLara-Sweet-mars-git-bare"
+        version: mars
+
+    - name: KDE | Download | Theme | EliverLara Sweet Mars | Settings | Copy aurorae themes
+      ansible.builtin.copy:
+        src: "{{  pv_kde_user_share_dir  }}/themes/Sweet/kde/aurorae/"
+        dest: "{{  pv_kde_user_share_dir  }}/aurorae/themes/"
+        remote_src: true
+
+    - name: KDE | Download | Theme | EliverLara Sweet Mars | Settings | Copy color schemes
+      ansible.builtin.copy:
+        src: "{{  pv_kde_user_share_dir  }}/themes/Sweet/kde/colorschemes/"
+        dest: "{{  pv_kde_user_share_dir  }}/color-schemes"
+        remote_src: true
+
+    - name: KDE | Download | Theme | EliverLara Sweet Mars | Settings | Copy plasma schemes
+      ansible.builtin.copy:
+        src: "{{  pv_kde_user_share_dir  }}/themes/Sweet/kde/plasma/"
+        dest: "{{  pv_kde_user_share_dir  }}/plasma"
+        remote_src: true
+
+    - name: KDE | Download | Theme | EliverLara Sweet Mars | Settings | Copy Kvantum schemes
+      ansible.builtin.copy:
+        src: "{{  pv_kde_user_share_dir  }}/themes/Sweet/kde/kvantum/"
+        dest: "{{  pv_kde_user_config_dir  }}/Kvantum"
+        remote_src: true
+
+    - name: KDE | Download | Theme | EliverLara Sweet Mars | Settings | Copy konsole schemes
+      ansible.builtin.copy:
+        src: "{{  pv_kde_user_share_dir  }}/themes/Sweet/kde/konsole/"
+        dest: "{{  pv_kde_user_share_dir  }}/konsole/"
+        remote_src: true
