@@ -41,3 +41,19 @@
   with_items:
     - {option: BlurStrength, value: 10}
     - {option: NoiseStrength, value: 10}
+
+#######
+
+- name: KDE | Kwin | Plugins with 3d
+  community.general.ini_file:
+    path: "{{  pv_kde_user_config_dir  }}/kwinrc"
+    no_extra_spaces: true
+    section: Plugins
+    option: "{{  item  }}"
+    value: 'true'
+  with_items:
+    - kwin4_effect_squashEnabled
+    - magiclampEnabled
+    - kwin4_effect_dimscreenEnabled
+    - wobblywindowsEnabled
+    - fallapartEnabled
