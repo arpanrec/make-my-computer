@@ -37,57 +37,7 @@
         #- "{{  pv_kde_user_tmp_dir  }}/Nordic-kde"
         #- "{{  pv_kde_user_tmp_dir  }}/Nordic"
 
-    - name: KDE | Settings | Download Theme Nordic
-      ansible.builtin.git:
-        repo: 'https://github.com/EliverLara/Nordic.git'
-        dest: "{{  pv_kde_user_share_dir  }}/themes/Nordic"
-        depth: 1
-        separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/Nordic-git-bare"
-        force: yes
-
-    - name: KDE | Settings | Copy aurorae themes
-      ansible.builtin.copy:
-        src: "{{  pv_kde_user_share_dir  }}/themes/Nordic/kde/aurorae/Nordic/"
-        dest: "{{  pv_kde_user_share_dir  }}/aurorae/themes/Nordic"
-        remote_src: true
-
-    - name: KDE | Settings | Copy color schemes
-      ansible.builtin.copy:
-        src: "{{  pv_kde_user_share_dir  }}/themes/Nordic/kde/colorschemes/"
-        dest: "{{  pv_kde_user_share_dir  }}/color-schemes"
-        remote_src: true
-
-    - name: KDE | Settings | Copy look-and-feel schemes
-      ansible.builtin.copy:
-        src: "{{  pv_kde_user_share_dir  }}/themes/Nordic/kde/plasma/look-and-feel/"
-        dest: "{{  pv_kde_user_share_dir  }}/plasma/look-and-feel"
-        remote_src: true
-
-    - name: KDE | Settings | Copy Kvantum schemes
-      ansible.builtin.copy:
-        src: "{{  pv_kde_user_share_dir  }}/themes/Nordic/kde/kvantum/"
-        dest: "{{  pv_kde_user_config_dir  }}/Kvantum"
-        remote_src: true
-
-    - name: KDE | Settings | Download Theme Nordic KDE
-      ansible.builtin.git:
-        repo: 'https://github.com/EliverLara/Nordic-kde.git'
-        dest: "{{  pv_kde_user_share_dir  }}/plasma/desktoptheme/Nordic"
-        depth: 1
-        separate_git_dir: "{{  pv_kde_user_tmp_dir  }}/NordicKdeTheme-git-bare"
-        force: yes
-
-##########
-    - name: KDE | Settings | Single click
-      community.general.ini_file:
-        path: "{{  pv_kde_user_config_dir  }}/kdeglobals"
-        section: KDE
-        option: SingleClick
-        value: 'false'
-
-    - name: KDE | Settings | Kvantum Theme
-      community.general.ini_file:
-        path: "{{  pv_kde_user_config_dir  }}/Kvantum/kvantum.kvconfig"
-        section: General
-        option: theme
-        value: Nordic
+    - name: Download Tasks
+      import_tasks: tasks/download.yml
+    - name: Settings Tasks
+      import_tasks: tasks/settings.yml
