@@ -10,6 +10,9 @@ if ! hash "${prog}" &>/dev/null ; then
 fi
 done
 
+echo "Updating Python packages"
+$(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv --user --upgrade
+
 TEMP_DOWNLOAD_PATH="$HOME/.tmp"
 SOURCE_PACKAGE_PATH="$HOME/.local/src"
 PATH_TO_LOCAL_PREFX="$HOME/.local"
