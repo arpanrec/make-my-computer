@@ -112,9 +112,9 @@ read -n1 -p "Enter \"Y\" to install maven $MAVEN_VERSION (Press any other key to
 echo ""
 read -n1 -p "Enter \"Y\" to install vscode $VSCODE_VERSION (Press any other key to Skip*) : " install_vscode
 echo ""
-read -n1 -p "Enter \"Y\" to install ncurses $NCURSES_VERSION (Press any other key to Skip*) : " install_ncurses
+read -n1 -p "Enter \"YES\" to install ncurses $NCURSES_VERSION (Press any other key to Skip*) : " install_ncurses
 echo ""
-read -n1 -p "Enter \"Y\" to install zsh $ZSH_VERSION (Press any other key to Skip*) : " install_zsh
+read -n1 -p "Enter \"YES\" to install zsh $ZSH_VERSION (Press any other key to Skip*) : " install_zsh
 echo ""
 
 if [[ "$redownload_bashit_ohmyzsh_fzf" == "Y" || "$redownload_bashit_ohmyzsh_fzf" == "y" ]]; then
@@ -482,7 +482,7 @@ chmod +x "$PATH_TO_LOCAL_PREFX/bin/code"
 echo "# VSCODE Install End"
 fi
 
-if [[ "$install_ncurses" == "Y" || "$install_ncurses" == "y" ]]; then
+if [[ "$install_ncurses" == "YES" ]]; then
 echo "# Ncurses Install Start"
 
 rm -rf "$SOURCE_PACKAGE_PATH/ncurses"
@@ -510,7 +510,7 @@ source "$HOME/.bashrc"
 echo "# Ncurses Install end"
 fi
 
-if [[ "$install_zsh" == "Y" || "$install_zsh" == "y" ]]; then
+if [[ "$install_zsh" == "YES" ]]; then
 echo "# ZSH Install Start"
 
 rm -rf "$SOURCE_PACKAGE_PATH/zsh"
