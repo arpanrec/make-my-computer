@@ -38,11 +38,3 @@
     section: Settings
     option: gtk-theme-name
     value: Nordic
-
-- name: KDE | Settings | Set flip task switch
-  community.general.ini_file:
-    path: "{{  pv_kde_user_config_dir  }}/kwinrc"
-    no_extra_spaces: true
-    section: TabBox
-    option: LayoutName
-    value: flipswitch

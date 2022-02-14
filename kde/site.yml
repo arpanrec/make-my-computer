@@ -43,3 +43,6 @@
 
     - name: Settings Tasks
       import_tasks: tasks/settings.yml
+
+    - name: Settings kwinrc
+      import_tasks: tasks/kwinrc.yml
