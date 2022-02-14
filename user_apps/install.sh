@@ -10,8 +10,12 @@ if ! hash "${prog}" &>/dev/null ; then
 fi
 done
 
+read -n1 -p "Enter \"Y\" to install pip wheel setuptools (Press any other key to Skip*) : " install_pip
+echo ""
+if [[ "$install_pip" == "Y" || "$install_pip" == "y" ]]; then
 echo "Updating Python packages"
 $(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv --user --upgrade
+fi
 
 TEMP_DOWNLOAD_PATH="$HOME/.tmp"
 SOURCE_PACKAGE_PATH="$HOME/.local/src"
