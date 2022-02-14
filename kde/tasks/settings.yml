@@ -2,6 +2,7 @@
 - name: KDE | Settings | Single click
   community.general.ini_file:
     path: "{{  pv_kde_user_config_dir  }}/kdeglobals"
+    no_extra_spaces: true
     section: KDE
     option: SingleClick
     value: 'false'
@@ -9,6 +10,7 @@
 - name: KDE | Settings | Kvantum Theme
   community.general.ini_file:
     path: "{{  pv_kde_user_config_dir  }}/Kvantum/kvantum.kvconfig"
+    no_extra_spaces: true
     section: General
     option: theme
     value: Nordic
@@ -16,6 +18,7 @@
 - name: KDE | Settings | Set global theme Nordic
   community.general.ini_file:
     path: "{{  pv_kde_user_config_dir  }}/kdeglobals"
+    no_extra_spaces: true
     section: KDE
     option: LookAndFeelPackage
     value: Nordic
@@ -23,6 +26,7 @@
 - name: KDE | Settings | Set gtk4 theme
   community.general.ini_file:
     path: "{{  pv_kde_user_config_dir  }}/gtk-4.0/settings.ini"
+    no_extra_spaces: true
     section: Settings
     option: gtk-theme-name
     value: Nordic
@@ -30,6 +34,15 @@
 - name: KDE | Settings | Set gtk3 theme
   community.general.ini_file:
     path: "{{  pv_kde_user_config_dir  }}/gtk-3.0/settings.ini"
+    no_extra_spaces: true
     section: Settings
     option: gtk-theme-name
     value: Nordic
+
+- name: KDE | Settings | Set flip task switch
+  community.general.ini_file:
+    path: "{{  pv_kde_user_config_dir  }}/kwinrc"
+    no_extra_spaces: true
+    section: TabBox
+    option: LayoutName
+    value: flipswitch
