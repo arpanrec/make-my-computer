@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+cd ${HOME}
+
 __bare_backup_directory="${HOME}/.backup/dotfiles-bare-setup-$(date +%s)"
 __git_remote='https://github.com/arpanrec/dotfiles.git'
 __gitbare_directory="${HOME}/.dotfiles"
