@@ -88,7 +88,6 @@ if [[ "${__git_checkout_setup}" == "Y" || "${__git_checkout_setup}" == "y" ]]; t
         if [[ "${__backup_setup}" == "Y" || "${__backup_setup}" == "y" ]]; then
             mkdir -p "${__bare_backup_directory}"
             cp -r "${__setup_script_dir}" "${__bare_backup_directory}"
-            rm -rf "${__setup_script_dir}"
             echo "Back up completed and cleaned up old files"
             echo ""
         else
