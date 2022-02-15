@@ -2,10 +2,9 @@
 set -e
 
 __bare_backup_directory="${HOME}/.backup/dotfiles-bare-setup-$(date +%s)"
-__backup_directory="${HOME}/.backup/dotfiles-$(date +%s)"
-__gitbare_directory="${HOME}/.dotfiles"
 __git_remote='https://github.com/arpanrec/dotfiles.git'
-
+__gitbare_directory="${HOME}/.dotfiles"
+__setup_script_dir="${HOME}/.setup"
 echo "-----------------------------------------------------------------------------------------------------------------------"
 echo "-----------------------------------------------------------------------------------------------------------------------"
 echo ""
@@ -58,69 +57,50 @@ if [[ "${__redownload_dotfiles}" == "Y" || "${__redownload_dotfiles}" == "y" ]];
     fi
     echo ""
     git clone --depth=1 --single-branch --branch main "${__git_remote}" --bare "${__gitbare_directory}"
+    git --git-dir="${__gitbare_directory}" --work-tree="$HOME" config status.showUntrackedFiles no
+    git --git-dir="${__gitbare_directory}" --work-tree="$HOME" config branch.main.remote origin
+    git --git-dir="${__gitbare_directory}" --work-tree="$HOME" config branch.main.merge refs/heads/main
     echo ""
     echo "#######################################################################################################################################################"
     echo "Finish Downloding Dotfiles"
     echo "#######################################################################################################################################################"
 fi
-
+echo ""
 echo "#######################################################################################################################################################"
-echo "Apply new dotfiles?"
+echo "Checkout the Automated setup scripts?"
 echo "#######################################################################################################################################################"
 echo ""
-echo "Old dotfiles will be backdup at ${__backup_directory}"
+echo "Few automation scripts are avalible at ${__setup_script_dir}"
 echo ""
-read -n1 -p "Enter \"Y\" to start (Press any other key to Skip*) : " __git_bare_reset
+read -n1 -p "Enter \"Y\" to checkout (Press any other key to Skip*) : " __git_checkout_setup
 echo ""
 echo ""
-if [[ "${__git_bare_reset}" == "Y" || "${__git_bare_reset}" == "y" ]]; then
+if [[ "${__git_checkout_setup}" == "Y" || "${__git_checkout_setup}" == "y" ]]; then
 
-    mkdir -p "${__backup_directory}"
+    if [[ -f "${__setup_script_dir}" || -d "${__setup_script_dir}" ]]; then
 
-    # __files_to_backup=( $(git --git-dir="${HOME}/.dotbare" --work-tree=${HOME} ls-files) )
-
-    __files_to_backup=(
-        ".bash_it/themes/makemyarch/makemyarch.theme.bash"
-        ".config/Code/User/keybindings.json"
-        ".config/Code/User/settings.json"
-        ".config/konsave/profiles/nordic"
-        ".config/nvim/init.vim"
-        ".config/systemd/user/google-drive.service"
-        ".config/systemd/user/google-photos.service"
-        ".config/systemd/user/onedrive.service"
-        ".config/systemd/user/work-drive.service"
-        ".config/terminator/config"
-        ".config/konsolerc"
-        ".gnupg/gpg-agent.conf"
-        ".gnupg/sshcontrol"
-        ".local/share/konsole/arpanrec.keytab"
-        ".local/share/konsole/arpanrec.profile"
-        ".local/share/konsole/BlackOnLightYellow.colorscheme"
-        ".local/share/konsole/GreenOnBlack.colorscheme"
-        ".local/share/konsole/Nordic.colorscheme"
-        ".local/share/konsole/Solarized.colorscheme"
-        ".ssh/config"
-        ".symbolic/gitconfig"
-        ".aliasrc"
-        ".bash_profile"
-        ".bashrc"
-        ".exporterrc"
-        ".p10k.zsh"
-        ".zshrc"
-    )
-
-    for file_to_backup in ${__files_to_backup[@]}; do
-        echo "Backup ${HOME}/${file_to_backup}"
-        if [[ -f "${HOME}/${file_to_backup}" || -d "${HOME}/${file_to_backup}" ]]; then
-            echo "Backing up to ${__backup_directory}/${file_to_backup}"
-            mkdir -p "$(dirname "${__backup_directory}/${file_to_backup}")"
-            cp -r ${HOME}/${file_to_backup} ${__backup_directory}/${file_to_backup}
+        echo ""
+        echo "${__setup_script_dir} Already exists"
+        echo ""
+        read -n1 -p "Enter \"y\" to backup old ${__setup_script_dir} to ${__bare_backup_directory} (Press any other key to Skip*) : " __backup_setup
+        echo ""
+        echo ""
+        if [[ "${__backup_setup}" == "Y" || "${__backup_setup}" == "y" ]]; then
+            mkdir -p "${__bare_backup_directory}"
+            cp -r "${__setup_script_dir}" "${__bare_backup_directory}"
+            rm -rf "${__setup_script_dir}"
+            echo "Back up completed and cleaned up old files"
+            echo ""
         else
-            echo "File not found"
+            echo ""
+            echo "Done"
+            echo ""
+            exit 0
         fi
-    done
 
-    git --git-dir="${HOME}/.dotbare" --work-tree=${HOME} reset --hard HEAD
+    fi
+
+    git --git-dir="${__gitbare_directory}" --work-tree="$HOME" checkout HEAD -- "${__setup_script_dir}"
 
 fi
 
