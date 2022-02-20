@@ -1,1 +1,3 @@
-# Make My Computer
+# make-my-computer
+
+automated script for os installation
