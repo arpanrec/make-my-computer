@@ -366,7 +366,7 @@ echo "makemyarch_build_user ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers.d/10-makemya
 if ! command -v yay &>/dev/null; then
     # Yay User
     BASEDIR=$(dirname "$0")
-    sudo -H -u makemyarch_build_user bash -c "$BASEDIR/install_yay.sh"
+    sudo -H -u makemyarch_build_user bash -c "$BASEDIR/yay.sh"
 fi
 
 PKGS_AUR=('google-chrome' 'brave-bin' 'timeshift' 'sublime-text-4')
