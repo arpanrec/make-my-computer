@@ -18,8 +18,8 @@ vmware_version_installed=$(vmware --version | awk '{ print $3 }')
 current_kernel_version=$(uname -r | awk -F . '{print $1 "." $2}')
 
 if [ ! -f "$tmp_vmware_dir/w$vmware_version_installed-k$current_kernel_version.tar.gz" ]; then
-    wget "https://github.com/mkubecek/vmware-host-modules/archive/refs/tags/w$vmware_version_installed-k$current_kernel_version.tar.gz" \
-                -O "$tmp_vmware_dir/w$vmware_version_installed-k$current_kernel_version.tar.gz"
+  wget "https://github.com/mkubecek/vmware-host-modules/archive/refs/tags/w$vmware_version_installed-k$current_kernel_version.tar.gz" \
+    -O "$tmp_vmware_dir/w$vmware_version_installed-k$current_kernel_version.tar.gz"
 fi
 
 mkdir -p "$tmp_vmware_dir/vmware-host-modules-w$vmware_version_installed-k$current_kernel_version"
@@ -38,7 +38,7 @@ cp -v vmmon.tar vmnet.tar /usr/lib/vmware/modules/source/
 vmware-modconfig --console --install-all
 modprobe -a vmw_vmci vmmon
 
-cat <<EOT > "/etc/systemd/system/vmware.service"
+cat <<EOT >"/etc/systemd/system/vmware.service"
 [Unit]
 Description=VMware daemon
 Requires=vmware-usbarbitrator.service
@@ -55,7 +55,7 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOT
 
-cat <<EOT > "/etc/systemd/system/vmware-usbarbitrator.service"
+cat <<EOT >"/etc/systemd/system/vmware-usbarbitrator.service"
 [Unit]
 Description=VMware USB Arbitrator
 Requires=vmware.service
@@ -70,7 +70,7 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOT
 
-cat <<EOT > "/etc/systemd/system/vmware-networks-server.service"
+cat <<EOT >"/etc/systemd/system/vmware-networks-server.service"
 [Unit]
 Description=VMware Networks
 Wants=vmware-networks-configuration.service
@@ -86,7 +86,7 @@ ExecStop=/usr/bin/vmware-networks --stop
 WantedBy=multi-user.target
 EOT
 
-cat <<EOT > "/etc/systemd/system/vmware-workstation-server.service"
+cat <<EOT >"/etc/systemd/system/vmware-workstation-server.service"
 [Unit]
 Description=VMware Workstation Server
 Requires=vmware.service

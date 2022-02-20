@@ -17,17 +17,17 @@ sudo dnf install -y util-linux-user
 sudo dnf install -y python3-pip
 
 sudo dnf install -y google-chrome-stable zsh neofetch rclone rsync \
-      terminator \
-      p7zip p7zip-plugins zip unzip \
-      htop openssl
+  terminator \
+  p7zip p7zip-plugins zip unzip \
+  htop openssl
 # flatpak install flathub com.mattermost.Desktop -y
 # Gnome Things
 sudo dnf install -y seahorse gnome-tweaks gnome-extensions-app \
-    libappindicator libappindicator-gtk3 libindicator \
-    gtkmm4.0 gtkmm4.0-doc gtkmm4.0-devel \
-    gtkmm30 gtkmm30-doc gtkmm30-devel mingw32-gtkmm30 mingw64-gtkmm30 \
-    gtkmm24 gtkmm24-docs gtkmm24-devel mingw32-gtkmm24 mingw64-gtkmm24 \
-    jalv-gtkmm
+  libappindicator libappindicator-gtk3 libindicator \
+  gtkmm4.0 gtkmm4.0-doc gtkmm4.0-devel \
+  gtkmm30 gtkmm30-doc gtkmm30-devel mingw32-gtkmm30 mingw64-gtkmm30 \
+  gtkmm24 gtkmm24-docs gtkmm24-devel mingw32-gtkmm24 mingw64-gtkmm24 \
+  jalv-gtkmm
 #    gnome-shell-extension-appindicator
 #    gnome-shell-extension-workspace-indicator
 
