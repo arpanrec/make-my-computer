@@ -98,11 +98,14 @@ fi
 
 pacman -Sy archlinux-keyring --noconfirm
 
-grep "keyserver hkp://keyserver.ubuntu.com" /etc/pacman.d/gnupg/gpg.conf || echo "keyserver hkp://keyserver.ubuntu.com" >>/etc/pacman.d/gnupg/gpg.conf
+grep "keyserver hkp://keyserver.ubuntu.com" \
+    /etc/pacman.d/gnupg/gpg.conf ||
+    echo "keyserver hkp://keyserver.ubuntu.com" >>/etc/pacman.d/gnupg/gpg.conf
 
 pacman -Syu --noconfirm
 
-ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager' 'openssh' 'git' 'vim' 'ntfs-3g' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2')
+ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager'
+    'openssh' 'git' 'vim' 'ntfs-3g' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2')
 
 ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g'
     'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'unarchiver' 'lzop' 'lrzip' 'curl')
@@ -118,7 +121,8 @@ ALL_PAKGS+=('lm_sensors')
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
     ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet'
-        'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs' 'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm' 'konsole')
+        'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs'
+        'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm' 'konsole')
 
     ALL_PAKGS+=('kwallet-pam' 'kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
 
@@ -139,7 +143,7 @@ else
     ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool' 'fprintd'
         'gnome-control-center' 'xdg-user-dirs' 'gdm' 'gnome-keyring' 'dialog')
     ALL_PAKGS+=('eog-plugins' 'gnome-calendar' 'gnome-calculator' 'gnome-clocks' 'gnome-contacts' 'cheese'
-        'gnome-bluetooth' 'gnome-applets' 'totem' 'ffmpegthumbnailer' 'ffmpeg' 'ffmpeg2theora' 'ffmpeg2theora' 'gnome-backgrounds' 'gnome-nettool'
+        'gnome-bluetooth' 'gnome-applets' 'totem' 'gnome-backgrounds' 'gnome-nettool'
         'libgtop' 'gnome-icon-theme-symbolic' 'gnome-icon-theme' 'dconf' 'gnome-system-monitor'
     )
     ALL_PAKGS+=('gvfs' 'gvfs-afc' 'gvfs-goa' 'gvfs-google' 'gvfs-gphoto2' 'gvfs-mtp' 'gvfs-nfs' 'gvfs-smb')
@@ -159,24 +163,31 @@ ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate'
 
 ALL_PAKGS+=('thunderbird' 'libotr')
 
-ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane' 'imagescan' 'sane' 'apparmor' 'python-pyqt5' 'python-gobject'
+ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane' 'imagescan'
+    'sane' 'apparmor' 'python-pyqt5' 'python-gobject'
     'dbus-python' 'system-config-printer' 'python-pysmbc' 'cups-pk-helper')
 
-ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'inetutils' 'net-tools' 'sysstat' 'bashtop' 'gnuplot' 'webkit2gtk')
+ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'inetutils' 'net-tools'
+    'sysstat' 'bashtop' 'gnuplot' 'webkit2gtk')
 
-ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec'
-    'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
+ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad'
+    'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec'
+    'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'ffmpeg' 'ffmpeg2theora'
+    'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
 
 # gnome-menus might require for qemu
 ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
-    'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi' 'qemu-block-rbd' 'samba' 'ebtables' 'virt-viewer'
+    'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi'
+    'qemu-block-rbd' 'samba' 'ebtables' 'virt-viewer'
     'virt-manager' 'dbus-broker' 'tk' 'swtpm')
 
 # Not Sure if this is needed
-ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau' 'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver'
+ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau'
+    'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver'
     'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
 
-MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd' 'systemd-resolved' 'iptables' 'ufw' 'docker' 'dbus-broker'
+MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd'
+    'systemd-resolved' 'iptables' 'ufw' 'docker' 'dbus-broker'
     'libvirtd' 'cups' 'apparmor' 'bluetooth')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
@@ -196,11 +207,11 @@ proc_type=$(grep vendor /proc/cpuinfo | uniq | awk '{print $3}')
 echo "proc_type: $proc_type"
 case "$proc_type" in
 GenuineIntel)
-    echo "Installing Intel microcode 'intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils'"
+    echo "Installing Intel microcode"
     ALL_PAKGS+=('intel-ucode' 'libvdpau-va-gl' 'lib32-vulkan-intel' 'vulkan-intel' 'libva-intel-driver' 'libva-utils')
     ;;
 AuthenticAMD)
-    echo "Installing AMD microcode 'amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk'"
+    echo "Installing AMD microcode"
     ALL_PAKGS+=('amd-ucode' 'xf86-video-amdgpu' 'amdvlk' 'lib32-amdvlk')
     ;;
 esac
@@ -299,10 +310,13 @@ fi
 
 # Pipewire or Pulseaudio selection
 if [[ "$pipewire_yes_no" == "Y" || "$pipewire_yes_no" == "y" ]]; then
-    ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa' 'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack'
+    ALL_PAKGS+=('wireplumber' 'pipewire' 'pipewire-pulse' 'pipewire-alsa'
+        'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack'
         'gst-plugin-pipewire' 'pipewire-v4l2' 'pipewire-zeroconf' 'lib32-pipewire-v4l2')
 else
-    ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth' 'lib32-libpulse' 'pulseaudio-equalizer' 'pulseaudio-jack' 'pulseaudio-lirc' 'pulseaudio-zeroconf')
+    ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth'
+        'lib32-libpulse' 'pulseaudio-equalizer' 'pulseaudio-jack'
+        'pulseaudio-lirc' 'pulseaudio-zeroconf')
 fi
 
 echo "--------------------------------------------------"
@@ -323,7 +337,8 @@ if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]] && [ -n "$instal
     echo "       Install Grub Boot-loader with UEFI in directory $install_grub_efi_dir       "
     echo "-----------------------------------------------------------------------------------"
     mkinitcpio -P
-    grub-install --target=x86_64-efi --bootloader-id=Archlinux --efi-directory=${install_grub_efi_dir} --root-directory=/ --recheck
+    grub-install --target=x86_64-efi --bootloader-id=Archlinux \
+        --efi-directory=${install_grub_efi_dir} --root-directory=/ --recheck
     grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
@@ -340,7 +355,8 @@ echo "             Install Yay and AUR Packages              "
 echo "-------------------------------------------------------"
 
 echo " Adding user makemyarch_build_user"
-id -u makemyarch_build_user &>/dev/null || useradd -s /bin/bash -m -d /home/makemyarch_build_user makemyarch_build_user
+id -u makemyarch_build_user &>/dev/null ||
+    useradd -s /bin/bash -m -d /home/makemyarch_build_user makemyarch_build_user
 echo "makemyarch_build_user ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers.d/10-makemyarch_build_user
 
 if ! command -v yay &>/dev/null; then
@@ -366,7 +382,8 @@ PKG_AUR_JOIN=$(printf " %s" "${PKGS_AUR[@]}")
 if [[ $aur_packages_install == "Y" || $aur_packages_install == "y" ]]; then
     echo "Skipping AUR Packages Install"
 else
-    sudo -H -u makemyarch_build_user bash -c "cd ~ && yay -S --answerclean None --answerdiff None --noconfirm --needed ${PKG_AUR_JOIN}"
+    sudo -H -u makemyarch_build_user bash -c "cd ~ && \
+        yay -S --answerclean None --answerdiff None --noconfirm --needed ${PKG_AUR_JOIN}"
 fi
 
 echo "--------------------------------------"
