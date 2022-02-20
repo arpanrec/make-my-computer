@@ -120,9 +120,10 @@ ALL_PAKGS+=('lm_sensors')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
+    # 'gnu-free-fonts'
     ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet'
         'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs'
-        'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'gnu-free-fonts' 'wireplumber' 'sddm' 'konsole')
+        'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'wireplumber' 'sddm' 'konsole')
 
     ALL_PAKGS+=('kwallet-pam' 'kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
 
@@ -134,7 +135,8 @@ if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
     ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy'
         'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'breeze-gtk' 'oxygen')
 
-    ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
+    # 'gtk-engine-murrine' 'gtk-engines'
+    ALL_PAKGS+=('qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
 
     ALL_PAKGS+=('networkmanager-openvpn' 'libnma')
 
@@ -163,11 +165,13 @@ ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate'
 
 ALL_PAKGS+=('thunderbird' 'libotr')
 
-ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'gsfonts' 'xsane' 'imagescan'
+# gsfonts
+ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'xsane' 'imagescan'
     'sane' 'apparmor' 'python-pyqt5' 'python-gobject'
     'dbus-python' 'system-config-printer' 'python-pysmbc' 'cups-pk-helper')
 
-ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'discord' 'inetutils' 'net-tools'
+# discord
+ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'inetutils' 'net-tools'
     'sysstat' 'bashtop' 'gnuplot' 'webkit2gtk')
 
 ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad'
