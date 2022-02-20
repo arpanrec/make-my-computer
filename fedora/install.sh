@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -ex
 
 sudo dnf install -y \
@@ -8,7 +8,7 @@ sudo dnf install -y \
   "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 
 sudo dnf groupinstall -y "Development Tools"
-sudo dnf install -y libglvnd-devel cmake ncurses-devel git 
+sudo dnf install -y libglvnd-devel cmake ncurses-devel git
 
 # chsh
 sudo dnf install -y util-linux-user

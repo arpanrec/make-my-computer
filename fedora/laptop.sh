@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -ex
 sudo dnf remove -y xorg-x11-drv-nouveau
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Add VS Code Repo
@@ -21,7 +21,7 @@ sudo apt update
 sudo apt-get install -y apt-transport-https git dkms gnupg2 curl zsh terminator \
     transmission-gtk htop
 
-sudo apt-get install -y linux-firmware linux-headers-$(uname -r) dkms \
+sudo apt-get install -y linux-firmware linux-headers-"$(uname -r)" dkms \
 network-manager net-tools build-essential openssh-server \
 dkms dhcpcd5
 
