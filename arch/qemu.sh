@@ -7,8 +7,9 @@ echo ""
 proc_type=$(grep vendor /proc/cpuinfo | uniq | awk '{print $3}')
 echo "proc_type: ${proc_type}"
 
-# gnome-menus might require for qemu
-qemu_packs+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
+# 'gnome-menus 'might require for virtmanager
+# 'bridge-utils' is also required, it's installed before, don't cleanup
+qemu_packs+=('qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
     'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi'
     'qemu-block-rbd' 'samba' 'ebtables' 'virt-viewer'
     'virt-manager' 'dbus-broker' 'tk' 'swtpm')
