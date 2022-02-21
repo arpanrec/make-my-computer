@@ -8,11 +8,11 @@ proc_type=$(grep vendor /proc/cpuinfo | uniq | awk '{print $3}')
 echo "proc_type: ${proc_type}"
 
 # gnome-menus might require for qemu
-ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
+qemu_packs+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
     'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi'
     'qemu-block-rbd' 'samba' 'ebtables' 'virt-viewer'
     'virt-manager' 'dbus-broker' 'tk' 'swtpm')
-
+pacman -S --needed --noconfirm "${qemu_packs[@]}"
 echo "-----------------------------------------------------------------------"
 echo "       Settings libvirt nested virtualization group and socket         "
 echo "-----------------------------------------------------------------------"
