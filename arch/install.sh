@@ -108,39 +108,26 @@ ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager'
 ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g'
     'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'unarchiver' 'lzop' 'lrzip' 'curl')
 
-# python-packaging fuse fuse2 fuse3
 ALL_PAKGS+=('bash-completion' 'python-pip' 'rclone' 'git')
-
-# ALL_PAKGS+=('xclip' 'xsel' 'wl-clipboard')
 
 ALL_PAKGS+=('docker' 'criu' 'docker-scan')
 
-# ALL_PAKGS+=('lm_sensors')
-
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
-    # 'gnu-free-fonts' 'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'sonnet' # For some spelling check
-    #'cryfs' 'encfs' 'gocryptfs' # For kde vault
     ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma'
         'xdg-desktop-portal' 'wireplumber' 'sddm' 'konsole')
 
-    # 'kwallet-pam' already part of plasma
     ALL_PAKGS+=('kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
 
-    # KDE Tools
     ALL_PAKGS+=('spectacle' 'gwenview')
 
     ALL_PAKGS+=('packagekit-qt5' 'qbittorrent' 'kdialog')
 
-    # taglib Audio meta data editor
     ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats'
         'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'ark' 'gvfs')
 
-    # 'python-lxml' 'python-numpy'
-    # ghostscript libxml2 jasper texlive-core libwmf scour pstoedit fig2dev
     ALL_PAKGS+=('kvantum-qt5')
 
-    # 'gtk-engine-murrine' 'gtk-engines'
     ALL_PAKGS+=('qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
 
     ALL_PAKGS+=('networkmanager-openvpn' 'libnma')
@@ -168,14 +155,9 @@ ALL_PAKGS+=('terminator' 'zsh')
 
 ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-speexdsp' 'lib32-glib2')
 
-# libotr
 ALL_PAKGS+=('thunderbird')
 
-# gsfonts apparmor xsane imagescan sane ghostscript dbus-python python-pyqt5 python-gobject python-pysmbc
 ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'system-config-printer' 'cups-pk-helper')
-
-# discord gimp webkit2gtk gnuplot sysstat
-# ALL_PAKGS+=('htop' 'mlocate' 'inetutils' 'net-tools')
 
 ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad'
     'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec'
@@ -366,7 +348,6 @@ if ! command -v yay &>/dev/null; then
     sudo -H -u makemyarch_build_user bash -c "$BASEDIR/yay.sh"
 fi
 
-# Timeshift
 PKGS_AUR=('google-chrome' 'brave-bin' 'sublime-text-4')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
