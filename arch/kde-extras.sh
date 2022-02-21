@@ -16,3 +16,5 @@ pack_extars+=(
 )
 pack_extars+=('htop' 'mlocate' 'inetutils' 'net-tools')
 pack_extars+=('discord' 'gimp' 'webkit2gtk' 'gnuplot' 'sysstat')
+
+pacman -S --needed "${ALL_PAKGS[@]}"
