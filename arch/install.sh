@@ -27,8 +27,6 @@ if [[ -d "/sys/firmware/efi" ]]; then
     fi
 fi
 
-read -r -n1 -p "Enter \"Y\" to enable \"nested virtualization\" in qemu kvm, (Press any other key to Skip*) : " kvm_nested
-echo ""
 read -r -n1 -p "Enter \"Y\" to skip AUR packages, [Skipping this will break userprofile/themes] (Press any other key to install AUR Packages*) : " aur_packages_install
 echo ""
 
@@ -110,13 +108,14 @@ ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager'
 ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g'
     'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'unarchiver' 'lzop' 'lrzip' 'curl')
 
-ALL_PAKGS+=('bash-completion' 'python-pip' 'python-packaging' 'rclone' 'git' 'fuse' 'fuse2' 'fuse3')
+# python-packaging fuse fuse2 fuse3
+ALL_PAKGS+=('bash-completion' 'python-pip' 'rclone' 'git')
 
-ALL_PAKGS+=('xclip' 'xsel' 'wl-clipboard')
+# ALL_PAKGS+=('xclip' 'xsel' 'wl-clipboard')
 
 ALL_PAKGS+=('docker' 'criu' 'docker-scan')
 
-ALL_PAKGS+=('lm_sensors')
+# ALL_PAKGS+=('lm_sensors')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
@@ -163,36 +162,28 @@ ALL_PAKGS+=('terminator' 'zsh')
 
 ALL_PAKGS+=('libavtp' 'lib32-alsa-plugins' 'lib32-libavtp' 'lib32-libsamplerate' 'lib32-speexdsp' 'lib32-glib2')
 
-ALL_PAKGS+=('thunderbird' 'libotr')
+# libotr
+ALL_PAKGS+=('thunderbird')
 
-# gsfonts
-ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'ghostscript' 'xsane' 'imagescan'
-    'sane' 'apparmor' 'python-pyqt5' 'python-gobject'
-    'dbus-python' 'system-config-printer' 'python-pysmbc' 'cups-pk-helper')
+# gsfonts apparmor xsane imagescan sane ghostscript dbus-python python-pyqt5 python-gobject python-pysmbc
+ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'system-config-printer' 'cups-pk-helper')
 
-# discord
-ALL_PAKGS+=('gimp' 'neofetch' 'bpytop' 'htop' 'mlocate' 'inetutils' 'net-tools'
-    'sysstat' 'bashtop' 'gnuplot' 'webkit2gtk')
+# discord gimp webkit2gtk gnuplot sysstat
+# ALL_PAKGS+=('htop' 'mlocate' 'inetutils' 'net-tools')
 
 ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad'
     'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec'
     'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'ffmpeg' 'ffmpeg2theora'
     'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
 
-# gnome-menus might require for qemu
-ALL_PAKGS+=('bridge-utils' 'qemu' 'dmidecode' 'libguestfs' 'dnsmasq' 'openbsd-netcat' 'edk2-ovmf'
-    'qemu-arch-extra' 'qemu-block-gluster' 'qemu-block-iscsi'
-    'qemu-block-rbd' 'samba' 'ebtables' 'virt-viewer'
-    'virt-manager' 'dbus-broker' 'tk' 'swtpm')
-
 # Not Sure if this is needed
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau'
     'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver'
     'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
 
+# apparmor dbus-broker libvirtd
 MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd'
-    'systemd-resolved' 'iptables' 'ufw' 'docker' 'dbus-broker'
-    'libvirtd' 'cups' 'apparmor' 'bluetooth')
+    'systemd-resolved' 'iptables' 'ufw' 'docker' 'cups' 'bluetooth')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
@@ -401,43 +392,6 @@ if [[ -n "$username" ]]; then
 
 fi
 
-echo "-----------------------------------------------------------------------"
-echo "       Settings libvirt nested virtualization group and socket         "
-echo "-----------------------------------------------------------------------"
-
-## libvirt
-sed -i '/^#.*unix_sock_group/s/^#//' /etc/libvirt/libvirtd.conf
-sed -i '/^#.*unix_sock_rw_perms/s/^#//' /etc/libvirt/libvirtd.conf
-grep -i "unix_sock_group" /etc/libvirt/libvirtd.conf
-grep -i "unix_sock_rw_perms" /etc/libvirt/libvirtd.conf
-
-if [[ $kvm_nested == "Y" || $kvm_nested == "y" ]]; then
-    case "$proc_type" in
-    GenuineIntel)
-        echo "Enable Intel nested virtualization"
-        modprobe -r kvm_intel
-        modprobe kvm_intel nested=1
-        mkdir -p /etc/modprobe.d
-        echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
-        echo "systool -m kvm_intel -v | grep nested"
-        systool -m kvm_intel -v | grep nested
-        echo "cat /sys/module/kvm_intel/parameters/nested"
-        cat /sys/module/kvm_intel/parameters/nested
-        ;;
-    AuthenticAMD)
-        echo "Enable AMD nested virtualization"
-        modprobe -r kvm_amd
-        modprobe kvm_amd nested=1
-        mkdir -p /etc/modprobe.d
-        echo "options kvm_amd nested=1" | tee /etc/modprobe.d/kvm-amd.conf
-        echo "systool -m kvm_amd -v | grep -i nested"
-        systool -m kvm_amd -v | grep -i nested
-        echo "cat /sys/module/kvm_amd/parameters/nested"
-        cat /sys/module/kvm_amd/parameters/nested
-        ;;
-    esac
-fi
-
 echo "--------------------------------------"
 echo "       Enable Mandatory Services      "
 echo "--------------------------------------"
@@ -448,4 +402,4 @@ for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
 done
 
 echo "Completed"
-echo 'Its a good idea to run pacman -R $(pacman -Qtdq) or yay -R $(yay -Qtdq)'
+echo "Its a good idea to run pacman -R \$(pacman -Qtdq) or yay -R \$(yay -Qtdq)"
