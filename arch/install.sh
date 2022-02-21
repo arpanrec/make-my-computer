@@ -366,7 +366,8 @@ if ! command -v yay &>/dev/null; then
     sudo -H -u makemyarch_build_user bash -c "$BASEDIR/yay.sh"
 fi
 
-PKGS_AUR=('google-chrome' 'brave-bin' 'timeshift' 'sublime-text-4')
+# Timeshift
+PKGS_AUR=('google-chrome' 'brave-bin' 'sublime-text-4')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
