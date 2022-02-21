@@ -15,3 +15,6 @@ pack_extars+=('htop' 'mlocate' 'inetutils' 'net-tools')
 pack_extars+=('discord' 'gimp' 'webkit2gtk' 'gnuplot' 'sysstat')
 
 pacman -S --needed --noconfirm "${pack_extars[@]}"
+
+# VS Code Fix https://wiki.archlinux.org/title/Visual_Studio_Code#Git:_ssh_askpass:_exec(/usr/lib/ssh/ssh-askpass):_No_such_file_or_directory
+ln /usr/bin/ksshaskpass /usr/lib/ssh/ssh-askpass
