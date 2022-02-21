@@ -374,7 +374,7 @@ echo "       Create User and Groups         "
 echo "--------------------------------------"
 
 if [[ -n "$username" ]]; then
-    id -u "$username" &>/dev/null || useradd -s /bin/bash -G docker,wheel,libvirt -m -d "/home/$username" "$username"
+    id -u "$username" &>/dev/null || useradd -s /bin/bash -G docker,wheel -m -d "/home/$username" "$username"
     echo -e "password\npassword" | passwd "$username"
     BASEDIR=$(dirname "$0")
 
