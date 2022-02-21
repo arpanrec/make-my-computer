@@ -119,20 +119,26 @@ ALL_PAKGS+=('docker' 'criu' 'docker-scan')
 
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
-    # 'gnu-free-fonts'
-    ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma' 'plasma-meta' 'spectacle' 'sonnet'
-        'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'cryfs' 'encfs'
-        'gocryptfs' 'xdg-desktop-portal' 'gwenview' 'wireplumber' 'sddm' 'konsole')
+    # 'gnu-free-fonts' 'hunspell' 'hunspell-en_us' 'hunspell-en_gb' 'sonnet' # For some spelling check
+    #'cryfs' 'encfs' 'gocryptfs' # For kde vault
+    ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma'
+        'xdg-desktop-portal' 'wireplumber' 'sddm' 'konsole')
 
-    ALL_PAKGS+=('kwallet-pam' 'kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
+    # 'kwallet-pam' already part of plasma
+    ALL_PAKGS+=('kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
+
+    # KDE Tools
+    ALL_PAKGS+=('spectacle' 'gwenview')
 
     ALL_PAKGS+=('packagekit-qt5' 'qbittorrent' 'kdialog')
 
+    # taglib Audio meta data editor
     ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats'
-        'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'taglib' 'ark')
+        'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'ark' 'gvfs')
 
-    ALL_PAKGS+=('kvantum-qt5' 'kde-gtk-config' 'fig2dev' 'gvfs' 'pstoedit' 'python-lxml' 'python-numpy'
-        'scour' 'texlive-core' 'jasper' 'libwmf' 'libxml2' 'ghostscript' 'breeze-gtk' 'oxygen')
+    # 'python-lxml' 'python-numpy'
+    # ghostscript libxml2 jasper texlive-core libwmf scour pstoedit fig2dev
+    ALL_PAKGS+=('kvantum-qt5')
 
     # 'gtk-engine-murrine' 'gtk-engines'
     ALL_PAKGS+=('qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
