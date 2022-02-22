@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
-pacman -S --needed --noconfirm dkms fuse2 gtkmm3 gtkmm libaio linux-headers ncurses libcanberra pcsclite hicolor-icon-theme gtk3 gcr
+# These are requird, installed as part of install and kde-extras
+#= fuse2 gtkmm libaio linux-headers ncurses libcanberra hicolor-icon-theme gtk3 gcr
+pacman -S --needed --noconfirm dkms gtkmm3 pcsclite
 
 tmp_vmware_dir=/tmp/vmware_install_make_my_computer
 
 mkdir /etc/init.d/ $tmp_vmware_dir -p
 if [ ! -f "$tmp_vmware_dir/vmware.bundle" ]; then
-  wget --no-clobber --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0" --no-check-certificate -O $tmp_vmware_dir/vmware.bundle https://www.vmware.com/go/getWorkstation-linux
+  wget --no-clobber --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0" \
+    --no-check-certificate -O $tmp_vmware_dir/vmware.bundle https://www.vmware.com/go/getWorkstation-linux
   # rm -rf $tmp_vmware_dir/vmware.bundle
 fi
 
