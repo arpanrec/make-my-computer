@@ -132,6 +132,14 @@ if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
     ALL_PAKGS+=('networkmanager-openvpn' 'libnma')
 
+    # GTK Themes Support
+    ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'appmenu-gtk-module' 'webkit2gtk')
+
+    # Extras
+    pack_extars+=('hunspell-en_us' 'hunspell-en_gb') # For some spelling check
+    pack_extars+=('cryfs' 'encfs' 'gocryptfs')       # For kde vault
+    pack_extars+=('texlive-core' 'libwmf' 'scour' 'pstoedit' 'fig2dev')
+
 else
 
     ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool' 'fprintd'
@@ -148,6 +156,8 @@ else
     ALL_PAKGS+=('networkmanager-openvpn' 'libnma')
 
     ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
+
+    ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' )
 
 fi
 
