@@ -126,14 +126,18 @@ if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
     ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats'
         'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'ark' 'gvfs')
 
-    ALL_PAKGS+=('kvantum-qt5')
+    # materia-kde materia UI based themes support
+    ALL_PAKGS+=('kvantum-qt5' 'materia-kde')
 
     ALL_PAKGS+=('qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
 
     ALL_PAKGS+=('networkmanager-openvpn' 'libnma')
 
     # GTK Themes Support
-    ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'appmenu-gtk-module' 'webkit2gtk')
+    # materia-gtk-theme this is required for some of the themes like prof and sweet
+    # gtk-engine-murrine and gtk-engines is required by materia-gtk-theme
+    # adapta-gtk-theme Gtk+ theme based on Material Design
+    ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'appmenu-gtk-module' 'webkit2gtk' 'materia-gtk-theme' 'adapta-gtk-theme')
 
     # Extras
     pack_extars+=('hunspell-en_us' 'hunspell-en_gb') # For some spelling check
@@ -157,7 +161,9 @@ else
 
     ALL_PAKGS+=('webkit2gtk' 'gnome-themes-standard' 'gnome-keyring' 'seahorse' 'libgnome-keyring' 'appmenu-gtk-module')
 
-    ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' )
+    # materia-gtk-theme this is required for some of the themes like prof and sweet
+    # gtk-engine-murrine and gtk-engines is required by materia-gtk-theme
+    ALL_PAKGS+=('gtk-engine-murrine' 'gtk-engines' 'materia-gtk-theme' 'adapta-gtk-theme')
 
 fi
 
