@@ -149,8 +149,9 @@ else
     ALL_PAKGS+=('xorg' 'xorg-server' 'xorg-xinit' 'gnome-shell' 'nautilus' 'gnome-terminal' 'gnome-tweak-tool' 'fprintd'
         'gnome-control-center' 'xdg-user-dirs' 'gdm' 'gnome-keyring' 'dialog')
     ALL_PAKGS+=('eog-plugins' 'gnome-calendar' 'gnome-calculator' 'gnome-clocks' 'gnome-contacts' 'cheese'
-        'gnome-bluetooth' 'gnome-applets' 'totem' 'gnome-backgrounds' 'gnome-nettool'
+        'gnome-bluetooth' 'gnome-applets' 'gnome-backgrounds' 'gnome-nettool'
         'libgtop' 'gnome-icon-theme-symbolic' 'gnome-icon-theme' 'dconf' 'gnome-system-monitor'
+        'gnome-screenshot' 'simple-scan'
     )
     ALL_PAKGS+=('gvfs' 'gvfs-afc' 'gvfs-goa' 'gvfs-google' 'gvfs-gphoto2' 'gvfs-mtp' 'gvfs-nfs' 'gvfs-smb')
     ALL_PAKGS+=('libappindicator-gtk3' 'libappindicator-gtk2')
