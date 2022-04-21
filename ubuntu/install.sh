@@ -41,7 +41,7 @@ sudo apt-get install -y python3-pip
 
 # Codecs
 # sudo apt-get install ubuntu-restricted-extras -y
-sudo apt-get install -y ffmpegthumbnailer ffmpeg vlc eog
+sudo apt-get install -y ffmpegthumbnailer ffmpeg vlc eog heif-gdk-pixbuf heif-thumbnailer
 
 # Gnome
 sudo apt install -y gnome-tweak-tool
