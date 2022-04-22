@@ -12,14 +12,11 @@ sudo wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-ke
 
 sudo echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
-sudo add-apt-repository ppa:transmissionbt/ppa -y
-
 sudo add-apt-repository multiverse -y
 
 sudo apt update
 
-sudo apt-get install -y apt-transport-https git dkms gnupg2 curl zsh terminator \
-    transmission-gtk htop
+sudo apt-get install -y apt-transport-https git dkms gnupg2 curl zsh terminator htop
 
 sudo apt-get install -y linux-firmware linux-headers-"$(uname -r)" dkms \
     network-manager net-tools build-essential openssh-server \
