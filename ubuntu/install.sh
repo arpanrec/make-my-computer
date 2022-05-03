@@ -41,7 +41,10 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y ffmpegthumbnailer ffmpeg vlc eog heif-gdk-pixbuf heif-thumbnailer
 
 # Gnome
-sudo apt install -y gnome-tweak-tool
+sudo apt install -y gnome-tweak-tool gnome-shell-extensions
+
+# Fuse is needed for AppImage
+sudo apt install -y fuse
 
 # Service
 sudo systemctl enable NetworkManager
