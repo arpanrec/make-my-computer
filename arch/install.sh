@@ -123,8 +123,9 @@ if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
     ALL_PAKGS+=('packagekit-qt5' 'qbittorrent' 'kdialog')
 
+    # 'raw-thumbnailer' not found
     ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats'
-        'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'raw-thumbnailer' 'ark' 'gvfs')
+        'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'ark' 'gvfs')
 
     # materia-kde materia UI based themes support
     ALL_PAKGS+=('kvantum-qt5' 'materia-kde')
