@@ -115,7 +115,7 @@ ALL_PAKGS+=('docker' 'criu' 'docker-scan')
 if [[ "$kde_yes_no" == "Y" || "$kde_yes_no" == "y" ]]; then
 
     ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma'
-        'xdg-desktop-portal' 'wireplumber' 'sddm' 'konsole')
+        'xdg-desktop-portal' 'sddm' 'konsole')
 
     ALL_PAKGS+=('kwalletmanager' 'kleopatra' 'partitionmanager' 'skanlite')
 
