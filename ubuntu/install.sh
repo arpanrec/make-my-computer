@@ -52,8 +52,17 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y ffmpegthumbnailer ffmpeg vlc eog heif-gdk-pixbuf heif-thumbnailer
 
 # Gnome
-sudo apt install -y gnome-tweak-tool | true
-sudo apt install -y gnome-tweaks | true
+
+__gnometweaktool_apt_search=$(apt-cache search --names-only 'gnome-tweak-tool')
+if [[ -n "$__gnometweaktool_apt_search" ]] ; then
+ echo "Variable is set"  ;
+fi
+
+__gnometweaks_apt_search=$(apt-cache search --names-only 'gnome-tweaks')
+if [[ -n "$__gnometweaks_apt_search" ]] ; then
+	echo "Variable is set"  ;
+fi
+
 sudo apt install -y gnome-shell-extensions
 
 # Fuse is needed for AppImage
