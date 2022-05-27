@@ -42,7 +42,9 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y ffmpegthumbnailer ffmpeg vlc eog heif-gdk-pixbuf heif-thumbnailer
 
 # Gnome
-sudo apt install -y gnome-tweak-tool gnome-shell-extensions
+sudo apt install -y gnome-tweak-tool || true
+sudo apt install -y gnome-tweaks || true
+sudo apt install -y gnome-shell-extensions
 
 # Fuse is needed for AppImage
 sudo apt install -y fuse
