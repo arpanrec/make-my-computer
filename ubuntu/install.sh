@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-apt-get install -y linux-firmware linux-headers-$(uname -r) linux-modules-extra-$(uname -r) \
+apt-get install -y linux-firmware linux-headers-"$(uname -r)" linux-modules-extra-"$(uname -r)" \
  dkms \
 network-manager net-tools build-essential openssh-server \
 dkms dhcpcd5
