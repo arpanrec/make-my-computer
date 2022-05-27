@@ -55,12 +55,12 @@ sudo apt-get install -y ffmpegthumbnailer ffmpeg vlc eog heif-gdk-pixbuf heif-th
 
 __gnometweaktool_apt_search=$(apt-cache search --names-only 'gnome-tweak-tool')
 if [[ -n "$__gnometweaktool_apt_search" ]] ; then
- echo "Variable is set"  ;
+    sudo apt-get install -y gnome-tweak-tool
 fi
 
 __gnometweaks_apt_search=$(apt-cache search --names-only 'gnome-tweaks')
 if [[ -n "$__gnometweaks_apt_search" ]] ; then
-	echo "Variable is set"  ;
+	sudo apt-get install -y gnome-tweaks
 fi
 
 sudo apt install -y gnome-shell-extensions
