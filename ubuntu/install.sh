@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+apt-get install -y linux-firmware linux-headers-$(uname -r) linux-modules-extra-$(uname -r)
+ dkms \
+network-manager net-tools build-essential openssh-server \
+dkms dhcpcd5
+
 # Add VS Code Repo
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
