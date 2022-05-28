@@ -64,7 +64,7 @@ done
 sudo apt install -y gnome-shell-extensions gnome-shell-extension-prefs
 
 # Fuse is needed for AppImage
-sudo apt install -y fuse3
+# sudo apt install -y fuse3/fuse
 
 # Service
 sudo systemctl enable NetworkManager
