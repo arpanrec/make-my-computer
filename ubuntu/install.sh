@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+sudo timedatectl set-ntp true
+sudo timedatectl set-timezone Asia/Kolkata
+
 sudo apt-get install -y linux-firmware linux-headers-"$(uname -r)" linux-modules-extra-"$(uname -r)" \
     dkms network-manager net-tools build-essential openssh-server dkms dhcpcd5 libgtkmm-3.0-dev ethtool
 
