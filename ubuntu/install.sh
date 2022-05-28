@@ -5,7 +5,7 @@ sudo timedatectl set-ntp true
 sudo timedatectl set-timezone Asia/Kolkata
 
 sudo apt-get install -y linux-firmware linux-headers-"$(uname -r)" linux-modules-extra-"$(uname -r)" \
-    dkms network-manager net-tools build-essential openssh-server dkms dhcpcd5 libgtkmm-3.0-dev ethtool
+    dkms network-manager net-tools build-essential openssh-server dhcpcd5 libgtkmm-3.0-dev ethtool
 
 # Add VS Code Repo
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
@@ -22,7 +22,7 @@ sudo add-apt-repository multiverse -y
 
 sudo apt update
 
-sudo apt-get install -y apt-transport-https git dkms gnupg2 curl zsh terminator htop
+sudo apt-get install -y git gnupg2 curl zsh terminator htop
 
 if hash google-chrome-stable &>/dev/null; then
     echo "google-chrome is installed!"
@@ -62,7 +62,6 @@ for i in "${__optional_packages[@]}"; do
         echo "No install candidate for $i"
     fi
 done
-
 
 sudo apt install -y gnome-shell-extensions gnome-shell-extension-prefs
 
