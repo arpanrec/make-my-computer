@@ -62,4 +62,5 @@ timedatectl set-timezone Asia/Kolkata
 systemctl enable NetworkManager
 systemctl enable dhcpcd
 systemctl enable ssh
-systemctl enable gdm
+
+echo "End Of Script"
