@@ -63,7 +63,7 @@ if [[ -n "$__gnometweaks_apt_search" ]] ; then
 	sudo apt-get install -y gnome-tweaks
 fi
 
-sudo apt install -y gnome-shell-extensions
+sudo apt install -y gnome-shell-extensions gnome-shell-extension-manager gnome-shell-extension-prefs
 
 # Fuse is needed for AppImage
 sudo apt install -y fuse3
