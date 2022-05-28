@@ -2,9 +2,7 @@
 set -e
 
 sudo apt-get install -y linux-firmware linux-headers-"$(uname -r)" linux-modules-extra-"$(uname -r)" \
- dkms network-manager net-tools build-essential openssh-server dkms dhcpcd5
-
-sudo apt-get install ethtool libgnome-bg-4-1 libmspack0 libntfs-3g89 libxmlsec1-openssl zerofree libgtkmm-3.0-dev -y
+ dkms network-manager net-tools build-essential openssh-server dkms dhcpcd5 libgtkmm-3.0-dev ethtool
 
 # Add VS Code Repo
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
@@ -13,19 +11,15 @@ sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/p
 rm -f packages.microsoft.gpg
 
 sudo wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg
-
 sudo echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
 sudo apt-get install fonts-liberation software-properties-common apt-transport-https wget ca-certificates gnupg2 -y
+
 sudo add-apt-repository multiverse -y
 
 sudo apt update
 
 sudo apt-get install -y apt-transport-https git dkms gnupg2 curl zsh terminator htop
-
-sudo apt-get install -y linux-firmware linux-headers-"$(uname -r)" dkms \
-    network-manager net-tools build-essential openssh-server \
-    dkms dhcpcd5
 
 if hash google-chrome-stable &>/dev/null; then
 	echo "google-chrome is installed!"
