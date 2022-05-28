@@ -16,7 +16,7 @@ EOT
 
 apt update
 
-apt-get install -y firmware-linux-free firmware-linux-nonfree linux-headers-"$(uname -r)" dkms networkmanager dhcpcd5 \
+apt-get install -y firmware-linux-free firmware-linux-nonfree linux-headers-"$(uname -r)" dkms network-manager dhcpcd5 \
     network-manager net-tools build-essential openssh-server
 
 sudo apt-get install fonts-liberation software-properties-common apt-transport-https wget ca-certificates gnupg2 -y
