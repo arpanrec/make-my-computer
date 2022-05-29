@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+apt update
+
 cp /etc/apt/sources.list /etc/apt/sources.list.bak."$(date +%s)"
 
 cat <<EOT >"/etc/apt/sources.list"
