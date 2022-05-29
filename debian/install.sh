@@ -14,13 +14,13 @@ deb http://deb.debian.org/debian bullseye-updates main contrib non-free
 deb-src http://deb.debian.org/debian bullseye-updates main contrib non-free
 EOT
 
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg
-echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
-
 apt update
 
 apt-get install -y firmware-linux-free firmware-linux-nonfree linux-headers-"$(uname -r)" dkms network-manager dhcpcd5 \
-    network-manager net-tools build-essential openssh-server
+    network-manager net-tools build-essential openssh-server gnupg2 wget
+
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg
+echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 
 apt-get install fonts-liberation software-properties-common apt-transport-https wget ca-certificates gnupg2 vim sublime-text -y
 
@@ -28,7 +28,7 @@ systemctl set-default graphical.target
 
 apt-get install -y task-gnome-desktop gnome
 
-apt-get install -y git gnupg2 curl zsh terminator htop
+apt-get install -y git curl zsh terminator htop
 
 if hash google-chrome-stable &>/dev/null; then
     echo "google-chrome is installed!"
