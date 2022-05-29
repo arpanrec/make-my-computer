@@ -43,7 +43,7 @@ else
 fi
 
 apt-get install -y python3-pip
-apt-get install -y ffmpegthumbnailer ffmpeg vlc eog heif-gdk-pixbuf heif-thumbnailer
+apt-get install -y ffmpegthumbnailer ffmpeg vlc eog heif-gdk-pixbuf heif-thumbnailer libavcodec-extra
 
 __optional_packages=('gnome-tweak-tool' 'gnome-tweaks' 'gnome-shell-extension-manager')
 
