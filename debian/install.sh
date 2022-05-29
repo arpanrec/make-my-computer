@@ -57,7 +57,7 @@ done
 
 sudo apt install -y gnome-shell-extensions gnome-shell-extension-prefs
 
-sed -e 's/managed=false/managed=true/' /etc/NetworkManager/NetworkManager.conf
+sed -i 's/managed=false/managed=true/' /etc/NetworkManager/NetworkManager.conf
 
 timedatectl set-ntp true
 timedatectl set-timezone Asia/Kolkata
