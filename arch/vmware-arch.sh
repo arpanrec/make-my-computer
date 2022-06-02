@@ -3,7 +3,7 @@ set -e
 
 # These are requird, installed as part of install and kde-extras
 #= fuse2 gtkmm libaio linux-headers ncurses libcanberra hicolor-icon-theme gtk3 gcr
-pacman -S --needed --noconfirm dkms gtkmm3 pcsclite
+pacman -S --needed --noconfirm dkms gtkmm3 pcsclite swtpm
 
 tmp_vmware_dir=/tmp/vmware_install_make_my_computer
 
@@ -18,21 +18,16 @@ chmod +x $tmp_vmware_dir/vmware.bundle
 /bin/sh $tmp_vmware_dir/vmware.bundle
 
 vmware_version_installed=$(vmware --version | awk '{ print $3 }')
-current_kernel_version=$(uname -r | awk -F . '{print $1 "." $2}')
 
-if [ ! -f "$tmp_vmware_dir/w$vmware_version_installed-k$current_kernel_version.tar.gz" ]; then
-  wget "https://github.com/mkubecek/vmware-host-modules/archive/refs/tags/w$vmware_version_installed-k$current_kernel_version.tar.gz" \
-    -O "$tmp_vmware_dir/w$vmware_version_installed-k$current_kernel_version.tar.gz"
+if [ ! -d "$tmp_vmware_dir/vmware-host-modules-workstation-$vmware_version_installed" ]; then
+  git clone --depth 1 --single-branch --branch workstation-$vmware_version_installed https://github.com/mkubecek/vmware-host-modules.git \
+    $tmp_vmware_dir/vmware-host-modules-workstation-$vmware_version_installed
+else
+  cd "$tmp_vmware_dir/vmware-host-modules-workstation-$vmware_version_installed"
+  git pull
 fi
 
-mkdir -p "$tmp_vmware_dir/vmware-host-modules-w$vmware_version_installed-k$current_kernel_version"
-
-if [ ! "$(ls -A $tmp_vmware_dir/vmware-host-modules-w"$vmware_version_installed"-k"$current_kernel_version")" ]; then
-  tar -zxvf "$tmp_vmware_dir/w$vmware_version_installed-k$current_kernel_version.tar.gz" -C "$tmp_vmware_dir/"
-fi
-
-cd "$tmp_vmware_dir/vmware-host-modules-w$vmware_version_installed-k$current_kernel_version"
-
+cd "$tmp_vmware_dir/vmware-host-modules-workstation-$vmware_version_installed"
 tar -cf vmmon.tar vmmon-only
 tar -cf vmnet.tar vmnet-only
 
