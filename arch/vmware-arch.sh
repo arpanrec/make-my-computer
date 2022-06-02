@@ -20,8 +20,8 @@ chmod +x $tmp_vmware_dir/vmware.bundle
 vmware_version_installed=$(vmware --version | awk '{ print $3 }')
 
 if [ ! -d "$tmp_vmware_dir/vmware-host-modules-workstation-$vmware_version_installed" ]; then
-  git clone --depth 1 --single-branch --branch workstation-$vmware_version_installed https://github.com/mkubecek/vmware-host-modules.git \
-    $tmp_vmware_dir/vmware-host-modules-workstation-$vmware_version_installed
+  git clone --depth 1 --single-branch --branch workstation-"$vmware_version_installed" https://github.com/mkubecek/vmware-host-modules.git \
+    $tmp_vmware_dir/vmware-host-modules-workstation-"$vmware_version_installed"
 else
   cd "$tmp_vmware_dir/vmware-host-modules-workstation-$vmware_version_installed"
   git pull
